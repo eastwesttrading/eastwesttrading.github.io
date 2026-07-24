@@ -1,238 +1,321 @@
-
-
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EAST WEST GRINDING OR MANUFACTURING OF GRAINS PLC</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --primary: #1f7a4f;
-      --secondary: #f2b705;
-      --dark: #1a1a1a;
-      --light: #f9f9f9;
-      --gray: #666;
-    }* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
-}
-
-body {
-  background: var(--light);
-  color: var(--dark);
-  line-height: 1.7;
-}
-
-header {
-  background: #fff;
-  padding: 20px 50px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.logo img {
-  height: 45px;
-}
-
-nav a {
-  margin-left: 25px;
-  text-decoration: none;
-  font-weight: 500;
-  color: var(--dark);
-}
-
-nav a:hover {
-  color: var(--primary);
-}
-
-.hero {
-  padding: 100px 40px;
-  background: linear-gradient(rgba(31,122,79,0.85), rgba(31,122,79,0.85)), url('https://images.unsplash.com/photo-1506806732259-39c2d0268443');
-  background-size: cover;
-  background-position: center;
-  color: #fff;
-  text-align: center;
-}
-
-.hero h1 {
-  font-size: 42px;
-  margin-bottom: 20px;
-  font-weight: 700;
-}
-
-.hero p {
-  font-size: 18px;
-  max-width: 850px;
-  margin: auto;
-}
-
-section {
-  padding: 80px 40px;
-  max-width: 1200px;
-  margin: auto;
-}
-
-h2 {
-  text-align: center;
-  font-size: 32px;
-  margin-bottom: 50px;
-  color: var(--primary);
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 30px;
-}
-
-.card {
-  background: #fff;
-  padding: 30px;
-  border-radius: 16px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-  transition: transform 0.3s ease;
-}
-
-.card:hover {
-  transform: translateY(-6px);
-}
-
-.card h3 {
-  margin-bottom: 15px;
-  color: var(--primary);
-}
-
-.card ul {
-  padding-left: 20px;
-}
-
-.card li {
-  margin-bottom: 8px;
-  color: var(--gray);
-}
-
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
-}
-
-.gallery div {
-  height: 180px;
-  background: linear-gradient(135deg, #eaeaea, #ccc);
-  border-radius: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 600;
-  color: #555;
-}
-
-footer {
-  background: var(--dark);
-  color: #fff;
-  padding: 40px;
-  text-align: center;
-  margin-top: 40px;
-}
-
-footer p {
-  font-size: 14px;
-  opacity: 0.85;
-}
-
-@media(max-width: 768px) {
-  header {
-    flex-direction: column;
-    gap: 15px;
-  }
-  nav a {
-    margin: 0 10px;
-  }
-  .hero h1 {
-    font-size: 32px;
-  }
-}
-
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>East West Grinding or Manufacturing of Grains PLC</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body><header>
-  <div class="logo">
-    <img src="images/logo.png" alt="">
-    <strong>EAST WEST GRINDING OR MANUFACTURING OF GRAINS PLC</strong>
-  </div>
-  <nav>
-    <a href="#home">Home</a>
-    <a href="#about">About</a>
-    <a href="#products">Products</a>
-    <a href="#gallery">Gallery</a>
-    <a href="#contact">Contact</a>
-  </nav>
-</header><section class="hero" id="home">
-  <h1>Connecting East & West Through Agricultural Trade</h1>
-  <p>Exporter of oil seeds and pulse crops • Importer of foods and edible oils</p>
-</section><section id="about">
-  <h2>About Us | ስለ እኛ</h2>
-  <div class="grid">
-    <div class="card">
-      EAST WEST GRINDING OR MANUFACTURING OF GRAINS PLC is engaged in exporting Ethiopian oil seeds and pulse crops to the global market and importing quality food products and edible oils.
+<body>
+
+    <!-- Top Info Bar -->
+    <div class="top-bar">
+        <div class="container top-bar-content">
+            <div class="contact-quick">
+                <span><i class="fa-solid fa-phone"></i> +251 912 678 193</span>
+                <span><i class="fa-solid fa-envelope"></i> info@eastwestplc.com</span>
+                <span><i class="fa-solid fa-location-dot"></i> Addis Ababa, Ethiopia</span>
+            </div>
+            <div class="lang-switch">
+                <button id="lang-btn" onclick="toggleLanguage()">
+                    <i class="fa-solid fa-globe"></i> <span id="lang-text">አማርኛ</span>
+                </button>
+            </div>
+        </div>
     </div>
-    <div class="card">
-      ኩባንያችን የኢትዮጵያ ዘይት እህሎችና ጥራጥሬዎችን ወደ ዓለም ገበያ በመላክ እና የምግብ እቃዎችን በማስገባት ላይ ተሳትፋለች።
+
+    <!-- Navigation Header -->
+    <header class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="#home" class="logo">
+                <img src="images/logo.png" alt="East West PLC Logo" onerror="this.src='https://via.placeholder.com/150x50?text=EAST+WEST+PLC'">
+            </a>
+            <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle navigation">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <nav class="nav-menu" id="nav-menu">
+                <a href="#home" class="nav-link active" data-en="Home" data-am="መነሻ">Home</a>
+                <a href="#about" class="nav-link" data-en="About Us" data-am="ስለ እኛ">About Us</a>
+                <a href="#products" class="nav-link" data-en="Products" data-am="ምርቶች">Products</a>
+                <a href="#gallery" class="nav-link" data-en="Gallery" data-am="ጋለሪ">Gallery</a>
+                <a href="#contact" class="nav-link" data-en="Contact Us" data-am="ግንኙነት">Contact Us</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-overlay"></div>
+        <div class="container hero-content">
+            <h1 data-en="Premium Ethiopian Agricultural Exports" data-am="ከፍተኛ ጥራት ያላቸው የኢትዮጵያ የግብርና ኤክስፖርት ምርቶች">
+                Premium Ethiopian Agricultural Exports
+            </h1>
+            <p data-en="Connecting global markets with top-quality pulses, beans, and oilseeds directly from the heart of Ethiopia."
+               data-am="ከኢትዮጵያ ልብ በጥራት የተመረጡ የጥራጥሬ እና የዘይት እህሎችን ለዓለም አቀፍ ገበያ እናቀርባለን።">
+                Connecting global markets with top-quality pulses, beans, and oilseeds directly from the heart of Ethiopia.
+            </p>
+            <div class="hero-btns">
+                <a href="#products" class="btn btn-primary" data-en="Explore Products" data-am="ምርቶችን ይመልከቱ">Explore Products</a>
+                <a href="#contact" class="btn btn-outline" data-en="Get a Quote" data-am="ዋጋ ይጠይቁ">Get a Quote</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section about">
+        <div class="container grid-2">
+            <div class="about-img">
+                <img src="images/banner.jpg" alt="East West Company Banner" onerror="this.src='https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=800&q=80'">
+            </div>
+            <div class="about-text">
+                <div class="section-tag" data-en="Who We Are" data-am="ስለ እኛ">Who We Are</div>
+                <h2 data-en="EAST WEST GRINDING OR MANUFACTURING OF GRAINS PLC" data-am="ኢስት ዌስት የእህል ፈጫጭ እና አዘጋጅ ኃ/የተ/የግ/ማህበር">
+                    EAST WEST GRINDING OR MANUFACTURING OF GRAINS PLC
+                </h2>
+                <p data-en="Based in Addis Ababa, Ethiopia, East West PLC is a leading processor and exporter of agricultural commodities. We specialize in sourcing, cleaning, processing, and exporting premium Ethiopian oilseeds and pulses."
+                   data-am="በአዲስ አበባ፣ ኢትዮጵያ የሚገኘው ኢስት ዌስት ኃ/የተ/የግ/ማህበር በግብርና ምርቶች ዝግጅት እና ኤክስፖርት ዘርፍ ላይ የተሰማራ ድርጅት ነው። ከፍተኛ ጥራት ያላቸውን የኢትዮጵያ ጥራጥሬዎች እና የዘይት እህሎች በማፅዳት እና በማዘጋጀት ለዓለም ገበያ እናቀርባለን።">
+                    Based in Addis Ababa, Ethiopia, East West PLC is a leading processor and exporter of agricultural commodities. We specialize in sourcing, cleaning, processing, and exporting premium Ethiopian oilseeds and pulses.
+                </p>
+                <div class="features-list">
+                    <div class="feature-item">
+                        <i class="fa-solid fa-circle-check"></i>
+                        <span data-en="Strict Quality Control Standards" data-am="ጥብቅ የጥራት ቁጥጥር ደረጃዎች">Strict Quality Control Standards</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fa-solid fa-circle-check"></i>
+                        <span data-en="Ethical Direct Sourcing from Farms" data-am="ከአርሶ አደሮች በቀጥታ የተሰበሰበ">Ethical Direct Sourcing from Farms</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fa-solid fa-circle-check"></i>
+                        <span data-en="Reliable Global Export Logistics" data-am="ታማኝ የዓለም አቀፍ ኤክስፖርት አገልግሎት">Reliable Global Export Logistics</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="section products bg-light">
+        <div class="container">
+            <div class="section-header center">
+                <div class="section-tag" data-en="Our Commodity Lineup" data-am="የምናቀርባቸው ምርቶች">Our Commodity Lineup</div>
+                <h2 data-en="Premium Agricultural Products" data-am="ከፍተኛ ጥራት ያላቸው የግብርና ምርቶች">Premium Agricultural Products</h2>
+            </div>
+
+            <div class="filter-bar">
+                <button class="filter-btn active" data-filter="all" data-en="All Products" data-am="ሁሉንም">All Products</button>
+                <button class="filter-btn" data-filter="pulses" data-en="Pulses & Beans" data-am="ጥራጥሬዎች">Pulses & Beans</button>
+                <button class="filter-btn" data-filter="oilseeds" data-en="Oilseeds" data-am="የዘይት እህሎች">Oilseeds</button>
+            </div>
+
+            <div class="product-grid">
+                <!-- Product 1 -->
+                <div class="product-card" data-category="pulses">
+                    <div class="product-img">
+                        <img src="images/green-mung-beans.jpg" alt="Green Mung Beans" onerror="this.src='https://images.unsplash.com/photo-1585994191838-89c0a37943f7?auto=format&fit=crop&w=500&q=80'">
+                    </div>
+                    <div class="product-info">
+                        <h3 data-en="Green Mung Beans" data-am="ማሾ (Green Mung Beans)">Green Mung Beans</h3>
+                        <p data-en="Cleaned, bright green, uniform size, perfect for sprouting and food manufacturing."
+                           data-am="ጥራታቸው የተጠበቀ፣ አረንጓዴ፣ ለአጠቃቀምና ለምግብ ማቀናበሪያ የሚሆን።">
+                            Cleaned, bright green, uniform size, perfect for sprouting and food manufacturing.
+                        </p>
+                        <a href="#contact" class="btn btn-card" data-en="Inquire Now" data-am="ይጠይቁ">Inquire Now</a>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="product-card" data-category="pulses">
+                    <div class="product-img">
+                        <img src="images/white-pea-beans.jpg" alt="White Pea Beans" onerror="this.src='https://images.unsplash.com/photo-1551462147-37885acc36f1?auto=format&fit=crop&w=500&q=80'">
+                    </div>
+                    <div class="product-info">
+                        <h3 data-en="White Pea Beans" data-am="ነጭ ቦሎቄ (White Pea Beans)">White Pea Beans</h3>
+                        <p data-en="High-grade Ethiopian white pea beans, thoroughly machine-cleaned and hand-picked."
+                           data-am="በማሽንና በእጅ በጥንቃቄ የተመረጠ ከፍተኛ ጥራት ያለው ነጭ ቦሎቄ።">
+                            High-grade Ethiopian white pea beans, thoroughly machine-cleaned and hand-picked.
+                        </p>
+                        <a href="#contact" class="btn btn-card" data-en="Inquire Now" data-am="ይጠይቁ">Inquire Now</a>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="product-card" data-category="pulses">
+                    <div class="product-img">
+                        <img src="images/pinto-beans.jpg" alt="Pinto Beans" onerror="this.src='https://images.unsplash.com/photo-1515543237350-b3eea1ec8082?auto=format&fit=crop&w=500&q=80'">
+                    </div>
+                    <div class="product-info">
+                        <h3 data-en="Pinto Beans" data-am="ፒንቶ ቦሎቄ (Pinto Beans)">Pinto Beans</h3>
+                        <p data-en="Rich in nutrients, ideal for bulk export with custom packaging options."
+                           data-am="በንጥረ ነገር የበለፀገ፣ ለኤክስፖርት እና እንደፍላጎቱ ለማሸግ የተመቸ።">
+                            Rich in nutrients, ideal for bulk export with custom packaging options.
+                        </p>
+                        <a href="#contact" class="btn btn-card" data-en="Inquire Now" data-am="ይጠይቁ">Inquire Now</a>
+                    </div>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="product-card" data-category="pulses">
+                    <div class="product-img">
+                        <img src="images/speckled-beans.jpg" alt="Speckled Beans" onerror="this.src='https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?auto=format&fit=crop&w=500&q=80'">
+                    </div>
+                    <div class="product-info">
+                        <h3 data-en="Speckled Beans" data-am="ነጠብጣብ ቦሎቄ (Speckled Beans)">Speckled Beans</h3>
+                        <p data-en="Premium speckled kidney beans sourced directly from fertile Ethiopian soils."
+                           data-am="ከምርታማ የኢትዮጵያ መሬት የተሰበሰበ ነጠብጣብ ቦሎቄ።">
+                            Premium speckled kidney beans sourced directly from fertile Ethiopian soils.
+                        </p>
+                        <a href="#contact" class="btn btn-card" data-en="Inquire Now" data-am="ይጠይቁ">Inquire Now</a>
+                    </div>
+                </div>
+
+                <!-- Product 5 -->
+                <div class="product-card" data-category="oilseeds">
+                    <div class="product-img">
+                        <img src="images/sesame-seeds.jpg" alt="Sesame Seeds" onerror="this.src='https://images.unsplash.com/photo-1608797178974-15b35a6438ee?auto=format&fit=crop&w=500&q=80'">
+                    </div>
+                    <div class="product-info">
+                        <h3 data-en="Sesame Seeds" data-am="ሰሊጥ (Sesame Seeds)">Sesame Seeds</h3>
+                        <p data-en="World-renowned Ethiopian Humera and Whitish sesame seeds with high oil content."
+                           data-am="በከፍተኛ የዘይት ይዘቱ የሚታወቀው የሁመራ እና የነጭ ሰሊጥ ምርት።">
+                            World-renowned Ethiopian Humera and Whitish sesame seeds with high oil content.
+                        </p>
+                        <a href="#contact" class="btn btn-card" data-en="Inquire Now" data-am="ይጠይቁ">Inquire Now</a>
+                    </div>
+                </div>
+
+                <!-- Product 6 -->
+                <div class="product-card" data-category="oilseeds">
+                    <div class="product-img">
+                        <img src="images/oil-seeds.jpg" alt="Oil Seeds" onerror="this.src='https://images.unsplash.com/photo-1620706857370-e1b9770e8bb1?auto=format&fit=crop&w=500&q=80'">
+                    </div>
+                    <div class="product-info">
+                        <h3 data-en="Various Oil Seeds" data-am="የተለያዩ የዘይት እህሎች">Various Oil Seeds</h3>
+                        <p data-en="Including Niger seeds, linseed, and sunflower seeds for industrial extraction."
+                           data-am="ኑግ፣ ተልባ እና የሱፍ ፍሬን ጨምሮ ለተለያዩ የዘይት ምርቶች የሚሆኑ።">
+                            Including Niger seeds, linseed, and sunflower seeds for industrial extraction.
+                        </p>
+                        <a href="#contact" class="btn btn-card" data-en="Inquire Now" data-am="ይጠይቁ">Inquire Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="section gallery">
+        <div class="container">
+            <div class="section-header center">
+                <div class="section-tag" data-en="Visual Overview" data-am="የምስል መግለጫ">Visual Overview</div>
+                <h2 data-en="Our Products Gallery" data-am="የምርቶቻችን ጋለሪ">Our Products Gallery</h2>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="images/green-mung-beans.jpg" alt="Green Mung Beans" onerror="this.src='https://images.unsplash.com/photo-1585994191838-89c0a37943f7?auto=format&fit=crop&w=600&q=80'">
+                    <div class="gallery-overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="images/white-pea-beans.jpg" alt="White Pea Beans" onerror="this.src='https://images.unsplash.com/photo-1551462147-37885acc36f1?auto=format&fit=crop&w=600&q=80'">
+                    <div class="gallery-overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="images/pinto-beans.jpg" alt="Pinto Beans" onerror="this.src='https://images.unsplash.com/photo-1515543237350-b3eea1ec8082?auto=format&fit=crop&w=600&q=80'">
+                    <div class="gallery-overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="images/speckled-beans.jpg" alt="Speckled Beans" onerror="this.src='https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?auto=format&fit=crop&w=600&q=80'">
+                    <div class="gallery-overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="images/sesame-seeds.jpg" alt="Sesame Seeds" onerror="this.src='https://images.unsplash.com/photo-1608797178974-15b35a6438ee?auto=format&fit=crop&w=600&q=80'">
+                    <div class="gallery-overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="images/oil-seeds.jpg" alt="Oil Seeds" onerror="this.src='https://images.unsplash.com/photo-1620706857370-e1b9770e8bb1?auto=format&fit=crop&w=600&q=80'">
+                    <div class="gallery-overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox Modal -->
+    <div class="lightbox" id="lightbox">
+        <span class="close-lightbox" onclick="closeLightbox()">&times;</span>
+        <img class="lightbox-img" id="lightbox-img" src="" alt="Enlarged View">
     </div>
-  </div>
-</section><section id="products">
-  <h2>Our Products | ምርቶቻችን</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>Export Products</h3>
-      <ul>
-        <li>Sesame Seeds</li>
-        <li>Green Mung Beans</li>
-        <li>Pinto Beans</li>
-        <li>White Pea Beans</li>
-        <li>Speckled Beans</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h3>Import Products</h3>
-      <ul>
-        <li>Edible Oils</li>
-        <li>Processed Foods</li>
-        <li>Essential Commodities</li>
-      </ul>
-    </div>
-  </div>
-</section><section id="gallery">
-  <h2>Gallery | ጋለሪ</h2>
-  <div class="gallery">
-    <div>Green Mung</div>
-    <div>Pinto Beans</div>
-    <div>White Pea Beans</div>
-    <div>Oil Seeds</div>
-  </div>
-</section><section id="contact">
-  <h2>Contact Us | አግኙን</h2>
-  <div class="card" style="max-width:600px;margin:auto;text-align:center;">
-    <p><strong>Email:</stron habibtades25@gmail.com</p>
-    <p><strong>Phone:</strong> +251 912678193</p>
-    <p><strong>Address:</strong> Addis Ababa, Ethiopia</p>
-  </div>
-</section><footer>
-  <p>© 2026 EAST WEST GRINDING OR MANUFACTURING OF GRAINS PLC. All rights reserved.</p>
-</footer></body>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section contact bg-light">
+        <div class="container">
+            <div class="section-header center">
+                <div class="section-tag" data-en="Get in Touch" data-am="እኛን ለማግኘት">Get in Touch</div>
+                <h2 data-en="Contact Us For Orders & Inquiries" data-am="ለማንኛውም ጥያቄ ወይም ትዕዛዝ ያነጋግሩን">Contact Us For Orders & Inquiries</h2>
+            </div>
+            
+            <div class="grid-2">
+                <div class="contact-info">
+                    <h3 data-en="Company Location" data-am="የድርጅቱ አድራሻ">Company Location</h3>
+                    <div class="info-card">
+                        <i class="fa-solid fa-building icon"></i>
+                        <div>
+                            <strong data-en="Company Name:" data-am="የድርጅቱ ስም:">Company Name:</strong>
+                            <p>EAST WEST GRINDING OR MANUFACTURING OF GRAINS PLC</p>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <i class="fa-solid fa-phone icon"></i>
+                        <div>
+                            <strong data-en="Phone / WhatsApp:" data-am="ስልክ / ዋትስአፕ:">Phone / WhatsApp:</strong>
+                            <p>+251 912 678 193</p>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <i class="fa-solid fa-envelope icon"></i>
+                        <div>
+                            <strong data-en="Email Address:" data-am="ኢሜይል:">Email Address:</strong>
+                            <p>info@eastwestplc.com</p>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <i class="fa-solid fa-location-dot icon"></i>
+                        <div>
+                            <strong data-en="Headquarters:" data-am="ዋና መሥሪያ ቤት:">Headquarters:</strong>
+                            <p>Addis Ababa, Ethiopia</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form-wrapper">
+                    <form class="contact-form" id="contactForm" onsubmit="handleFormSubmit(event)">
+                        <div class="form-group">
+                            <input type="text" placeholder="Your Name / የእርስዎ ስም" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" placeholder="Your Email / ኢሜይል" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" placeholder="Subject / ርዕስ" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea rows="5" placeholder="Your Message / መልእክትዎ" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block" data-en="Send Message" data-am="መልእክት ላክ">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <p>&copy; 2026 EAST WEST GRINDING OR MANUFACTURING OF GRAINS PLC. All rights reserved.</p>
+            <p class="sub-text">Exporter of Premium Ethiopian Grains & Oilseeds | Addis Ababa, Ethiopia</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
 </html>
