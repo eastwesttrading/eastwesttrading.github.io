@@ -1,3 +1,5 @@
+import { db } from "./Firebase.js";
+import { collection, getDocs } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 // Language Toggle Handler
 function switchLang(lang) {
     const langItems = document.querySelectorAll('.lang-item');
@@ -26,3 +28,12 @@ if (mobileToggle) {
         navMenu.classList.toggle('active');
     });
 }
+async function loadProducts() {
+    const querySnapshot = await getDocs(collection(db, "products"));
+
+    querySnapshot.forEach((doc) => {
+        console.log(doc.data());
+    });
+}
+
+loadProducts();
