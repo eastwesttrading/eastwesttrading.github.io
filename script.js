@@ -37,3 +37,26 @@ async function loadProducts() {
 }
 
 loadProducts();
+async function loadProducts() {
+    const container = document.getElementById("products-list");
+
+    if (!container) return;
+
+    container.innerHTML = "";
+
+    const snapshot = await getDocs(collection(db, "products"));
+
+    snapshot.forEach((doc) => {
+        const product = doc.data();
+
+        container.innerHTML += `
+            <div class="card">
+                <h3>${product.name}</h3>
+                <p><strong>Category:</strong> ${product.category}</p>
+                <p><strong>Origin:</strong> ${product.origin}</p>
+            </div>
+        `;
+    });
+}
+
+loadProducts();
