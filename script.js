@@ -60,3 +60,16 @@ async function loadProducts() {
 }
 
 loadProducts();
+import { db } from "./firebase.js";
+import { collection, addDoc } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+addDoc(collection(db, "test"), {
+  message: "Firebase connection successful",
+  time: new Date()
+})
+.then(() => {
+  console.log("Connected to Firestore successfully");
+})
+.catch((error) => {
+  console.log("Connection failed:", error);
+});
