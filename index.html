@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,166 +12,190 @@
       --dark: #1a1a1a;
       --light: #f9f9f9;
       --gray: #666;
-    }* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
-}
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
 
-body {
-  background: var(--light);
-  color: var(--dark);
-  line-height: 1.7;
-}
+    body {
+      background: var(--light);
+      color: var(--dark);
+      line-height: 1.7;
+    }
 
-header {
-  background: #fff;
-  padding: 20px 50px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
+    header {
+      background: #fff;
+      padding: 20px 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
 
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
 
-.logo img {
-  height: 45px;
-}
+    .logo img {
+      height: 45px;
+    }
 
-nav a {
-  margin-left: 25px;
-  text-decoration: none;
-  font-weight: 500;
-  color: var(--dark);
-}
+    nav a {
+      margin-left: 25px;
+      text-decoration: none;
+      font-weight: 500;
+      color: var(--dark);
+    }
 
-nav a:hover {
-  color: var(--primary);
-}
+    nav a:hover {
+      color: var(--primary);
+    }
 
-.hero {
-  padding: 100px 40px;
-  background: linear-gradient(rgba(31,122,79,0.85), rgba(31,122,79,0.85)), url('https://images.unsplash.com/photo-1506806732259-39c2d0268443');
-  background-size: cover;
-  background-position: center;
-  color: #fff;
-  text-align: center;
-}
+    .hero {
+      padding: 100px 40px;
+      background: linear-gradient(rgba(31,122,79,0.85), rgba(31,122,79,0.85)), url('https://images.unsplash.com/photo-1506806732259-39c2d0268443');
+      background-size: cover;
+      background-position: center;
+      color: #fff;
+      text-align: center;
+    }
 
-.hero h1 {
-  font-size: 42px;
-  margin-bottom: 20px;
-  font-weight: 700;
-}
+    .hero h1 {
+      font-size: 42px;
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
 
-.hero p {
-  font-size: 18px;
-  max-width: 850px;
-  margin: auto;
-}
+    .hero p {
+      font-size: 18px;
+      max-width: 850px;
+      margin: auto;
+    }
 
-section {
-  padding: 80px 40px;
-  max-width: 1200px;
-  margin: auto;
-}
+    section {
+      padding: 80px 40px;
+      max-width: 1200px;
+      margin: auto;
+    }
 
-h2 {
-  text-align: center;
-  font-size: 32px;
-  margin-bottom: 50px;
-  color: var(--primary);
-}
+    h2 {
+      text-align: center;
+      font-size: 32px;
+      margin-bottom: 50px;
+      color: var(--primary);
+    }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 30px;
-}
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
 
-.card {
-  background: #fff;
-  padding: 30px;
-  border-radius: 16px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-  transition: transform 0.3s ease;
-}
+    .card {
+      background: #fff;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      transition: transform 0.3s ease;
+    }
 
-.card:hover {
-  transform: translateY(-6px);
-}
+    .card:hover {
+      transform: translateY(-6px);
+    }
 
-.card h3 {
-  margin-bottom: 15px;
-  color: var(--primary);
-}
+    .card h3 {
+      margin-bottom: 15px;
+      color: var(--primary);
+    }
 
-.card ul {
-  padding-left: 20px;
-}
+    .card ul {
+      padding-left: 20px;
+    }
 
-.card li {
-  margin-bottom: 8px;
-  color: var(--gray);
-}
+    .card li {
+      margin-bottom: 8px;
+      color: var(--gray);
+    }
 
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
-}
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
 
-.gallery div {
-  height: 180px;
-  background: linear-gradient(135deg, #eaeaea, #ccc);
-  border-radius: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 600;
-  color: #555;
-}
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
 
-footer {
-  background: var(--dark);
-  color: #fff;
-  padding: 40px;
-  text-align: center;
-  margin-top: 40px;
-}
+    .gallery-item {
+      height: 200px;
+      border-radius: 14px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
 
-footer p {
-  font-size: 14px;
-  opacity: 0.85;
-}
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
 
-@media(max-width: 768px) {
-  header {
-    flex-direction: column;
-    gap: 15px;
-  }
-  nav a {
-    margin: 0 10px;
-  }
-  .hero h1 {
-    font-size: 32px;
-  }
-}
+    .gallery-item .caption {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      text-align: center;
+      padding: 8px;
+      font-weight: 600;
+    }
 
+    footer {
+      background: var(--dark);
+      color: #fff;
+      padding: 40px;
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    footer p {
+      font-size: 14px;
+      opacity: 0.85;
+    }
+
+    @media(max-width: 768px) {
+      header {
+        flex-direction: column;
+        gap: 15px;
+      }
+      nav a {
+        margin: 0 10px;
+      }
+      .hero h1 {
+        font-size: 32px;
+      }
+    }
   </style>
 </head>
-<body><header>
+<body>
+
+<header>
   <div class="logo">
-    <img src="images/logo.png" alt="">
+    <img src="images/logo.png" alt="East West Logo">
     <strong>EAST WEST GRINDING OR MANUFACTURING OF GRAINS PLC</strong>
   </div>
   <nav>
@@ -180,52 +205,122 @@ footer p {
     <a href="#gallery">Gallery</a>
     <a href="#contact">Contact</a>
   </nav>
-</header><section class="hero" id="home">
+</header>
+
+<section class="hero" id="home">
   <h1>East West Grinding or Manufacturing plc Global Trade</h1>
-  <p>Exporter of oil seeds and pulse crops • Importer of foods and edible oils</p>
-</section><section id="about">
+  <p>Exporter of Green Mung Beans & White Pea Beans • Importer of Quality Commodities</p>
+</section>
+
+<section id="about">
   <h2>About Us | ስለ እኛ</h2>
   <div class="grid">
     <div class="card">
-      EAST WEST GRINDING OR MANUFACTURING OF GRAINS PLC is engaged in exporting Ethiopian oil seeds and pulse crops to the global market and importing quality food products and edible oils.
+      EAST WEST GRINDING OR MANUFACTURING OF GRAINS PLC is engaged in exporting Ethiopian pulse crops to the global market and importing quality food products and edible oils.
     </div>
     <div class="card">
       ኩባንያችን የኢትዮጵያ ዘይት እህሎችና ጥራጥሬዎችን ወደ ዓለም ገበያ በመላክ እና የምግብ እቃዎችን በማስገባት ላይ ተሳትፋለች።
     </div>
   </div>
+</section>
+
 <section id="products">
   <h2>Our Products | ምርቶቻችን</h2>
- <div class="grid">
-<div id="products-list"></div>
- <div class="card">
-      <h3>Import Products</h3>
-      <ul>
-        <li>Edible Oils</li>
-        <li>Processed Foods</li>
-        <li>Essential Commodities</li>
-      </ul>
-    </div>
- </div>
-</section><section id="gallery">
-  <h2>Gallery | ጋለሪ</h2>
-  <div class="gallery">
-    <div>Green Mung</div>
-    <div>Pinto Beans</div>
-    <div>White Pea Beans</div>
-    <div>Seasum Seeds</div>
+  <div class="grid" id="products-container">
+    <!-- Firebase Products will automatically render here -->
   </div>
-</section><section id="contact">
+</section>
+
+<section id="gallery">
+  <h2>Gallery | ጋለሪ</h2>
+  <div class="gallery" id="gallery-container">
+    <!-- Firebase Gallery Items will automatically render here -->
+  </div>
+</section>
+
+<section id="contact">
   <h2>Contact Us | አግኙን</h2>
   <div class="card" style="max-width:600px;margin:auto;text-align:center;">
     <p><strong>Email:</strong> habibtadess210@gmail.com</p>
     <p><strong>Phone:</strong> +251912678193</p>
     <p><strong>Address:</strong> Addis Ababa, Ethiopia</p>
   </div>
-</section><footer>
+</section>
+
+<footer>
   <p>© 2026 EAST WEST GRINDING OR MANUFACTURING OF GRAINS PLC. All rights reserved.</p>
 </footer>
 
-<script type="module" src="script.js"></script>
+<!-- Firebase Connection & Realtime Dynamic Script -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+  // Replace with your exact Firebase config credentials from Step 3
+  const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "east-west-trading--plc.firebaseapp.com",
+    projectId: "east-west-trading--plc",
+    storageBucket: "east-west-trading--plc.firebasestorage.app",
+    messagingSenderId: "YOUR_SENDER_ID",
+    appId: "YOUR_APP_ID"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // Load Products dynamically from Firebase
+  async function loadProducts() {
+    const productsContainer = document.getElementById("products-container");
+    try {
+      const querySnapshot = await getDocs(collection(db, "products"));
+      if (!querySnapshot.empty) {
+        productsContainer.innerHTML = "";
+        querySnapshot.forEach((doc) => {
+          const item = doc.data();
+          productsContainer.innerHTML += `
+            <div class="card">
+              ${item.imageUrl ? `<img src="${item.imageUrl}" alt="${item.title || 'Product'}">` : ''}
+              <h3>${item.title || 'Product'}</h3>
+              <p>${item.description || ''}</p>
+            </div>
+          `;
+        });
+      } else {
+        productsContainer.innerHTML = `<div class="card"><p>No products available yet.</p></div>`;
+      }
+    } catch (err) {
+      console.error("Error loading products:", err);
+    }
+  }
+
+  // Load Gallery dynamically from Firebase
+  async function loadGallery() {
+    const galleryContainer = document.getElementById("gallery-container");
+    try {
+      const querySnapshot = await getDocs(collection(db, "gallery"));
+      if (!querySnapshot.empty) {
+        galleryContainer.innerHTML = "";
+        querySnapshot.forEach((doc) => {
+          const item = doc.data();
+          galleryContainer.innerHTML += `
+            <div class="gallery-item">
+              <img src="${item.imageUrl}" alt="${item.caption || 'Gallery Image'}">
+              <div class="caption">${item.caption || ''}</div>
+            </div>
+          `;
+        });
+      } else {
+        galleryContainer.innerHTML = `<div>No gallery images uploaded yet.</div>`;
+      }
+    } catch (err) {
+      console.error("Error loading gallery:", err);
+    }
+  }
+
+  loadProducts();
+  loadGallery();
+</script>
 
 </body>
 </html>
