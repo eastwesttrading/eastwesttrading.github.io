@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Dashboard - East West PLC</title>
+</head>
+<body>
+  <h2>Add New Product</h2>
+  <form id="product-form">
+    <input type="text" id="title" placeholder="Product Title" required /><br/><br/>
+    <input type="text" id="imageUrl" placeholder="Image URL" required /><br/><br/>
+    <textarea id="description" placeholder="Product Description" required></textarea><br/><br/>
+    <button type="submit">Publish Product</button>
+  </form>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    const firebaseConfig = { /* YOUR CONFIG HERE */ };
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    document.getElementById("product-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      try {
+        await addDoc(collection(db, "products"), {
+          title: document.getElementById("title").value,
+          imageUrl: document.getElementById("imageUrl").value,
+          description: document.getElementById("description").value,
+          createdAt: serverTimestamp()
+        });
+        alert("Product added successfully!");
+        document.getElementById("product-form").reset();
+      } catch (err) {
+        console.error("Error adding document: ", err);
+      }
+    });
+  </script>
+</body>
+</html>
