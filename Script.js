@@ -59,3 +59,18 @@ async function loadProducts() {
 }
 
 loadProducts();
+function filterProducts(){
+
+let input=document.getElementById("searchProduct").value.toLowerCase();
+
+let cards=document.querySelectorAll(".product-card");
+
+cards.forEach(card=>{
+
+let text=card.innerText.toLowerCase();
+
+card.style.display=text.includes(input)?"block":"none";
+
+});
+
+}
