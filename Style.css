@@ -125,3 +125,80 @@ font-size:18px;
 }
 
 }
+.about{
+padding:80px 8%;
+background:#fff;
+}
+
+.about h2{
+text-align:center;
+margin-bottom:40px;
+font-size:38px;
+}
+
+.about-container{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:40px;
+align-items:center;
+}
+
+.about-image img{
+width:100%;
+border-radius:12px;
+box-shadow:0 8px 20px rgba(0,0,0,.15);
+}
+
+.about-text h3{
+color:#2E7D32;
+margin-top:20px;
+}
+
+.about-text p{
+line-height:1.8;
+}
+
+.why{
+background:#f7f7f7;
+padding:80px 8%;
+}
+
+.why h2{
+text-align:center;
+margin-bottom:40px;
+}
+
+.why-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+gap:25px;
+}
+
+.why-card{
+background:white;
+padding:25px;
+border-radius:10px;
+text-align:center;
+box-shadow:0 4px 10px rgba(0,0,0,.1);
+}
+
+.stats{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+gap:25px;
+padding:70px 8%;
+background:#2E7D32;
+color:white;
+text-align:center;
+}
+
+.stat-box h2{
+font-size:42px;
+margin-bottom:10px;
+}
+
+@media(max-width:768px){
+.about-container{
+grid-template-columns:1fr;
+}
+}
