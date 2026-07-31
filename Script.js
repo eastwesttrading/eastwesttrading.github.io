@@ -74,3 +74,16 @@ card.style.display=text.includes(input)?"block":"none";
 });
 
 }
+function openLightbox(image){
+
+document.getElementById("lightbox").style.display="flex";
+
+document.getElementById("lightboxImg").src=image;
+
+}
+
+document.getElementById("closeLightbox").onclick=function(){
+
+document.getElementById("lightbox").style.display="none";
+
+}
