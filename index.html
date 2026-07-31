@@ -222,12 +222,23 @@ onkeyup="filterProducts()">
 </section>
 
   <!-- Gallery Section -->
-  <section id="gallery">
-    <h2>Gallery</h2>
-    <div id="gallery-container" class="grid-container">
-      <p>Loading gallery...</p>
-    </div>
-  </section>
+  <section id="gallery" class="gallery">
+
+<h2>Our Gallery</h2>
+
+<div id="gallery-container" class="gallery-grid">
+
+<p>Loading gallery...</p>
+
+</div>
+
+</section>
+
+<!-- Lightbox -->
+<div id="lightbox" class="lightbox">
+    <span id="closeLightbox">&times;</span>
+    <img id="lightboxImg" src="" alt="Gallery Image">
+</div>
 
   <!-- Contact Section -->
   <section id="contact">
@@ -333,30 +344,50 @@ console.log(e);
 }
 
     // 3. Fetch Gallery Collection
-    async function loadGallery() {
-      const galleryContainer = document.getElementById("gallery-container");
-      try {
-        const querySnapshot = await getDocs(collection(db, "gallery"));
-        if (querySnapshot.empty) {
-          galleryContainer.innerHTML = "<p>No gallery images yet.</p>";
-          return;
-        }
+    async function loadGallery(){
 
-        galleryContainer.innerHTML = "";
-        querySnapshot.forEach((doc) => {
-          const item = doc.data();
-          const card = `
-            <div class="card">
-              <img src="${item.imageUrl || 'images/placeholder.jpg'}" alt="${item.caption || 'Gallery Image'}">
-              <p>${item.caption || ''}</p>
-            </div>
-          `;
-          galleryContainer.innerHTML += card;
-        });
-      } catch (err) {
-        console.error("Error loading gallery:", err);
-      }
-    }
+const container=document.getElementById("gallery-container");
+
+try{
+
+const snapshot=await getDocs(collection(db,"gallery"));
+
+container.innerHTML="";
+
+if(snapshot.empty){
+
+container.innerHTML="<p>No gallery images available.</p>";
+
+return;
+
+}
+
+snapshot.forEach(doc=>{
+
+const item=doc.data();
+
+container.innerHTML+=`
+
+<div class="gallery-card">
+
+<img src="${item.imageUrl}" alt="${item.caption}"
+onclick="openLightbox('${item.imageUrl}')">
+
+<p>${item.caption || ""}</p>
+
+</div>
+
+`;
+
+});
+
+}catch(e){
+
+console.log(e);
+
+}
+
+}
 
     // Execute functions on page ready
     document.addEventListener("DOMContentLoaded", () => {
