@@ -278,31 +278,59 @@ onkeyup="filterProducts()">
     }
 
     // 2. Fetch Products Collection
-    async function loadProducts() {
-      const productsContainer = document.getElementById("products-container");
-      try {
-        const querySnapshot = await getDocs(collection(db, "products"));
-        if (querySnapshot.empty) {
-          productsContainer.innerHTML = "<p>No products available right now.</p>";
-          return;
-        }
-        
-        productsContainer.innerHTML = "";
-        querySnapshot.forEach((doc) => {
-          const product = doc.data();
-          const card = `
-            <div class="card">
-              <img src="${product.imageUrl || 'images/placeholder.jpg'}" alt="${product.name}">
-              <h3>${product.name || 'Product Name'}</h3>
-              <p>${product.description || ''}</p>
-            </div>
-          `;
-          productsContainer.innerHTML += card;
-        });
-      } catch (err) {
-        console.error("Error loading products:", err);
-      }
-    }
+    async function loadProducts(){
+
+const container=document.getElementById("products-container");
+
+try{
+
+const snapshot=await getDocs(collection(db,"products"));
+
+container.innerHTML="";
+
+if(snapshot.empty){
+
+container.innerHTML="<p>No products available.</p>";
+
+return;
+
+}
+
+snapshot.forEach(doc=>{
+
+const p=doc.data();
+
+container.innerHTML+=`
+
+<div class="product-card">
+
+<img src="${p.imageUrl}" alt="${p.name}">
+
+<h3>${p.name}</h3>
+
+<p>${p.description}</p>
+
+<p><strong>Origin:</strong> Ethiopia</p>
+
+<p><strong>Availability:</strong> In Stock</p>
+
+<a href="#contact" class="quote-btn">
+Request Quote
+</a>
+
+</div>
+
+`;
+
+});
+
+}catch(e){
+
+console.log(e);
+
+}
+
+}
 
     // 3. Fetch Gallery Collection
     async function loadGallery() {
