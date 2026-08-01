@@ -475,36 +475,52 @@ Request a Quote
 
             <form id="inquiryForm">
 
-                <input type="text" placeholder="Your Name" required>
+    <input
+        type="text"
+        id="name"
+        placeholder="Your Name"
+        required>
 
-                <input type="text" placeholder="Company Name" required>
+    <input
+        type="text"
+        id="company"
+        placeholder="Company Name"
+        required>
 
-                <input type="text" placeholder="Country" required>
+    <input
+        type="text"
+        id="country"
+        placeholder="Country"
+        required>
 
-                <input type="email" placeholder="Email Address" required>
+    <input
+        type="email"
+        id="email"
+        placeholder="Email Address"
+        required>
 
-                <select>
-                    <option>Select Product</option>
-                    <option>Green Mung Bean</option>
-                    <option>White Pea Bean</option>
-                    <option>Red Bean</option>
-                    <option>Oil Seeds</option>
-                </select>
+    <select id="product" required>
+        <option value="">Select Product</option>
+        <option>Green Mung Bean</option>
+        <option>White Pea Bean</option>
+        <option>Red Bean</option>
+        <option>Oil Seeds</option>
+    </select>
 
-                <input type="text" placeholder="Required Quantity">
+    <input
+        type="text"
+        id="quantity"
+        placeholder="Required Quantity">
 
-                <textarea placeholder="Your Message"></textarea>
+    <textarea
+        id="message"
+        placeholder="Your Message"></textarea>
 
-                <button type="submit">
-                    Send Inquiry
-                </button>
+    <button type="submit">
+        Send Inquiry
+    </button>
 
-            </form>
-
-        </div>
-
-    </div>
-
+</form>
 
     <!-- Google Map Placeholder -->
     <div class="map-container">
