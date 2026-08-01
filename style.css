@@ -568,3 +568,140 @@ footer a:hover{
 color:#FFD54F;
 
 }
+/* ================= CONTACT SECTION ================= */
+
+.contact-section {
+    padding: 80px 8%;
+    background: #f8f9f7;
+}
+
+.contact-container {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 40px;
+}
+
+
+.contact-info,
+.inquiry-form {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    flex: 1;
+}
+
+
+.contact-info h3,
+.inquiry-form h3,
+.map-container h3 {
+    color: #2e7d32;
+    margin-bottom: 20px;
+}
+
+
+.contact-info p {
+    line-height: 1.8;
+    color: #444;
+}
+
+
+/* Inquiry Form */
+
+.inquiry-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+
+.inquiry-form input,
+.inquiry-form select,
+.inquiry-form textarea {
+
+    width: 100%;
+    padding: 12px;
+
+    border: 1px solid #ccc;
+    border-radius: 8px;
+
+    font-size: 15px;
+
+}
+
+
+.inquiry-form textarea {
+
+    height: 120px;
+    resize: none;
+
+}
+
+
+.inquiry-form button {
+
+    padding: 14px;
+
+    background: #2e7d32;
+    color: white;
+
+    border: none;
+    border-radius: 8px;
+
+    font-size: 16px;
+    cursor: pointer;
+
+    transition: 0.3s;
+
+}
+
+
+.inquiry-form button:hover {
+
+    background: #1b5e20;
+
+}
+
+
+/* Google Map Placeholder */
+
+.map-container {
+
+    margin-top: 50px;
+    text-align: center;
+
+}
+
+
+.map-placeholder {
+
+    height: 300px;
+
+    background: #ddd;
+
+    border-radius: 15px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #555;
+
+    font-size: 18px;
+
+}
+
+
+/* Mobile Responsive */
+
+@media(max-width:768px){
+
+    .contact-container{
+
+        flex-direction: column;
+
+    }
+
+}
