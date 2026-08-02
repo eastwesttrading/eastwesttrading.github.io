@@ -374,3 +374,94 @@ async function loadContactInfo() {
 }
 
 loadContactInfo();
+// ==========================================
+// BUYER INQUIRY FORM
+// ==========================================
+
+import {
+    addDoc
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+const inquiryForm = document.getElementById("inquiryForm");
+
+if (inquiryForm) {
+
+    inquiryForm.addEventListener("submit", async (e) => {
+
+        e.preventDefault();
+
+        const data = {
+
+            name: document.getElementById("name").value,
+
+            company: document.getElementById("company").value,
+
+            country: document.getElementById("country").value,
+
+            email: document.getElementById("email").value,
+
+            product: document.getElementById("product").value,
+
+            quantity: document.getElementById("quantity").value,
+
+            message: document.getElementById("message").value,
+
+            date: new Date().toISOString()
+
+        };
+
+        try {
+
+            await addDoc(collection(db, "contacts"), data);
+
+            alert("Thank you! Your inquiry has been sent successfully.");
+
+            inquiryForm.reset();
+
+        } catch (error) {
+
+            console.error(error);
+
+            alert("Failed to send inquiry.");
+
+        }
+
+    });
+
+}
+
+
+// ==========================================
+// CLOSE LIGHTBOX WHEN CLICKING OUTSIDE
+// ==========================================
+
+const lightbox = document.getElementById("lightbox");
+
+if (lightbox) {
+
+    lightbox.addEventListener("click", function (e) {
+
+        if (e.target === lightbox) {
+
+            lightbox.style.display = "none";
+
+        }
+
+    });
+
+}
+
+
+// ==========================================
+// PAGE INITIALIZATION
+// ==========================================
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    loadProducts();
+
+    loadGallery();
+
+    loadCompanyInfo();
+
+});
