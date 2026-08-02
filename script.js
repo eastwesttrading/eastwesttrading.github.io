@@ -98,8 +98,7 @@ container.innerHTML += `
 <div class="product-card">
 
 
-<img src="${product.image || 'images/default.jpg'}"
-class="product-image"
+<img src="${product.imageUrl || 'images/default.jpg'}">class="product-image"
 onclick="openLightbox('${product.image}')">
 
 
