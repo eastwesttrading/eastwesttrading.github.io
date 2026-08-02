@@ -3,14 +3,11 @@
 // script.js - PART 1
 // ==========================================
 
-import { db } from "./Firebase.js";
-
 import {
     collection,
-    getDocs
+    getDocs,
+    addDoc
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
-
-
 // ==========================================
 // MOBILE MENU
 // ==========================================
