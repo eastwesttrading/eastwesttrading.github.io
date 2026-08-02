@@ -264,13 +264,13 @@ transition:.3s;
 
 }
 
-.product-card:hover{
+<div class="product-card">:hover{
 
 transform:translateY(-8px);
 
 }
 
-.product-card img{
+<div class="product-card"> imgUrl{
 
 width:100%;
 
@@ -280,7 +280,7 @@ object-fit:cover;
 
 }
 
-.product-card h3{
+<div class="product-card"> h3{
 
 padding:15px;
 
@@ -290,7 +290,7 @@ color:#2E7D32;
 
 }
 
-.product-card p{
+<div class="product-card"> p{
 
 padding:0 15px 10px;
 
