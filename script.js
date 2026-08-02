@@ -68,7 +68,7 @@ if(mobileToggle && navMenu){
 
 async function loadProducts(){
 
-const container=document.getElementById("products-list");
+const container = document.getElementById("products-container");
 
 
 if(!container) return;
@@ -209,24 +209,24 @@ card.style.display="none";
 // ===============================
 
 
-function openLightbox(image){
+function openLightbox(imageUrl){
 
 
 const lightbox=
 document.getElementById("lightbox");
 
 
-const lightboxImg=
-document.getElementById("lightboxImg");
+const lightboxImgUrl=
+document.getElementById("lightboxImgUrl");
 
 
-if(lightbox && lightboxImg){
+if(lightbox && lightboxImgUrl){
 
 
 lightbox.style.display="flex";
 
 
-lightboxImg.src=image;
+lightboxImg.src=imageUrl;
 
 
 }
