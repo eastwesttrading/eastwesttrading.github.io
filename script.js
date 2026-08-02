@@ -1,56 +1,26 @@
+// ==========================================
+// EAST WEST GRINDING OR MANUFACTURING OF GRAINS PLC
+// script.js - PART 1
+// ==========================================
+
 import { db } from "./Firebase.js";
-import { collection, getDocs } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+import {
+    collection,
+    getDocs
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 
-// ===============================
-// LANGUAGE SWITCH
-// ===============================
-
-function switchLang(lang) {
-
-    const langItems = document.querySelectorAll(".lang-item");
-
-    langItems.forEach(item => {
-        item.classList.remove("active");
-    });
-
-
-    if(langItems.length >= 2){
-
-        if(lang === "en"){
-            langItems[0].classList.add("active");
-        }else{
-            langItems[1].classList.add("active");
-        }
-
-    }
-
-
-    const elements=document.querySelectorAll("[data-en][data-am]");
-
-
-    elements.forEach(element=>{
-
-        element.innerText =
-        element.getAttribute(`data-${lang}`);
-
-    });
-
-}
-
-
-
-// ===============================
+// ==========================================
 // MOBILE MENU
-// ===============================
+// ==========================================
 
-const mobileToggle=document.getElementById("mobile-toggle");
-const navMenu=document.getElementById("nav-menu");
+const mobileToggle = document.getElementById("mobile-toggle");
+const navMenu = document.getElementById("nav-menu");
 
+if (mobileToggle && navMenu) {
 
-if(mobileToggle && navMenu){
-
-    mobileToggle.addEventListener("click",()=>{
+    mobileToggle.addEventListener("click", () => {
 
         navMenu.classList.toggle("active");
 
@@ -59,207 +29,175 @@ if(mobileToggle && navMenu){
 }
 
 
+// ==========================================
+// LANGUAGE SWITCH
+// ==========================================
+
+function switchLang(lang) {
+
+    const elements = document.querySelectorAll("[data-en][data-am]");
+
+    elements.forEach(element => {
+
+        element.innerText = element.getAttribute(`data-${lang}`);
+
+    });
+
+}
+
+window.switchLang = switchLang;
 
 
-// ===============================
-// LOAD PRODUCTS FROM FIRESTORE
-// ===============================
+// ==========================================
+// LOAD PRODUCTS
+// ==========================================
 
+async function loadProducts() {
 
-async function loadProducts(){
+    const container = document.getElementById("products-container");
 
-const container = document.getElementById("products-container");
+    if (!container) return;
 
+    container.innerHTML = "<p class='loading'>Loading products...</p>";
 
-if(!container) return;
+    try {
 
+        const snapshot = await getDocs(collection(db, "products"));
 
-container.innerHTML="";
+        container.innerHTML = "";
 
+        snapshot.forEach((doc) => {
 
-try{
+            const product = doc.data();
 
+            container.innerHTML += `
 
-const querySnapshot=
-await getDocs(collection(db,"products"));
+<div class="product-card"
+data-category="${(product.category || "").toLowerCase()}">
 
+<img
+src="${product.imageUrl || ""}"
+alt="${product.name || ""}"
+onclick="openLightbox('${product.imageUrl || ""}')">
 
+<div class="product-info">
 
-querySnapshot.forEach((doc)=>{
+<h3>${product.name || ""}</h3>
 
+<p><strong>Category:</strong> ${product.category || ""}</p>
 
-const product=doc.data();
+<p><strong>Origin:</strong> ${product.origin || ""}</p>
 
+<p><strong>Availability:</strong> ${product.available || ""}</p>
 
-
-container.innerHTML += `
-
-
-<div class="product-card">
-
-
-<img src="${product.imageUrl || 'images/default.jpg'}">class="product-image"
-onclick="openLightbox('${product.image}')">
-
-
-<h3>${product.name || "Product Name"}</h3>
-
-
-<p>
-<strong>Category:</strong>
-${product.category || ""}
-</p>
-
-
-<p>
-<strong>Origin:</strong>
-${product.origin || "Ethiopia"}
-</p>
-
-
-<p>
-<strong>Description:</strong>
-${product.description || ""}
-</p>
-
+${product.price ? `<p><strong>Price:</strong> ${product.price}</p>` : ""}
 
 </div>
 
-
+</div>
 
 `;
 
+        });
 
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        container.innerHTML =
+
+        "<p class='loading'>Unable to load products.</p>";
+
+    }
+
+}
+
+
+// ==========================================
+// PRODUCT SEARCH
+// ==========================================
+
+const searchInput = document.getElementById("searchProduct");
+
+if (searchInput) {
+
+    searchInput.addEventListener("keyup", filterProducts);
+
+}
+
+function filterProducts() {
+
+    const keyword =
+    document.getElementById("searchProduct")
+    .value
+    .toLowerCase();
+
+    const cards =
+    document.querySelectorAll(".product-card");
+
+    cards.forEach(card => {
+
+        const text =
+        card.innerText.toLowerCase();
+
+        card.style.display =
+        text.includes(keyword)
+        ? "block"
+        : "none";
+
+    });
+
+}
+
+
+// ==========================================
+// CATEGORY FILTER
+// ==========================================
+
+const categoryButtons =
+document.querySelectorAll(".category-btn");
+
+categoryButtons.forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        categoryButtons.forEach(btn =>
+            btn.classList.remove("active"));
+
+        button.classList.add("active");
+
+        const category =
+        button.dataset.category;
+
+        const cards =
+        document.querySelectorAll(".product-card");
+
+        cards.forEach(card => {
+
+            if (
+                category === "all" ||
+                card.dataset.category === category
+            ) {
+
+                card.style.display = "block";
+
+            }
+
+            else {
+
+                card.style.display = "none";
+
+            }
+
+        });
+
+    });
 
 });
 
 
-}
-
-catch(error){
-
-console.error(
-"Error loading products:",
-error
-);
-
-}
-
-
-}
-
+// Load products immediately
 
 loadProducts();
-
-
-
-
-// ===============================
-// PRODUCT SEARCH
-// ===============================
-
-
-function filterProducts(){
-
-
-let input=
-document.getElementById("searchProduct")
-.value
-.toLowerCase();
-
-
-
-let cards=
-document.querySelectorAll(".product-card");
-
-
-
-cards.forEach(card=>{
-
-
-let text=
-card.innerText.toLowerCase();
-
-
-
-if(text.includes(input)){
-
-card.style.display="block";
-
-}
-
-else{
-
-card.style.display="none";
-
-}
-
-
-
-});
-
-
-}
-
-
-
-
-// ===============================
-// IMAGE LIGHTBOX
-// ===============================
-
-
-function openLightbox(imageUrl){
-
-
-const lightbox=
-document.getElementById("lightbox");
-
-
-const lightboxImgUrl=
-document.getElementById("lightboxImgUrl");
-
-
-if(lightbox && lightboxImgUrl){
-
-
-lightbox.style.display="flex";
-
-
-lightboxImg.src=imageUrl;
-
-
-}
-
-
-}
-
-
-
-const closeBtn=
-document.getElementById("closeLightbox");
-
-
-if(closeBtn){
-
-
-closeBtn.onclick=function(){
-
-
-document.getElementById("lightbox")
-.style.display="none";
-
-
-};
-
-
-}
-
-
-
-
-// MAKE FUNCTIONS AVAILABLE TO HTML
-
-window.switchLang=switchLang;
-window.filterProducts=filterProducts;
-window.openLightbox=openLightbox;
