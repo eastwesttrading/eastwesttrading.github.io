@@ -3,95 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel - EAST WEST PLC</title>
+    <title>Admin Portal - EAST WEST PLC</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        .admin-body { font-family: sans-serif; background: #f4f6f9; padding: 30px; }
-        .admin-card { background: white; max-width: 800px; margin: 0 auto 30px; padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
-        .admin-card h2 { margin-top: 0; color: #2e7d32; }
+        .admin-body { font-family: sans-serif; background: #f4f6f9; padding: 20px; }
+        .admin-card { background: white; max-width: 800px; margin: 0 auto 25px; padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
+        .admin-card h2 { margin-top: 0; color: #1b5e20; }
         .form-row { margin-bottom: 15px; }
         .form-row label { display: block; font-weight: bold; margin-bottom: 5px; }
         .form-row input, .form-row select, .form-row textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-        .btn-save { background: #2e7d32; color: white; padding: 12px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; font-weight: bold; }
-        .btn-save:hover { background: #1b5e20; }
+        .btn-action { background: #1b5e20; color: white; padding: 12px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; font-weight: bold; }
+        .btn-action:hover { background: #2e7d32; }
+        .btn-logout { background: #c62828; margin-left: 15px; }
+        #adminDashboard { display: none; }
     </style>
 </head>
 <body class="admin-body">
 
-<div class="admin-card">
-    <h2>EAST WEST PLC - Management Console</h2>
-    <p><a href="index.html">← Go to Main Website</a></p>
-</div>
-
-<!-- Add Product -->
-<div class="admin-card">
-    <h3>Add Product (Green Mung / White Pea Beans)</h3>
-    <form id="adminProductForm">
+<!-- LOGIN SECTION -->
+<div id="loginSection" class="admin-card">
+    <h2>EAST WEST PLC - Admin Login</h2>
+    <form id="loginForm">
         <div class="form-row">
-            <label>Product Name</label>
-            <input type="text" id="prodName" placeholder="e.g. Green Mung Bean" required>
+            <label>Admin Email</label>
+            <input type="email" id="loginEmail" required>
         </div>
         <div class="form-row">
-            <label>Category</label>
-            <select id="prodCategory" required>
-                <option value="beans">Beans</option>
-                <option value="pulses">Pulses</option>
-                <option value="oilseeds">Oil Seeds</option>
-            </select>
+            <label>Password</label>
+            <input type="password" id="loginPassword" required>
         </div>
-        <div class="form-row">
-            <label>Image URL (https://i.postimg.cc/pTS0vv77/20260724-231926.png/https://i.postimg.cc/mDkdKkdV/20260724-232039.png)</label>
-            <input type="url" id="prodImg" placeholder="https://i.postimg.cc/..." required>
-        </div>
-        <div class="form-row">
-            <label>Origin</label>
-            <input type="text" id="prodOrigin" value="Ethiopia">
-        </div>
-        <div class="form-row">
-            <label>Availability</label>
-            <input type="text" id="prodAvailable" value="Export Ready">
-        </div>
-        <button type="submit" class="btn-save">Add Product</button>
+        <button type="submit" class="btn-action">Log In</button>
+        <p id="loginError" style="color: red; margin-top: 10px; display: none;"></p>
     </form>
 </div>
 
-<!-- Add Gallery Item -->
-<div class="admin-card">
-    <h3>Add Gallery Photo</h3>
-    <form id="adminGalleryForm">
-        <div class="form-row">
-            <label>Image Title / Description</label>
-            <input type="text" id="galTitle" placeholder="e.g. Processing Green Mung Beans" required>
+<!-- DASHBOARD (ONLY VISIBLE WHEN LOGGED IN) -->
+<div id="adminDashboard">
+    <div class="admin-card" style="display: flex; justify-content: space-between; align-items: center;">
+        <div>
+            <h2>EAST WEST PLC - Management Console</h2>
+            <p><a href="index.html">← Back to Main Website</a></p>
         </div>
-        <div class="form-row">
-            <label>Image URL (https://i.postimg.cc/pTS0vv77/20260724-231926.png)</label>
-            <input type="url" id="galImg" placeholder="https://i.postimg.cc/..." required>
-        </div>
-        <button type="submit" class="btn-save">Add to Gallery</button>
-    </form>
-</div>
+        <button id="logoutBtn" class="btn-action btn-logout">Logout</button>
+    </div>
 
-<!-- Update Mission & Vision -->
-<div class="admin-card">
-    <h3>Update Mission & Vision</h3>
-    <form id="adminCompanyForm">
-        <div class="form-row">
-            <label>To supply premium Ethiopian pulses, beans and oil seeds to international markets through quality processing, reliable service and long-term partnerships.</label>
-            <textarea id="compMission" rows="3" required></textarea>
-        </div>
-        <div class="form-row">
-            <label>To become one of Ethiopia's leading agricultural processing and export companies, recognized worldwide for quality, integrity and customer satisfaction</label>
-            <textarea id="compVision" rows="3" required></textarea>
-        </div>
-        <button type="submit" class="btn-save">Save Company Info</button>
-    </form>
+    <!-- Product Manager -->
+    <div class="admin-card">
+        <h3>Add Product (Green Mung / White Bean / Oilseeds)</h3>
+        <form id="adminProductForm">
+            <div class="form-row">
+                <label>Product Name</label>
+                <input type="text" id="prodName" required>
+            </div>
+            <div class="form-row">
+                <label>Category</label>
+                <select id="prodCategory" required>
+                    <option value="beans">Beans</option>
+                    <option value="pulses">Pulses</option>
+                    <option value="oilseeds">Oil Seeds</option>
+                </select>
+            </div>
+            <div class="form-row">
+                <label>Image URL (Postimages Direct Link)</label>
+                <input type="url" id="prodImg" required>
+            </div>
+            <div class="form-row">
+                <label>Origin</label>
+                <input type="text" id="prodOrigin" value="Ethiopia">
+            </div>
+            <div class="form-row">
+                <label>Availability</label>
+                <input type="text" id="prodAvailable" value="Export Ready">
+            </div>
+            <button type="submit" class="btn-action">Add Product</button>
+        </form>
+    </div>
+
+    <!-- Company Info Manager -->
+    <div class="admin-card">
+        <h3>Update Mission & Vision</h3>
+        <form id="adminCompanyForm">
+            <div class="form-row">
+                <label>Mission</label>
+                <textarea id="compMission" rows="3" required></textarea>
+            </div>
+            <div class="form-row">
+                <label>Vision</label>
+                <textarea id="compVision" rows="3" required></textarea>
+            </div>
+            <button type="submit" class="btn-action">Save Mission & Vision</button>
+        </form>
+    </div>
 </div>
 
 <script type="module">
     import { db } from "./firebase.js";
-    import { collection, addDoc, doc, setDoc } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } 
+        from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+    import { collection, addDoc, doc, setDoc } 
+        from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
-    // Product Handler
+    const auth = getAuth();
+
+    // Check login state automatically
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            document.getElementById("loginSection").style.display = "none";
+            document.getElementById("adminDashboard").style.display = "block";
+        } else {
+            document.getElementById("loginSection").style.display = "block";
+            document.getElementById("adminDashboard").style.display = "none";
+        }
+    });
+
+    // Handle Login
+    document.getElementById("loginForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const email = document.getElementById("loginEmail").value;
+        const pass = document.getElementById("loginPassword").value;
+        const errEl = document.getElementById("loginError");
+
+        try {
+            await signInWithEmailAndPassword(auth, email, pass);
+            errEl.style.display = "none";
+        } catch (err) {
+            errEl.innerText = "Invalid login credentials: " + err.message;
+            errEl.style.display = "block";
+        }
+    });
+
+    // Handle Logout
+    document.getElementById("logoutBtn").addEventListener("click", () => signOut(auth));
+
+    // Handle Product Submission
     document.getElementById("adminProductForm").addEventListener("submit", async (e) => {
         e.preventDefault();
         try {
@@ -102,29 +146,14 @@
                 origin: document.getElementById("prodOrigin").value,
                 available: document.getElementById("prodAvailable").value
             });
-            alert("Product added successfully!");
+            alert("Product published successfully!");
             e.target.reset();
         } catch (err) {
             alert("Error: " + err.message);
         }
     });
 
-    // Gallery Handler
-    document.getElementById("adminGalleryForm").addEventListener("submit", async (e) => {
-        e.preventDefault();
-        try {
-            await addDoc(collection(db, "gallery"), {
-                title: document.getElementById("galTitle").value,
-                imageUrl: document.getElementById("galImg").value
-            });
-            alert("Gallery item added successfully!");
-            e.target.reset();
-        } catch (err) {
-            alert("Error: " + err.message);
-        }
-    });
-
-    // Company Info Handler
+    // Handle Company Info
     document.getElementById("adminCompanyForm").addEventListener("submit", async (e) => {
         e.preventDefault();
         try {
@@ -132,7 +161,7 @@
                 mission: document.getElementById("compMission").value,
                 vision: document.getElementById("compVision").value
             });
-            alert("Company Mission & Vision updated!");
+            alert("Mission & Vision updated!");
         } catch (err) {
             alert("Error: " + err.message);
         }
