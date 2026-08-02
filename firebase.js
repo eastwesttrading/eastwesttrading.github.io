@@ -9,7 +9,7 @@ const firebaseConfig = {
   storageBucket: "east-west-trading--plc.firebasestorage.app",
   messagingSenderId: "118174778678",
   appId: "1:118174778678:web:44cab0c573dc1c6f9e1f97",
-  measurementId: "G-QVQCLT0JB3"
+  
 };
 
 const app = initializeApp(firebaseConfig);
