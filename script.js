@@ -34,7 +34,87 @@ function switchLang(lang) {
     });
 }
 window.switchLang = switchLang;
+// ==========================================================================
+// LANGUAGE TRANSLATION DICTIONARY (EN / AM)
+// ==========================================================================
 
+const translations = {
+    en: {
+        langBtnText: "አማርኛ",
+        navAbout: "About Us",
+        navProducts: "Products",
+        navQuality: "Quality & Markets",
+        navContact: "Contact Us",
+        heroTitle: "EAST WEST GRINDING OR MANUFACTURING OF GRAINS PLC",
+        heroSub: "Leading Exporter of Ethiopian Green Mung Beans, White Pea Beans & Oilseeds",
+        btnExplore: "View Export Products",
+        btnContact: "Contact Sales",
+        aboutTitle: "About Our Company",
+        aboutDesc: "EAST WEST PLC is a premier Ethiopian agribusiness export company specializing in high-grade pulses, beans, and oilseeds for global markets.",
+        prodTitle: "Our Export Products",
+        prodSearchPlaceholder: "Search products...",
+        contactTitle: "Get in Touch",
+        contactDesc: "Send us your inquiry for bulk commodity purchases and export pricing."
+    },
+    am: {
+        langBtnText: "English",
+        navAbout: "ስለ እኛ",
+        navProducts: "ምርቶች",
+        navQuality: "ጥራት እና ገበያዎች",
+        navContact: "አድራሻ",
+        heroTitle: "ኢስት ዌስት የධාህሎች ፈጭ እና ማምረቻ ኃ/የተ/የግ/ማህበር",
+        heroSub: "የኢትዮጵያ ጥራት ያላቸው የህንድ ቪግና (Green Mung Beans)፣ ነጭ ቦሎቄ እና የቅባት እህሎች ላኪ",
+        btnExplore: "ምርቶችን ይመልከቱ",
+        btnContact: "ያግኙን",
+        aboutTitle: "ስለ ድርጅታችን",
+        aboutDesc: "ኢስት ዌስት ኃ/የተ/የግ/ማህበር በኢትዮጵያ ከፍተኛ ጥራት ያላቸውን የጥራጥሬ እና ቅባት እህሎች ለዓለም አቀፍ ገበያ በማቅረብ ላይ የተሰማራ ኩባንያ ነው።",
+        prodTitle: "የምንልካቸው ምርቶች",
+        prodSearchPlaceholder: "ምርቶችን ይፈልጉ...",
+        contactTitle: "ያግኙን",
+        contactDesc: "ለጅምላ ምርት ግዢ እና ለኤክስፖርት ዋጋ ጥያቄዎን ይላኩልን።"
+    }
+};
+
+// Current active language (Default: English)
+let currentLang = localStorage.getItem("app_lang") || "en";
+
+// Function to update page content based on current language
+function applyLanguage(lang) {
+    currentLang = lang;
+    localStorage.setItem("app_lang", lang);
+
+    // Update Language Button Text
+    const langBtn = document.getElementById("langBtn");
+    if (langBtn) {
+        langBtn.innerText = translations[lang].langBtnText;
+    }
+
+    // Update all elements with data-i18n attributes
+    const elements = document.querySelectorAll("[data-i18n]");
+    elements.forEach((el) => {
+        const key = el.getAttribute("data-i18n");
+        if (translations[lang] && translations[lang][key]) {
+            el.innerText = translations[lang][key];
+        }
+    });
+
+    // Update search input placeholder if exists
+    const searchInput = document.getElementById("searchInput");
+    if (searchInput && translations[lang].prodSearchPlaceholder) {
+        searchInput.placeholder = translations[lang].prodSearchPlaceholder;
+    }
+}
+
+// Language toggle function connected to the button
+window.toggleLanguage = function () {
+    const newLang = currentLang === "en" ? "am" : "en";
+    applyLanguage(newLang);
+};
+
+// Apply language setting on initial load
+document.addEventListener("DOMContentLoaded", () => {
+    applyLanguage(currentLang);
+});
 // ==========================================
 // IMAGE LIGHTBOX
 // ==========================================
