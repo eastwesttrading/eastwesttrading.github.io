@@ -17,7 +17,46 @@ import {
 // ==========================================
 const mobileToggle = document.getElementById("mobile-toggle");
 const navMenu = document.getElementById("nav-menu");
+import { db } from "./firebase.js";
+import { doc, getDoc, collection, getDocs } 
+    from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
+// Fetch Dynamic Hero Text
+async function loadHeroContent() {
+    try {
+        const docRef = doc(db, "content", "hero");
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+            const data = docSnap.data();
+            if (data.headline) document.getElementById("company-name").innerText = data.headline;
+            if (data.subhead) document.querySelector(".hero-text").innerText = data.subhead;
+        }
+    } catch (err) {
+        console.log("Using default hero text");
+    }
+}
+
+// Fetch Dynamic Contact Info
+async function loadContactContent() {
+    try {
+        const docRef = doc(db, "content", "contact");
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+            const data = docSnap.data();
+            if (data.phone) document.querySelectorAll(".contact-info p")[2].innerHTML = `<strong>Phone:</strong><br>${data.phone}`;
+            if (data.email) document.querySelectorAll(".contact-info p")[3].innerHTML = `<strong>Email:</strong><br>${data.email}`;
+            if (data.address) document.querySelectorAll(".contact-info p")[1].innerHTML = `<strong>Address:</strong><br>${data.address}`;
+        }
+    } catch (err) {
+        console.log("Using default contact info");
+    }
+}
+
+// Initialize dynamic fetches on page load
+document.addEventListener("DOMContentLoaded", () => {
+    loadHeroContent();
+    loadContactContent();
+});
 if (mobileToggle && navMenu) {
     mobileToggle.addEventListener("click", () => {
         navMenu.classList.toggle("active");
