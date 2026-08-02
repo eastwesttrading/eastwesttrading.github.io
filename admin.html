@@ -1,41 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Admin Dashboard - East West PLC</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - EAST WEST PLC</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .admin-body { font-family: sans-serif; background: #f4f6f9; padding: 30px; }
+        .admin-card { background: white; max-width: 800px; margin: 0 auto 30px; padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
+        .admin-card h2 { margin-top: 0; color: #2e7d32; }
+        .form-row { margin-bottom: 15px; }
+        .form-row label { display: block; font-weight: bold; margin-bottom: 5px; }
+        .form-row input, .form-row select, .form-row textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        .btn-save { background: #2e7d32; color: white; padding: 12px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; font-weight: bold; }
+        .btn-save:hover { background: #1b5e20; }
+    </style>
 </head>
-<body>
-  <h2>Add New Product</h2>
-  <form id="product-form">
-    <input type="text" id="title" placeholder="Product Title" required /><br/><br/>
-    <input type="text" id="imageUrl" placeholder="Image URL" required /><br/><br/>
-    <textarea id="description" placeholder="Product Description" required></textarea><br/><br/>
-    <button type="submit">Publish Product</button>
-  </form>
+<body class="admin-body">
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+<div class="admin-card">
+    <h2>EAST WEST PLC - Management Console</h2>
+    <p><a href="index.html">← Go to Main Website</a></p>
+</div>
 
-    const firebaseConfig = { /* YOUR CONFIG HERE */ };
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
+<!-- Add Product -->
+<div class="admin-card">
+    <h3>Add Product (Green Mung / White Pea Beans)</h3>
+    <form id="adminProductForm">
+        <div class="form-row">
+            <label>Product Name</label>
+            <input type="text" id="prodName" placeholder="e.g. Green Mung Bean" required>
+        </div>
+        <div class="form-row">
+            <label>Category</label>
+            <select id="prodCategory" required>
+                <option value="beans">Beans</option>
+                <option value="pulses">Pulses</option>
+                <option value="oilseeds">Oil Seeds</option>
+            </select>
+        </div>
+        <div class="form-row">
+            <label>Image URL (Postimages Direct Link)</label>
+            <input type="url" id="prodImg" placeholder="https://i.postimg.cc/..." required>
+        </div>
+        <div class="form-row">
+            <label>Origin</label>
+            <input type="text" id="prodOrigin" value="Ethiopia">
+        </div>
+        <div class="form-row">
+            <label>Availability</label>
+            <input type="text" id="prodAvailable" value="Export Ready">
+        </div>
+        <button type="submit" class="btn-save">Add Product</button>
+    </form>
+</div>
 
-    document.getElementById("product-form").addEventListener("submit", async (e) => {
-      e.preventDefault();
-      try {
-        await addDoc(collection(db, "products"), {
-          title: document.getElementById("title").value,
-          imageUrl: document.getElementById("imageUrl").value,
-          description: document.getElementById("description").value,
-          createdAt: serverTimestamp()
-        });
-        alert("Product added successfully!");
-        document.getElementById("product-form").reset();
-      } catch (err) {
-        console.error("Error adding document: ", err);
-      }
+<!-- Add Gallery Item -->
+<div class="admin-card">
+    <h3>Add Gallery Photo</h3>
+    <form id="adminGalleryForm">
+        <div class="form-row">
+            <label>Image Title / Description</label>
+            <input type="text" id="galTitle" placeholder="e.g. Processing Green Mung Beans" required>
+        </div>
+        <div class="form-row">
+            <label>Image URL (Postimages Direct Link)</label>
+            <input type="url" id="galImg" placeholder="https://i.postimg.cc/..." required>
+        </div>
+        <button type="submit" class="btn-save">Add to Gallery</button>
+    </form>
+</div>
+
+<!-- Update Mission & Vision -->
+<div class="admin-card">
+    <h3>Update Mission & Vision</h3>
+    <form id="adminCompanyForm">
+        <div class="form-row">
+            <label>Mission Statement</label>
+            <textarea id="compMission" rows="3" required></textarea>
+        </div>
+        <div class="form-row">
+            <label>Vision Statement</label>
+            <textarea id="compVision" rows="3" required></textarea>
+        </div>
+        <button type="submit" class="btn-save">Save Company Info</button>
+    </form>
+</div>
+
+<script type="module">
+    import { db } from "./firebase.js";
+    import { collection, addDoc, doc, setDoc } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+    // Product Handler
+    document.getElementById("adminProductForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        try {
+            await addDoc(collection(db, "products"), {
+                name: document.getElementById("prodName").value,
+                category: document.getElementById("prodCategory").value,
+                imageUrl: document.getElementById("prodImg").value,
+                origin: document.getElementById("prodOrigin").value,
+                available: document.getElementById("prodAvailable").value
+            });
+            alert("Product added successfully!");
+            e.target.reset();
+        } catch (err) {
+            alert("Error: " + err.message);
+        }
     });
-  </script>
+
+    // Gallery Handler
+    document.getElementById("adminGalleryForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        try {
+            await addDoc(collection(db, "gallery"), {
+                title: document.getElementById("galTitle").value,
+                imageUrl: document.getElementById("galImg").value
+            });
+            alert("Gallery item added successfully!");
+            e.target.reset();
+        } catch (err) {
+            alert("Error: " + err.message);
+        }
+    });
+
+    // Company Info Handler
+    document.getElementById("adminCompanyForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        try {
+            await setDoc(doc(db, "company", "info"), {
+                mission: document.getElementById("compMission").value,
+                vision: document.getElementById("compVision").value
+            });
+            alert("Company Mission & Vision updated!");
+        } catch (err) {
+            alert("Error: " + err.message);
+        }
+    });
+</script>
+
 </body>
 </html>
