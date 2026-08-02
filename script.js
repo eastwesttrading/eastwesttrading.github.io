@@ -1,464 +1,264 @@
 // ==========================================
 // EAST WEST GRINDING OR MANUFACTURING OF GRAINS PLC
-// script.js - PART 1
+// script.js - Integrated & Fixed
 // ==========================================
 
+import { db } from "./firebase.js";
 import {
     collection,
     getDocs,
+    doc,
+    getDoc,
     addDoc
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
-// ==========================================
-// MOBILE MENU
-// ==========================================
 
+// ==========================================
+// MOBILE MENU TOGGLE
+// ==========================================
 const mobileToggle = document.getElementById("mobile-toggle");
 const navMenu = document.getElementById("nav-menu");
 
 if (mobileToggle && navMenu) {
-
     mobileToggle.addEventListener("click", () => {
-
         navMenu.classList.toggle("active");
-
     });
-
 }
-
 
 // ==========================================
 // LANGUAGE SWITCH
 // ==========================================
-
 function switchLang(lang) {
-
     const elements = document.querySelectorAll("[data-en][data-am]");
-
     elements.forEach(element => {
-
         element.innerText = element.getAttribute(`data-${lang}`);
-
     });
-
 }
-
 window.switchLang = switchLang;
 
+// ==========================================
+// IMAGE LIGHTBOX
+// ==========================================
+function openLightbox(image, caption = "") {
+    const lightbox = document.getElementById("lightbox");
+    const img = document.getElementById("lightboxImg");
+    const text = document.getElementById("lightboxCaption");
+
+    if (!lightbox || !img) return;
+
+    lightbox.style.display = "flex";
+    img.src = image;
+    if (text) text.innerText = caption;
+}
+window.openLightbox = openLightbox;
+
+const closeBtn = document.getElementById("closeLightbox");
+if (closeBtn) {
+    closeBtn.onclick = () => {
+        const lightbox = document.getElementById("lightbox");
+        if (lightbox) lightbox.style.display = "none";
+    };
+}
+
+const lightboxEl = document.getElementById("lightbox");
+if (lightboxEl) {
+    lightboxEl.addEventListener("click", function (e) {
+        if (e.target === lightboxEl) {
+            lightboxEl.style.display = "none";
+        }
+    });
+}
+
+// Helper to format Postimages URLs into direct image source links
+function formatImageUrl(url) {
+    if (!url) return "https://via.placeholder.com/300x200?text=No+Image";
+    if (url.includes("postimg.cc/") && !url.includes("i.postimg.cc")) {
+        return url.replace("postimg.cc/", "i.postimg.cc/") + ".jpg";
+    }
+    return url;
+}
 
 // ==========================================
 // LOAD PRODUCTS
 // ==========================================
-
 async function loadProducts() {
-
     const container = document.getElementById("products-container");
-
     if (!container) return;
 
     container.innerHTML = "<p class='loading'>Loading products...</p>";
 
     try {
-
         const snapshot = await getDocs(collection(db, "products"));
-
         container.innerHTML = "";
 
-        snapshot.forEach((doc) => {
+        if (snapshot.empty) {
+            container.innerHTML = "<p class='loading'>No products added yet.</p>";
+            return;
+        }
 
-            const product = doc.data();
+        snapshot.forEach((docSnap) => {
+            const product = docSnap.data();
+            const categoryAttr = (product.category || "beans").toLowerCase().replace(/\s+/g, '');
+            const displayImg = formatImageUrl(product.imageUrl || product.image);
 
             container.innerHTML += `
-
-<div class="product-card"
-data-category="${(product.category || "").toLowerCase()}">
-
-<img
-src="${product.imageUrl || ""}"
-alt="${product.name || ""}"
-onclick="openLightbox('${product.imageUrl || ""}')">
-
-<div class="product-info">
-
-<h3>${product.name || ""}</h3>
-
-<p><strong>Category:</strong> ${product.category || ""}</p>
-
-<p><strong>Origin:</strong> ${product.origin || ""}</p>
-
-<p><strong>Availability:</strong> ${product.available || ""}</p>
-
-${product.price ? `<p><strong>Price:</strong> ${product.price}</p>` : ""}
-
-</div>
-
-</div>
-
-`;
-
+            <div class="product-card" data-category="${categoryAttr}">
+                <img 
+                    src="${displayImg}" 
+                    alt="${product.name || 'Export Product'}"
+                    onerror="this.src='https://via.placeholder.com/300x200?text=Image+Not+Found'"
+                    onclick="window.openLightbox('${displayImg}', '${product.name || ''}')">
+                <div class="product-info">
+                    <h3>${product.name || "Agricultural Commodity"}</h3>
+                    <p><strong>Category:</strong> ${product.category || "Grains & Pulses"}</p>
+                    <p><strong>Origin:</strong> ${product.origin || "Ethiopia"}</p>
+                    <p><strong>Availability:</strong> ${product.available || "In Stock"}</p>
+                    ${product.price ? `<p><strong>Price:</strong> ${product.price}</p>` : ""}
+                </div>
+            </div>`;
         });
-
+    } catch (error) {
+        console.error("Products Error:", error);
+        container.innerHTML = "<p class='loading'>Unable to load products.</p>";
     }
-
-    catch (error) {
-
-        console.error(error);
-
-        container.innerHTML =
-
-        "<p class='loading'>Unable to load products.</p>";
-
-    }
-
 }
 
-
 // ==========================================
-// PRODUCT SEARCH
+// PRODUCT SEARCH & FILTER
 // ==========================================
-
 const searchInput = document.getElementById("searchProduct");
-
 if (searchInput) {
-
-    searchInput.addEventListener("keyup", filterProducts);
-
-}
-
-function filterProducts() {
-
-    const keyword =
-    document.getElementById("searchProduct")
-    .value
-    .toLowerCase();
-
-    const cards =
-    document.querySelectorAll(".product-card");
-
-    cards.forEach(card => {
-
-        const text =
-        card.innerText.toLowerCase();
-
-        card.style.display =
-        text.includes(keyword)
-        ? "block"
-        : "none";
-
+    searchInput.addEventListener("keyup", () => {
+        const keyword = searchInput.value.toLowerCase();
+        const cards = document.querySelectorAll(".product-card");
+        cards.forEach(card => {
+            const text = card.innerText.toLowerCase();
+            card.style.display = text.includes(keyword) ? "block" : "none";
+        });
     });
-
 }
 
-
-// ==========================================
-// CATEGORY FILTER
-// ==========================================
-
-const categoryButtons =
-document.querySelectorAll(".category-btn");
-
+const categoryButtons = document.querySelectorAll(".category-btn");
 categoryButtons.forEach(button => {
-
     button.addEventListener("click", () => {
-
-        categoryButtons.forEach(btn =>
-            btn.classList.remove("active"));
-
+        categoryButtons.forEach(btn => btn.classList.remove("active"));
         button.classList.add("active");
 
-        const category =
-        button.dataset.category;
-
-        const cards =
-        document.querySelectorAll(".product-card");
+        const selectedCat = button.dataset.category.toLowerCase();
+        const cards = document.querySelectorAll(".product-card");
 
         cards.forEach(card => {
-
-            if (
-                category === "all" ||
-                card.dataset.category === category
-            ) {
-
+            const cardCat = card.dataset.category;
+            if (selectedCat === "all" || cardCat === selectedCat || cardCat.includes(selectedCat)) {
                 card.style.display = "block";
-
-            }
-
-            else {
-
+            } else {
                 card.style.display = "none";
-
             }
-
         });
-
     });
-
 });
 
-
-// Load products immediately
-
-loadProducts();
 // ==========================================
-// GALLERY
+// LOAD GALLERY
 // ==========================================
-
 async function loadGallery() {
-
     const container = document.getElementById("gallery-container");
-
     if (!container) return;
 
     container.innerHTML = "<p class='loading'>Loading gallery...</p>";
 
     try {
-
         const snapshot = await getDocs(collection(db, "gallery"));
-
         container.innerHTML = "";
 
-        snapshot.forEach((doc) => {
+        if (snapshot.empty) {
+            container.innerHTML = "<p class='loading'>No gallery images added yet.</p>";
+            return;
+        }
 
-            const item = doc.data();
+        snapshot.forEach((docSnap) => {
+            const item = docSnap.data();
+            const displayImg = formatImageUrl(item.imageUrl || item.image);
 
             container.innerHTML += `
-
-<div class="gallery-item">
-
-<img
-src="${item.imageUrl || ""}"
-alt="${item.title || "Gallery"}"
-onclick="openLightbox('${item.imageUrl || ""}','${item.title || ""}')">
-
-</div>
-
-`;
-
+            <div class="gallery-item">
+                <img 
+                    src="${displayImg}" 
+                    alt="${item.title || "Gallery Image"}"
+                    onerror="this.src='https://via.placeholder.com/300x200?text=Image+Not+Found'"
+                    onclick="window.openLightbox('${displayImg}', '${item.title || ""}')">
+            </div>`;
         });
-
     } catch (error) {
-
         console.error("Gallery Error:", error);
-
-        container.innerHTML =
-        "<p class='loading'>Unable to load gallery.</p>";
-
+        container.innerHTML = "<p class='loading'>Unable to load gallery.</p>";
     }
-
 }
 
-loadGallery();
-
-
 // ==========================================
-// IMAGE LIGHTBOX
+// LOAD COMPANY INFORMATION (MISSION & VISION)
 // ==========================================
-
-function openLightbox(image, caption = "") {
-
-    const lightbox =
-        document.getElementById("lightbox");
-
-    const img =
-        document.getElementById("lightboxImg");
-
-    const text =
-        document.getElementById("lightboxCaption");
-
-    if (!lightbox || !img) return;
-
-    lightbox.style.display = "flex";
-
-    img.src = image;
-
-    if (text) {
-
-        text.innerText = caption;
-
-    }
-
-}
-
-window.openLightbox = openLightbox;
-
-const closeBtn =
-document.getElementById("closeLightbox");
-
-if (closeBtn) {
-
-    closeBtn.onclick = () => {
-
-        document.getElementById("lightbox").style.display = "none";
-
-    };
-
-}
-
-
-// ==========================================
-// LOAD COMPANY INFORMATION
-// ==========================================
-
 async function loadCompanyInfo() {
+    const missionEl = document.getElementById("mission-text");
+    const visionEl = document.getElementById("vision-text");
 
     try {
+        // First try fetching single doc 'info' in collection 'company'
+        const docRef = doc(db, "company", "info");
+        const docSnap = await getDoc(docRef);
 
-        const snapshot =
-        await getDocs(collection(db, "company"));
-
-        snapshot.forEach((doc) => {
-
-            const data = doc.data();
-
-            if (document.getElementById("mission-text")) {
-
-                document.getElementById("mission-text").innerText =
-                data.mission || "";
-
-            }
-
-            if (document.getElementById("vision-text")) {
-
-                document.getElementById("vision-text").innerText =
-                data.vision || "";
-
-            }
-
-        });
-
-    }
-
-    catch (error) {
-
+        if (docSnap.exists()) {
+            const data = docSnap.data();
+            if (missionEl) missionEl.innerText = data.mission || "";
+            if (visionEl) visionEl.innerText = data.vision || "";
+        } else {
+            // Fallback: search collection documents
+            const snapshot = await getDocs(collection(db, "company"));
+            snapshot.forEach((d) => {
+                const data = d.data();
+                if (missionEl && data.mission) missionEl.innerText = data.mission;
+                if (visionEl && data.vision) visionEl.innerText = data.vision;
+            });
+        }
+    } catch (error) {
         console.error("Company Info Error:", error);
-
     }
-
 }
 
-loadCompanyInfo();
-
-
 // ==========================================
-// LOAD CONTACT INFORMATION
+// BUYER INQUIRY FORM SUBMISSION
 // ==========================================
-
-async function loadContactInfo() {
-
-    try {
-
-        const snapshot =
-        await getDocs(collection(db, "contact"));
-
-        snapshot.forEach((doc) => {
-
-            const data = doc.data();
-
-            console.log("Contact Info:", data);
-
-            // Part 3 will display these automatically
-            // after we connect them to the HTML.
-
-        });
-
-    }
-
-    catch (error) {
-
-        console.error("Contact Error:", error);
-
-    }
-
-}
-
-loadContactInfo();
-// ==========================================
-// BUYER INQUIRY FORM
-// ==========================================
-
-import {
-    addDoc
-} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
-
 const inquiryForm = document.getElementById("inquiryForm");
-
 if (inquiryForm) {
-
     inquiryForm.addEventListener("submit", async (e) => {
-
         e.preventDefault();
 
         const data = {
-
             name: document.getElementById("name").value,
-
             company: document.getElementById("company").value,
-
             country: document.getElementById("country").value,
-
             email: document.getElementById("email").value,
-
             product: document.getElementById("product").value,
-
             quantity: document.getElementById("quantity").value,
-
             message: document.getElementById("message").value,
-
-            date: new Date().toISOString()
-
+            createdAt: new Date().toISOString()
         };
 
         try {
-
             await addDoc(collection(db, "contacts"), data);
-
             alert("Thank you! Your inquiry has been sent successfully.");
-
             inquiryForm.reset();
-
         } catch (error) {
-
-            console.error(error);
-
-            alert("Failed to send inquiry.");
-
+            console.error("Inquiry Submission Error:", error);
+            alert("Failed to send inquiry. Please try again.");
         }
-
     });
-
 }
 
-
 // ==========================================
-// CLOSE LIGHTBOX WHEN CLICKING OUTSIDE
+// INITIALIZE PAGE
 // ==========================================
-
-const lightbox = document.getElementById("lightbox");
-
-if (lightbox) {
-
-    lightbox.addEventListener("click", function (e) {
-
-        if (e.target === lightbox) {
-
-            lightbox.style.display = "none";
-
-        }
-
-    });
-
-}
-
-
-// ==========================================
-// PAGE INITIALIZATION
-// ==========================================
-
 document.addEventListener("DOMContentLoaded", () => {
-
     loadProducts();
-
     loadGallery();
-
     loadCompanyInfo();
-
 });
