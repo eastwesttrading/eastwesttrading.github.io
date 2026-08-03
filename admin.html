@@ -152,7 +152,16 @@
         from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
     import { collection, addDoc, doc, setDoc } 
         from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
-
+// 5. Save Logo & Theme
+document.getElementById("brandingForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    await setDoc(doc(db, "content", "theme"), {
+        logoUrl: document.getElementById("logoUrl").value,
+        heroBgUrl: document.getElementById("heroBgUrl").value,
+        primaryColor: document.getElementById("primaryColor").value
+    });
+    alert("Branding & theme updated successfully!");
+});
     const auth = getAuth();
 
     // Check Login State
