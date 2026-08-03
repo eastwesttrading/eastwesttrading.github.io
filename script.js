@@ -1,386 +1,59 @@
-// ==========================================
-// EAST WEST GRINDING OR MANUFACTURING OF GRAINS PLC
-// script.js - Integrated & Fixed
-// ==========================================
-
 import { db } from "./firebase.js";
-import {
-    collection,
-    getDocs,
-    doc,
-    getDoc,
-    addDoc
-} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
-
-// ==========================================
-// MOBILE MENU TOGGLE
-// ==========================================
-const mobileToggle = document.getElementById("mobile-toggle");
-const navMenu = document.getElementById("nav-menu");
-import { db } from "./firebase.js";
-import { doc, getDoc, collection, getDocs } 
+import { collection, getDocs, doc, getDoc } 
     from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
-// Fetch Dynamic Hero Text
-async function loadHeroContent() {
-    try {
-        const docRef = doc(db, "content", "hero");
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-            const data = docSnap.data();
-            if (data.headline) document.getElementById("company-name").innerText = data.headline;
-            if (data.subhead) document.querySelector(".hero-text").innerText = data.subhead;
-        }
-    } catch (err) {
-        console.log("Using default hero text");
-    }
-}
-
-// Fetch Dynamic Contact Info
-async function loadContactContent() {
-    try {
-        const docRef = doc(db, "content", "contact");
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-            const data = docSnap.data();
-            if (data.phone) document.querySelectorAll(".contact-info p")[2].innerHTML = `<strong>Phone:</strong><br>${data.phone}`;
-            if (data.email) document.querySelectorAll(".contact-info p")[3].innerHTML = `<strong>Email:</strong><br>${data.email}`;
-            if (data.address) document.querySelectorAll(".contact-info p")[1].innerHTML = `<strong>Address:</strong><br>${data.address}`;
-        }
-    } catch (err) {
-        console.log("Using default contact info");
-    }
-}
-
-// Initialize dynamic fetches on page load
-document.addEventListener("DOMContentLoaded", () => {
-    loadHeroContent();
-    loadContactContent();
-});
-if (mobileToggle && navMenu) {
-    mobileToggle.addEventListener("click", () => {
-        navMenu.classList.toggle("active");
-    });
-}
-
-// ==========================================
-// LANGUAGE SWITCH
-// ==========================================
-function switchLang(lang) {
-    const elements = document.querySelectorAll("[data-en][data-am]");
-    elements.forEach(element => {
-        element.innerText = element.getAttribute(`data-${lang}`);
-    });
-}
-window.switchLang = switchLang;
-// ==========================================================================
-// LANGUAGE TRANSLATION DICTIONARY (EN / AM)
-// ==========================================================================
-
+// Multi-language Translations Dictionary
 const translations = {
     en: {
-        langBtnText: "አማርኛ",
-        navAbout: "About Us",
-        navProducts: "Products",
-        navQuality: "Quality & Markets",
-        navContact: "Contact Us",
-        heroTitle: "EAST WEST GRINDING OR MANUFACTURING OF GRAINS PLC",
-        heroSub: "Leading Exporter of Ethiopian Green Mung Beans, White Pea Beans & Oilseeds",
-        btnExplore: "View Export Products",
-        btnContact: "Contact Sales",
-        aboutTitle: "About Our Company",
-        aboutDesc: "EAST WEST PLC is a premier Ethiopian agribusiness export company specializing in high-grade pulses, beans, and oilseeds for global markets.",
-        prodTitle: "Our Export Products",
-        prodSearchPlaceholder: "Search products...",
-        contactTitle: "Get in Touch",
-        contactDesc: "Send us your inquiry for bulk commodity purchases and export pricing."
+        nav_home: "Home",
+        nav_about: "About Us",
+        nav_products: "Products",
+        nav_contact: "Contact",
+        hero_sub: "Premium Ethiopian Exporter of High-Quality Green Mung Beans, White Pea Beans, and Pulses",
+        hero_btn: "Explore Export Products",
+        about_title: "About Our Company",
+        mission_title: "Our Mission",
+        vision_title: "Our Vision",
+        products_title: "Featured Export Products",
+        contact_title: "Get In Touch",
+        contact_info_title: "Contact Details"
     },
     am: {
-        langBtnText: "English",
-        navAbout: "ስለ እኛ",
-        navProducts: "ምርቶች",
-        navQuality: "ጥራት እና ገበያዎች",
-        navContact: "አድራሻ",
-        heroTitle: "ኢስት ዌስት የධාህሎች ፈጭ እና ማምረቻ ኃ/የተ/የግ/ማህበር",
-        heroSub: "የኢትዮጵያ ጥራት ያላቸው የህንድ ቪግና (Green Mung Beans)፣ ነጭ ቦሎቄ እና የቅባት እህሎች ላኪ",
-        btnExplore: "ምርቶችን ይመልከቱ",
-        btnContact: "ያግኙን",
-        aboutTitle: "ስለ ድርጅታችን",
-        aboutDesc: "ኢስት ዌስት ኃ/የተ/የግ/ማህበር በኢትዮጵያ ከፍተኛ ጥራት ያላቸውን የጥራጥሬ እና ቅባት እህሎች ለዓለም አቀፍ ገበያ በማቅረብ ላይ የተሰማራ ኩባንያ ነው።",
-        prodTitle: "የምንልካቸው ምርቶች",
-        prodSearchPlaceholder: "ምርቶችን ይፈልጉ...",
-        contactTitle: "ያግኙን",
-        contactDesc: "ለጅምላ ምርት ግዢ እና ለኤክስፖርት ዋጋ ጥያቄዎን ይላኩልን።"
+        nav_home: "መነሻ",
+        nav_about: "ስለ እኛ",
+        nav_products: "ምርቶች",
+        nav_contact: "ግንኙነት",
+        hero_sub: "ከፍተኛ ጥራት ያላቸው የኢትዮጵያ አረንጓዴ ማሾ፣ ነጭ ቦሎቄ እና ጥራጥሬዎች ላኪ",
+        hero_btn: "የኤክስፖርት ምርቶችን ይመልከቱ",
+        about_title: "ስለ ኩባንያችን",
+        mission_title: "ተልእኮአችን",
+        vision_title: "ራዕያችን",
+        products_title: "ዋና ዋና የኤክስፖርት ምርቶች",
+        contact_title: "ያግኙን",
+        contact_info_title: "የአድራሻ መረጃ"
     }
 };
 
-// Current active language (Default: English)
-let currentLang = localStorage.getItem("app_lang") || "en";
+let currentLang = "en";
 
-// Function to update page content based on current language
-function applyLanguage(lang) {
-    currentLang = lang;
-    localStorage.setItem("app_lang", lang);
+// Toggle Language Engine
+function initLanguageToggle() {
+    const langBtn = document.getElementById("langToggleBtn");
+    if (!langBtn) return;
 
-    // Update Language Button Text
-    const langBtn = document.getElementById("langBtn");
-    if (langBtn) {
-        langBtn.innerText = translations[lang].langBtnText;
-    }
+    langBtn.addEventListener("click", () => {
+        currentLang = currentLang === "en" ? "am" : "en";
+        langBtn.innerText = currentLang === "en" ? "አማርኛ" : "English";
 
-    // Update all elements with data-i18n attributes
-    const elements = document.querySelectorAll("[data-i18n]");
-    elements.forEach((el) => {
-        const key = el.getAttribute("data-i18n");
-        if (translations[lang] && translations[lang][key]) {
-            el.innerText = translations[lang][key];
-        }
-    });
-
-    // Update search input placeholder if exists
-    const searchInput = document.getElementById("searchInput");
-    if (searchInput && translations[lang].prodSearchPlaceholder) {
-        searchInput.placeholder = translations[lang].prodSearchPlaceholder;
-    }
-}
-
-// Language toggle function connected to the button
-window.toggleLanguage = function () {
-    const newLang = currentLang === "en" ? "am" : "en";
-    applyLanguage(newLang);
-};
-
-// Apply language setting on initial load
-document.addEventListener("DOMContentLoaded", () => {
-    applyLanguage(currentLang);
-});
-// ==========================================
-// IMAGE LIGHTBOX
-// ==========================================
-function openLightbox(image, caption = "") {
-    const lightbox = document.getElementById("lightbox");
-    const img = document.getElementById("lightboxImg");
-    const text = document.getElementById("lightboxCaption");
-
-    if (!lightbox || !img) return;
-
-    lightbox.style.display = "flex";
-    img.src = image;
-    if (text) text.innerText = caption;
-}
-window.openLightbox = openLightbox;
-
-const closeBtn = document.getElementById("closeLightbox");
-if (closeBtn) {
-    closeBtn.onclick = () => {
-        const lightbox = document.getElementById("lightbox");
-        if (lightbox) lightbox.style.display = "none";
-    };
-}
-
-const lightboxEl = document.getElementById("lightbox");
-if (lightboxEl) {
-    lightboxEl.addEventListener("click", function (e) {
-        if (e.target === lightboxEl) {
-            lightboxEl.style.display = "none";
-        }
-    });
-}
-
-// Helper to format Postimages URLs into direct image source links
-function formatImageUrl(url) {
-    if (!url) return "https://via.placeholder.com/300x200?text=No+Image";
-    if (url.includes("postimg.cc/") && !url.includes("i.postimg.cc")) {
-        return url.replace("postimg.cc/", "i.postimg.cc/") + ".jpg";
-    }
-    return url;
-}
-
-// ==========================================
-// LOAD PRODUCTS
-// ==========================================
-async function loadProducts() {
-    const container = document.getElementById("products-container");
-    if (!container) return;
-
-    container.innerHTML = "<p class='loading'>Loading products...</p>";
-
-    try {
-        const snapshot = await getDocs(collection(db, "products"));
-        container.innerHTML = "";
-
-        if (snapshot.empty) {
-            container.innerHTML = "<p class='loading'>No products added yet.</p>";
-            return;
-        }
-
-        snapshot.forEach((docSnap) => {
-            const product = docSnap.data();
-            const categoryAttr = (product.category || "beans").toLowerCase().replace(/\s+/g, '');
-            const displayImg = formatImageUrl(product.imageUrl || product.image);
-
-            container.innerHTML += `
-            <div class="product-card" data-category="${categoryAttr}">
-                <img 
-                    src="${displayImg}" 
-                    alt="${product.name || 'Export Product'}"
-                    onerror="this.src='https://via.placeholder.com/300x200?text=Image+Not+Found'"
-                    onclick="window.openLightbox('${displayImg}', '${product.name || ''}')">
-                <div class="product-info">
-                    <h3>${product.name || "Agricultural Commodity"}</h3>
-                    <p><strong>Category:</strong> ${product.category || "Grains & Pulses"}</p>
-                    <p><strong>Origin:</strong> ${product.origin || "Ethiopia"}</p>
-                    <p><strong>Availability:</strong> ${product.available || "In Stock"}</p>
-                    ${product.price ? `<p><strong>Price:</strong> ${product.price}</p>` : ""}
-                </div>
-            </div>`;
-        });
-    } catch (error) {
-        console.error("Products Error:", error);
-        container.innerHTML = "<p class='loading'>Unable to load products.</p>";
-    }
-}
-
-// ==========================================
-// PRODUCT SEARCH & FILTER
-// ==========================================
-const searchInput = document.getElementById("searchProduct");
-if (searchInput) {
-    searchInput.addEventListener("keyup", () => {
-        const keyword = searchInput.value.toLowerCase();
-        const cards = document.querySelectorAll(".product-card");
-        cards.forEach(card => {
-            const text = card.innerText.toLowerCase();
-            card.style.display = text.includes(keyword) ? "block" : "none";
-        });
-    });
-}
-
-const categoryButtons = document.querySelectorAll(".category-btn");
-categoryButtons.forEach(button => {
-    button.addEventListener("click", () => {
-        categoryButtons.forEach(btn => btn.classList.remove("active"));
-        button.classList.add("active");
-
-        const selectedCat = button.dataset.category.toLowerCase();
-        const cards = document.querySelectorAll(".product-card");
-
-        cards.forEach(card => {
-            const cardCat = card.dataset.category;
-            if (selectedCat === "all" || cardCat === selectedCat || cardCat.includes(selectedCat)) {
-                card.style.display = "block";
-            } else {
-                card.style.display = "none";
+        document.querySelectorAll("[data-i18n]").forEach(el => {
+            const key = el.getAttribute("data-i18n");
+            if (translations[currentLang][key]) {
+                el.innerText = translations[currentLang][key];
             }
         });
     });
-});
-
-// ==========================================
-// LOAD GALLERY
-// ==========================================
-async function loadGallery() {
-    const container = document.getElementById("gallery-container");
-    if (!container) return;
-
-    container.innerHTML = "<p class='loading'>Loading gallery...</p>";
-
-    try {
-        const snapshot = await getDocs(collection(db, "gallery"));
-        container.innerHTML = "";
-
-        if (snapshot.empty) {
-            container.innerHTML = "<p class='loading'>No gallery images added yet.</p>";
-            return;
-        }
-
-        snapshot.forEach((docSnap) => {
-            const item = docSnap.data();
-            const displayImg = formatImageUrl(item.imageUrl || item.image);
-
-            container.innerHTML += `
-            <div class="gallery-item">
-                <img 
-                    src="${displayImg}" 
-                    alt="${item.title || "Gallery Image"}"
-                    onerror="this.src='https://via.placeholder.com/300x200?text=Image+Not+Found'"
-                    onclick="window.openLightbox('${displayImg}', '${item.title || ""}')">
-            </div>`;
-        });
-    } catch (error) {
-        console.error("Gallery Error:", error);
-        container.innerHTML = "<p class='loading'>Unable to load gallery.</p>";
-    }
 }
 
-// ==========================================
-// LOAD COMPANY INFORMATION (MISSION & VISION)
-// ==========================================
-async function loadCompanyInfo() {
-    const missionEl = document.getElementById("mission-text");
-    const visionEl = document.getElementById("vision-text");
-
-    try {
-        // First try fetching single doc 'info' in collection 'company'
-        const docRef = doc(db, "company", "info");
-        const docSnap = await getDoc(docRef);
-
-        if (docSnap.exists()) {
-            const data = docSnap.data();
-            if (missionEl) missionEl.innerText = data.mission || "";
-            if (visionEl) visionEl.innerText = data.vision || "";
-        } else {
-            // Fallback: search collection documents
-            const snapshot = await getDocs(collection(db, "company"));
-            snapshot.forEach((d) => {
-                const data = d.data();
-                if (missionEl && data.mission) missionEl.innerText = data.mission;
-                if (visionEl && data.vision) visionEl.innerText = data.vision;
-            });
-        }
-    } catch (error) {
-        console.error("Company Info Error:", error);
-    }
-}
-
-// ==========================================
-// BUYER INQUIRY FORM SUBMISSION
-// ==========================================
-const inquiryForm = document.getElementById("inquiryForm");
-if (inquiryForm) {
-    inquiryForm.addEventListener("submit", async (e) => {
-        e.preventDefault();
-
-        const data = {
-            name: document.getElementById("name").value,
-            company: document.getElementById("company").value,
-            country: document.getElementById("country").value,
-            email: document.getElementById("email").value,
-            product: document.getElementById("product").value,
-            quantity: document.getElementById("quantity").value,
-            message: document.getElementById("message").value,
-            createdAt: new Date().toISOString()
-        };
-
-        try {
-            await addDoc(collection(db, "contacts"), data);
-            alert("Thank you! Your inquiry has been sent successfully.");
-            inquiryForm.reset();
-        } catch (error) {
-            console.error("Inquiry Submission Error:", error);
-            alert("Failed to send inquiry. Please try again.");
-        }
-    });
-}
-
-// ==========================================
-// INITIALIZE PAGE
-// ==========================================
-document.addEventListener("DOMContentLoaded", () => {
-    loadProducts();
-    loadGallery();
-    loadCompanyInfo();
-});
 // Fetch Dynamic Logo & Theme Settings
 async function loadThemeSettings() {
     try {
@@ -390,7 +63,7 @@ async function loadThemeSettings() {
         if (docSnap.exists()) {
             const data = docSnap.data();
 
-            // 1. Update Logo Image
+            // 1. Update Logo
             const logoImg = document.getElementById("siteLogo");
             const logoText = document.getElementById("logoText");
 
@@ -414,11 +87,89 @@ async function loadThemeSettings() {
             }
         }
     } catch (err) {
-        console.log("Using default logo and background theme.");
+        console.log("Using default theme settings.");
     }
 }
 
-// Ensure loadThemeSettings runs on page start
+// Fetch Dynamic Hero Text
+async function loadHeroContent() {
+    try {
+        const docRef = doc(db, "content", "hero");
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+            const data = docSnap.data();
+            if (data.headline) document.getElementById("company-name").innerText = data.headline;
+            if (data.subhead) document.querySelector(".hero-text").innerText = data.subhead;
+        }
+    } catch (err) {
+        console.log("Using default hero text.");
+    }
+}
+
+// Fetch Dynamic Mission & Vision
+async function loadCompanyInfo() {
+    try {
+        const docRef = doc(db, "company", "info");
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+            const data = docSnap.data();
+            if (data.mission) document.getElementById("missionText").innerText = data.mission;
+            if (data.vision) document.getElementById("visionText").innerText = data.vision;
+        }
+    } catch (err) {
+        console.log("Using default mission/vision text.");
+    }
+}
+
+// Fetch Dynamic Contact Info
+async function loadContactContent() {
+    try {
+        const docRef = doc(db, "content", "contact");
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+            const data = docSnap.data();
+            if (data.address) document.getElementById("contactAddress").innerHTML = `<strong>Address:</strong><br>${data.address}`;
+            if (data.phone) document.getElementById("contactPhone").innerHTML = `<strong>Phone:</strong><br>${data.phone}`;
+            if (data.email) document.getElementById("contactEmail").innerHTML = `<strong>Email:</strong><br>${data.email}`;
+        }
+    } catch (err) {
+        console.log("Using default contact details.");
+    }
+}
+
+// Fetch Products from Firestore
+async function loadProducts() {
+    const productsGrid = document.getElementById("productsGrid");
+    if (!productsGrid) return;
+
+    try {
+        const querySnapshot = await getDocs(collection(db, "products"));
+        if (!querySnapshot.empty) {
+            productsGrid.innerHTML = ""; // Clear placeholders
+            querySnapshot.forEach((docSnap) => {
+                const prod = docSnap.data();
+                const card = document.createElement("div");
+                card.className = "product-card";
+                card.innerHTML = `
+                    <img src="${prod.imageUrl || 'https://via.placeholder.com/300'}" alt="${prod.name}">
+                    <h3>${prod.name}</h3>
+                    <p><strong>Category:</strong> ${prod.category || 'Agricultural Export'}</p>
+                    <p><strong>Origin:</strong> ${prod.origin || 'Ethiopia'}</p>
+                `;
+                productsGrid.appendChild(card);
+            });
+        }
+    } catch (err) {
+        console.log("Loading products failed or table empty.");
+    }
+}
+
+// Initialize Dynamic Loaders
 document.addEventListener("DOMContentLoaded", () => {
+    initLanguageToggle();
     loadThemeSettings();
+    loadHeroContent();
+    loadCompanyInfo();
+    loadContactContent();
+    loadProducts();
 });
