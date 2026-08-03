@@ -1,411 +1,247 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- SEO -->
-    <meta name="description" content="EAST WEST GRINDING OR MANUFACTURING OF GRAINS PLC - Ethiopian exporter of premium pulses, beans and oil seeds.">
-    <meta name="keywords" content="Ethiopia Exporter, Green Mung Bean, White Pea Bean, Sesame Seed, Pulses, Beans, Oil Seeds">
-    <meta name="author" content="EAST WEST GRINDING OR MANUFACTURING OF GRAINS PLC">
-
-    <title>EAST WEST GRINDING OR MANUFACTURING OF GRAINS PLC</title>
-
-    <!-- CSS -->
+    <title>Admin Portal - EAST WEST PLC</title>
     <link rel="stylesheet" href="style.css">
-
-    <!-- Google Fonts & Icons -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .admin-body { font-family: sans-serif; background: #f4f6f9; padding: 20px; }
+        .admin-card { background: white; max-width: 900px; margin: 0 auto 25px; padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
+        .admin-card h2, .admin-card h3 { color: #1b5e20; margin-top: 0; }
+        .form-row { margin-bottom: 15px; }
+        .form-row label { display: block; font-weight: bold; margin-bottom: 5px; }
+        .form-row input, .form-row select, .form-row textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        .btn-action { background: #1b5e20; color: white; padding: 12px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; font-weight: bold; }
+        .btn-action:hover { background: #2e7d32; }
+        .btn-logout { background: #c62828; margin-left: 15px; }
+        #adminDashboard { display: none; }
+    </style>
 </head>
+<body class="admin-body">
 
-<body>
-
-<!-- =========================
-     HEADER & NAVBAR
-========================== -->
-<header class="hero" id="home">
-    <nav class="navbar">
-        <<!-- Inside <nav class="navbar"> -->
-<div class="logo">
-    <!-- Displays logo image if uploaded, otherwise falls back to text -->
-    <a href="#home">
-        <img id="siteLogo" src="" alt="EAST WEST PLC Logo" style="max-height: 50px; display: none;">
-        <h2 id="logoText">EAST WEST</h2>
-    </a>
-</div>
+<!-- LOGIN SECTION -->
+<div id="loginSection" class="admin-card">
+    <h2>EAST WEST PLC - Admin Login</h2>
+    <form id="loginForm">
+        <div class="form-row">
+            <label>Admin Email</label>
+            <input type="email" id="loginEmail" required>
         </div>
-
-        <ul class="nav-links">
-            <li><a href="#home" data-i18n="navHome">Home</a></li>
-            <li><a href="#about" data-i18n="navAbout">About</a></li>
-            <li><a href="#products" data-i18n="navProducts">Products</a></li>
-            <li><a href="#gallery" data-i18n="navGallery">Gallery</a></li>
-            <li><a href="#quality" data-i18n="navQuality">Quality</a></li>
-            <li><a href="#markets" data-i18n="navMarkets">Markets</a></li>
-            <li><a href="#contact" data-i18n="navContact">Contact</a></li>
-            <li><a href="admin.html">Admin</a></li>
-        </ul>
-
-        <!-- Language Button -->
-        <button id="langBtn" onclick="toggleLanguage()">አማርኛ</button>
-    </nav>
-
-    <div class="hero-content">
-        <h1 id="company-name" data-i18n="heroTitle">
-            EAST WEST GRINDING OR MANUFACTURING OF GRAINS PLC
-        </h1>
-
-        <p class="hero-text" data-i18n="heroSub">
-            Premium Ethiopian Exporter of Pulses, Beans and Oil Seeds
-        </p>
-
-        <div class="hero-buttons">
-            <a href="#products" class="btn" data-i18n="btnExplore">
-                View Products
-            </a>
-            <a href="#contact" class="btn2" data-i18n="btnContact">
-                Request a Quote
-            </a>
+        <div class="form-row">
+            <label>Password</label>
+            <input type="password" id="loginPassword" required>
         </div>
-    </div>
-</header>
-
-<!-- =========================================
-     ABOUT US
-========================================== -->
-<section id="about" class="about">
-    <div class="section-title">
-        <h2 data-i18n="aboutTitle">About Us</h2>
-        <p data-i18n="aboutSub">Delivering Premium Ethiopian Agricultural Products to the World.</p>
-    </div>
-
-    <div class="about-container">
-        <div class="about-text">
-            <h3 data-i18n="whoWeAreTitle">Who We Are</h3>
-            <p data-i18n="aboutDesc">
-                EAST WEST GRINDING OR MANUFACTURING OF GRAINS PLC is an Ethiopian company engaged in processing and exporting premium agricultural commodities. We are committed to supplying international buyers with high-quality pulses, beans, and oil seeds while maintaining professional service, reliable delivery, and competitive pricing.
-            </p>
-
-            <h3 data-i18n="missionTitle">Our Mission</h3>
-            <p id="mission-text">
-                Loading mission...
-            </p>
-
-            <h3 data-i18n="visionTitle">Our Vision</h3>
-            <p id="vision-text">
-                Loading vision...
-            </p>
-        </div>
-
-        <div class="about-image">
-            <img src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6?w=1200" alt="Agriculture">
-        </div>
-    </div>
-</section>
-
-<!-- =========================================
-     WHY CHOOSE US
-========================================== -->
-<section class="why-us">
-    <div class="section-title">
-        <h2 data-i18n="whyUsTitle">Why Choose Us</h2>
-    </div>
-
-    <div class="why-grid">
-        <div class="why-card">
-            <h3 data-i18n="why1Title">Premium Quality</h3>
-            <p data-i18n="why1Desc">Strict quality control from sourcing to shipment.</p>
-        </div>
-
-        <div class="why-card">
-            <h3 data-i18n="why2Title">Reliable Supply</h3>
-            <p data-i18n="why2Desc">Consistent product availability and timely delivery.</p>
-        </div>
-
-        <div class="why-card">
-            <h3 data-i18n="why3Title">International Standards</h3>
-            <p data-i18n="why3Desc">Products prepared according to export requirements.</p>
-        </div>
-
-        <div class="why-card">
-            <h3 data-i18n="why4Title">Professional Service</h3>
-            <p data-i18n="why4Desc">Fast communication and long-term business partnership.</p>
-        </div>
-    </div>
-</section>
-
-<!-- =========================================
-     COMPANY STATISTICS
-========================================== -->
-<section class="statistics">
-    <div class="stat-card">
-        <h2>10+</h2>
-        <p data-i18n="stat1">Export Products</p>
-    </div>
-
-    <div class="stat-card">
-        <h2>100%</h2>
-        <p data-i18n="stat2">Quality Inspection</p>
-    </div>
-
-    <div class="stat-card">
-        <h2>24/7</h2>
-        <p data-i18n="stat3">Customer Support</p>
-    </div>
-
-    <div class="stat-card">
-        <h2>Worldwide</h2>
-        <p data-i18n="stat4">Export Markets</p>
-    </div>
-</section>
-
-<!-- =========================================
-     PRODUCTS
-========================================== -->
-<section id="products" class="products">
-    <div class="section-title">
-        <h2 data-i18n="prodTitle">Our Products</h2>
-        <p data-i18n="prodSub">Premium Ethiopian Agricultural Export Products</p>
-    </div>
-
-    <!-- Search Box -->
-    <div class="product-search">
-        <input type="text" id="searchProduct" placeholder="Search products...">
-    </div>
-
-    <!-- Product Categories -->
-    <div class="product-categories">
-        <button class="category-btn active" data-category="all" data-i18n="catAll">All Products</button>
-        <button class="category-btn" data-category="pulses" data-i18n="catPulses">Pulses</button>
-        <button class="category-btn" data-category="beans" data-i18n="catBeans">Beans</button>
-        <button class="category-btn" data-category="oilseeds" data-i18n="catOilseeds">Oil Seeds</button>
-    </div>
-
-    <!-- Firebase Products Container -->
-    <div id="products-container" class="products-grid">
-        <div class="loading">Loading products...</div>
-    </div>
-</section>
-
-<!-- Product Inquiry Banner -->
-<section class="product-inquiry">
-    <div class="inquiry-box">
-        <h2 data-i18n="inquiryTitle">Looking for a Reliable Supplier?</h2>
-        <p data-i18n="inquirySub">
-            We welcome importers, wholesalers, distributors, and food processors from around the world.
-            Contact us today for pricing, specifications, and shipment details.
-        </p>
-        <a href="#contact" class="btn" data-i18n="btnContact">Request a Quote</a>
-    </div>
-</section>
-
-<!-- =========================================
-     GALLERY
-========================================== -->
-<section id="gallery" class="gallery">
-    <div class="section-title">
-        <h2 data-i18n="galleryTitle">Gallery</h2>
-        <p data-i18n="gallerySub">Explore our products, processing, packaging, warehouses, and export operations.</p>
-    </div>
-
-    <!-- Gallery loaded from Firebase -->
-    <div id="gallery-container" class="gallery-grid">
-        <div class="loading">Loading gallery...</div>
-    </div>
-</section>
-
-<!-- Image Lightbox Modal -->
-<div id="lightbox" class="lightbox">
-    <span id="closeLightbox">&times;</span>
-    <img id="lightboxImg" src="" alt="Gallery Image">
-    <p id="lightboxCaption"></p>
+        <button type="submit" class="btn-action">Log In</button>
+        <p id="loginError" style="color: red; margin-top: 10px; display: none;"></p>
+    </form>
 </div>
 
-<!-- =========================================
-     COMPANY HIGHLIGHTS
-========================================== -->
-<section class="highlights">
-    <div class="highlight-card">
-        <h3>🌱 <span data-i18n="high1Title">Premium Products</span></h3>
-        <p data-i18n="high1Desc">Carefully selected Ethiopian export-quality products.</p>
-    </div>
-
-    <div class="highlight-card">
-        <h3>🏭 <span data-i18n="high2Title">Modern Processing</span></h3>
-        <p data-i18n="high2Desc">Cleaned, sorted and packed according to customer requirements.</p>
-    </div>
-
-    <div class="highlight-card">
-        <h3>📦 <span data-i18n="high3Title">Export Packaging</span></h3>
-        <p data-i18n="high3Desc">Strong packaging suitable for international shipment.</p>
-    </div>
-
-    <div class="highlight-card">
-        <h3>🚢 <span data-i18n="high4Title">Worldwide Shipping</span></h3>
-        <p data-i18n="high4Desc">Reliable export logistics through international shipping lines.</p>
-    </div>
-</section>
-
-<!-- =========================================
-     QUALITY ASSURANCE
-========================================== -->
-<section id="quality" class="quality">
-    <div class="section-title">
-        <h2 data-i18n="qualityTitle">Quality Assurance</h2>
-        <p data-i18n="qualitySub">Committed to delivering products that meet international export standards.</p>
-    </div>
-
-    <div class="quality-grid">
-        <div class="quality-card">
-            <h3>🌱 <span data-i18n="q1Title">Premium Raw Materials</span></h3>
-            <p data-i18n="q1Desc">Carefully selected agricultural products sourced from trusted Ethiopian farmers.</p>
+<!-- DASHBOARD -->
+<div id="adminDashboard">
+    <div class="admin-card" style="display: flex; justify-content: space-between; align-items: center;">
+        <div>
+            <h2>EAST WEST PLC - Live Control Panel</h2>
+            <p><a href="index.html" target="_blank">← View Main Website</a></p>
         </div>
-
-        <div class="quality-card">
-            <h3>🔍 <span data-i18n="q2Title">Quality Inspection</span></h3>
-            <p data-i18n="q2Desc">Each shipment is inspected before packing and export.</p>
-        </div>
-
-        <div class="quality-card">
-            <h3>📦 <span data-i18n="q3Title">Export Packaging</span></h3>
-            <p data-i18n="q3Desc">Products are packed according to customer and international shipping requirements.</p>
-        </div>
-
-        <div class="quality-card">
-            <h3>📄 <span data-i18n="q4Title">Export Documentation</span></h3>
-            <p data-i18n="q4Desc">Commercial Invoice, Packing List, Certificate of Origin, Phytosanitary Certificate and other required documents.</p>
-        </div>
-    </div>
-</section>
-
-<!-- =========================================
-     EXPORT MARKETS
-========================================== -->
-<section id="markets" class="markets">
-    <div class="section-title">
-        <h2 data-i18n="marketsTitle">Export Markets</h2>
-        <p data-i18n="marketsSub">Serving customers across international markets.</p>
+        <button id="logoutBtn" class="btn-action btn-logout">Logout</button>
     </div>
 
-    <div class="markets-grid">
-        <div class="market-card">🇨🇳 China</div>
-        <div class="market-card">🇦🇪 United Arab Emirates</div>
-        <div class="market-card">🇸🇦 Saudi Arabia</div>
-        <div class="market-card">🌍 Worldwide</div>
+    <!-- BRANDING & THEME CONTROL -->
+    <div class="admin-card">
+        <h3>1. Edit Logo & Theme Background</h3>
+        <form id="brandingForm">
+            <div class="form-row">
+                <label>Logo Image URL (Postimage Link)</label>
+                <input type="url" id="logoUrl" placeholder="https://i.postimg.cc/your-logo.png">
+            </div>
+            <div class="form-row">
+                <label>Hero Background Image URL (Postimage Link)</label>
+                <input type="url" id="heroBgUrl" placeholder="https://i.postimg.cc/your-background.jpg">
+            </div>
+            <div class="form-row">
+                <label>Primary Theme Accent Color</label>
+                <input type="color" id="primaryColor" value="#1b5e20">
+            </div>
+            <button type="submit" class="btn-action">Save Branding & Theme</button>
+        </form>
     </div>
-</section>
 
-<!-- =========================================
-     CONTACT SECTION
-========================================== -->
-<section id="contact" class="contact-section">
-    <div class="section-title">
-        <h2 data-i18n="contactTitle">Contact Us</h2>
-        <p data-i18n="contactSub">Get in touch with EAST WEST GRINDING OR MANUFACTURING OF GRAINS PLC</p>
+    <!-- HERO SECTION CONTROL -->
+    <div class="admin-card">
+        <h3>2. Edit Hero / Headline Banner</h3>
+        <form id="heroForm">
+            <div class="form-row">
+                <label>Main Headline</label>
+                <input type="text" id="heroHeadline" placeholder="EAST WEST GRINDING OR MANUFACTURING OF GRAINS PLC" required>
+            </div>
+            <div class="form-row">
+                <label>Sub-Headline</label>
+                <input type="text" id="heroSubhead" placeholder="Premium Ethiopian Exporter of Pulses, Beans and Oil Seeds" required>
+            </div>
+            <button type="submit" class="btn-action">Update Hero Banner</button>
+        </form>
     </div>
 
-    <div class="contact-container">
-        <!-- Company Information -->
-        <div class="contact-info">
-            <h3 data-i18n="contactInfoTitle">Company Information</h3>
+    <!-- MISSION & VISION CONTROL -->
+    <div class="admin-card">
+        <h3>3. Edit Mission & Vision</h3>
+        <form id="missionForm">
+            <div class="form-row">
+                <label>Mission Statement</label>
+                <textarea id="compMission" rows="3" required></textarea>
+            </div>
+            <div class="form-row">
+                <label>Vision Statement</label>
+                <textarea id="compVision" rows="3" required></textarea>
+            </div>
+            <button type="submit" class="btn-action">Update Mission & Vision</button>
+        </form>
+    </div>
 
-            <p><strong data-i18n="lblCompany">Company:</strong><br>
-            EAST WEST GRINDING OR MANUFACTURING OF GRAINS PLC</p>
+    <!-- CONTACT DETAILS CONTROL -->
+    <div class="admin-card">
+        <h3>4. Edit Contact Information</h3>
+        <form id="contactInfoForm">
+            <div class="form-row">
+                <label>Phone Number(s)</label>
+                <input type="text" id="contactPhone" placeholder="+251 91 267 8193" required>
+            </div>
+            <div class="form-row">
+                <label>Email Address</label>
+                <input type="email" id="contactEmail" placeholder="info@eastwest.com.et" required>
+            </div>
+            <div class="form-row">
+                <label>Physical Address</label>
+                <input type="text" id="contactAddress" placeholder="Addis Ababa, Ethiopia" required>
+            </div>
+            <button type="submit" class="btn-action">Update Contact Info</button>
+        </form>
+    </div>
 
-            <p><strong data-i18n="lblAddress">Address:</strong><br>
-            Addis Ababa, Ethiopia</p>
-
-            <p><strong data-i18n="lblPhone">Phone:</strong><br>
-            +251 91 267 8193</p>
-
-            <p><strong data-i18n="lblEmail">Email:</strong><br>
-            info@eastwest.com.et</p>
-
-            <p><strong data-i18n="lblHours">Business Hours:</strong><br>
-            Monday - Saturday: 8:00 AM - 6:00 PM</p>
-        </div>
-
-        <!-- Inquiry Form -->
-        <div class="inquiry-form">
-            <h3 data-i18n="formTitle">Buyer Inquiry Form</h3>
-
-            <form id="inquiryForm">
-                <input type="text" id="name" placeholder="Your Name" required>
-                <input type="text" id="company" placeholder="Company Name" required>
-                <input type="text" id="country" placeholder="Country" required>
-                <input type="email" id="email" placeholder="Email Address" required>
-
-                <select id="product" required>
-                    <option value="">Select Product</option>
-                    <option>Green Mung Bean</option>
-                    <option>White Pea Bean</option>
-                    <option>Red Bean</option>
-                    <option>Oil Seeds</option>
+    <!-- PRODUCT MANAGER -->
+    <div class="admin-card">
+        <h3>5. Add Export Product to Catalog</h3>
+        <form id="adminProductForm">
+            <div class="form-row">
+                <label>Product Name</label>
+                <input type="text" id="prodName" placeholder="e.g. Green Mung Beans" required>
+            </div>
+            <div class="form-row">
+                <label>Category</label>
+                <select id="prodCategory" required>
+                    <option value="Beans">Beans</option>
+                    <option value="Pulses">Pulses</option>
+                    <option value="Oil Seeds">Oil Seeds</option>
                 </select>
-
-                <input type="text" id="quantity" placeholder="Required Quantity">
-                <textarea id="message" placeholder="Your Message"></textarea>
-
-                <button type="submit" data-i18n="btnSubmitInquiry">Send Inquiry</button>
-            </form>
-        </div>
+            </div>
+            <div class="form-row">
+                <label>Image URL (Postimage Link)</label>
+                <input type="url" id="prodImg" required>
+            </div>
+            <div class="form-row">
+                <label>Origin</label>
+                <input type="text" id="prodOrigin" value="Ethiopia">
+            </div>
+            <button type="submit" class="btn-action">Publish Product</button>
+        </form>
     </div>
+</div>
 
-    <!-- Location Placeholder -->
-    <div class="map-container">
-        <h3 data-i18n="locationTitle">Our Location</h3>
-        <div class="map-placeholder" data-i18n="mapText">
-            Addis Ababa, Ethiopia
-        </div>
-    </div>
-</section>
+<script type="module">
+    import { db } from "./firebase.js";
+    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } 
+        from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+    import { collection, addDoc, doc, setDoc } 
+        from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
-<!-- ================= FOOTER ================= -->
-<footer class="footer">
-    <div class="footer-container">
-        <div class="footer-about">
-            <h3>EAST WEST GRINDING OR MANUFACTURING OF GRAINS PLC</h3>
-            <p data-i18n="footerDesc">
-                Trusted exporter and processor of premium Ethiopian pulses, beans and oil seeds. We are committed to supplying high-quality agricultural products to customers worldwide.
-            </p>
-        </div>
+    const auth = getAuth();
 
-        <div class="footer-links">
-            <h4 data-i18n="quickLinks">Quick Links</h4>
-            <ul>
-                <li><a href="#home" data-i18n="navHome">Home</a></li>
-                <li><a href="#about" data-i18n="navAbout">About Us</a></li>
-                <li><a href="#products" data-i18n="navProducts">Products</a></li>
-                <li><a href="#gallery" data-i18n="navGallery">Gallery</a></li>
-                <li><a href="#contact" data-i18n="navContact">Contact</a></li>
-            </ul>
-        </div>
+    // Check Auth State
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            document.getElementById("loginSection").style.display = "none";
+            document.getElementById("adminDashboard").style.display = "block";
+        } else {
+            document.getElementById("loginSection").style.display = "block";
+            document.getElementById("adminDashboard").style.display = "none";
+        }
+    });
 
-        <div class="footer-contact">
-            <h4 data-i18n="navContact">Contact</h4>
-            <p><strong>Email:</strong> info@eastwest.com.et</p>
-            <p><strong>Phone:</strong> +251 91 267 8193</p>
-            <p><strong>Address:</strong> Addis Ababa, Ethiopia</p>
-        </div>
-    </div>
+    // Login Form
+    document.getElementById("loginForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        try {
+            await signInWithEmailAndPassword(auth, 
+                document.getElementById("loginEmail").value, 
+                document.getElementById("loginPassword").value
+            );
+            document.getElementById("loginError").style.display = "none";
+        } catch (err) {
+            const errEl = document.getElementById("loginError");
+            errEl.innerText = "Login failed: " + err.message;
+            errEl.style.display = "block";
+        }
+    });
 
-    <hr>
+    // Logout Button
+    document.getElementById("logoutBtn").addEventListener("click", () => signOut(auth));
 
-    <div class="footer-bottom">
-        <p>© 2026 EAST WEST GRINDING OR MANUFACTURING OF GRAINS PLC. All Rights Reserved.</p>
-    </div>
-</footer>
+    // 1. Save Branding & Theme
+    document.getElementById("brandingForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        await setDoc(doc(db, "content", "theme"), {
+            logoUrl: document.getElementById("logoUrl").value,
+            heroBgUrl: document.getElementById("heroBgUrl").value,
+            primaryColor: document.getElementById("primaryColor").value
+        });
+        alert("Branding and theme updated!");
+    });
 
-<!-- WHATSAPP FLOATING BUTTON -->
-<a href="https://wa.me/251913544460" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
-    <i class="fab fa-whatsapp"></i>
-</a>
+    // 2. Save Hero Banner
+    document.getElementById("heroForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        await setDoc(doc(db, "content", "hero"), {
+            headline: document.getElementById("heroHeadline").value,
+            subhead: document.getElementById("heroSubhead").value
+        });
+        alert("Hero banner updated!");
+    });
 
-<!-- WEBSITE JAVASCRIPT -->
-<script type="module" src="script.js"></script>
+    // 3. Save Mission & Vision
+    document.getElementById("missionForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        await setDoc(doc(db, "company", "info"), {
+            mission: document.getElementById("compMission").value,
+            vision: document.getElementById("compVision").value
+        });
+        alert("Mission & Vision updated!");
+    });
+
+    // 4. Save Contact Details
+    document.getElementById("contactInfoForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        await setDoc(doc(db, "content", "contact"), {
+            phone: document.getElementById("contactPhone").value,
+            email: document.getElementById("contactEmail").value,
+            address: document.getElementById("contactAddress").value
+        });
+        alert("Contact info updated!");
+    });
+
+    // 5. Publish Product
+    document.getElementById("adminProductForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        await addDoc(collection(db, "products"), {
+            name: document.getElementById("prodName").value,
+            category: document.getElementById("prodCategory").value,
+            imageUrl: document.getElementById("prodImg").value,
+            origin: document.getElementById("prodOrigin").value
+        });
+        alert("Product published!");
+        e.target.reset();
+    });
+</script>
 
 </body>
 </html>
