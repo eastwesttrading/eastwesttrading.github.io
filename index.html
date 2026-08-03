@@ -3,245 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Portal - EAST WEST PLC</title>
+    <title>EAST WEST GRINDING OR MANUFACTURING OF GRAINS PLC</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        .admin-body { font-family: sans-serif; background: #f4f6f9; padding: 20px; }
-        .admin-card { background: white; max-width: 900px; margin: 0 auto 25px; padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
-        .admin-card h2, .admin-card h3 { color: #1b5e20; margin-top: 0; }
-        .form-row { margin-bottom: 15px; }
-        .form-row label { display: block; font-weight: bold; margin-bottom: 5px; }
-        .form-row input, .form-row select, .form-row textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-        .btn-action { background: #1b5e20; color: white; padding: 12px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; font-weight: bold; }
-        .btn-action:hover { background: #2e7d32; }
-        .btn-logout { background: #c62828; margin-left: 15px; }
-        #adminDashboard { display: none; }
-    </style>
 </head>
-<body class="admin-body">
+<body>
 
-<!-- LOGIN SECTION -->
-<div id="loginSection" class="admin-card">
-    <h2>EAST WEST PLC - Admin Login</h2>
-    <form id="loginForm">
-        <div class="form-row">
-            <label>Admin Email</label>
-            <input type="email" id="loginEmail" required>
+    <!-- NAVBAR -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="#home">
+                    <img id="siteLogo" src="" alt="EAST WEST PLC Logo" style="max-height: 50px; display: none;">
+                    <h2 id="logoText">EAST WEST PLC</h2>
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home" data-i18n="nav_home">Home</a></li>
+                <li><a href="#about" data-i18n="nav_about">About Us</a></li>
+                <li><a href="#products" data-i18n="nav_products">Products</a></li>
+                <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
+                <li><button id="langToggleBtn" class="lang-btn">አማርኛ</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 id="company-name">EAST WEST GRINDING OR MANUFACTURING OF GRAINS PLC</h1>
+            <p class="hero-text" data-i18n="hero_sub">Premium Ethiopian Exporter of High-Quality Green Mung Beans, White Pea Beans, and Pulses</p>
+            <a href="#products" class="btn-primary" data-i18n="hero_btn">Explore Export Products</a>
         </div>
-        <div class="form-row">
-            <label>Password</label>
-            <input type="password" id="loginPassword" required>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <h2 data-i18n="about_title">About Our Company</h2>
+            <div class="about-grid">
+                <div class="about-card">
+                    <h3 data-i18n="mission_title">Our Mission</h3>
+                    <p id="missionText">To deliver world-class Ethiopian agricultural grains, beans, and pulses globally while upholding top quality standards and fair trading practices.</p>
+                </div>
+                <div class="about-card">
+                    <h3 data-i18n="vision_title">Our Vision</h3>
+                    <p id="visionText">To become East Africa's leading agricultural processing and exporting partner recognized for consistency, integrity, and operational excellence.</p>
+                </div>
+            </div>
         </div>
-        <button type="submit" class="btn-action">Log In</button>
-        <p id="loginError" style="color: red; margin-top: 10px; display: none;"></p>
-    </form>
-</div>
+    </section>
 
-<!-- DASHBOARD -->
-<div id="adminDashboard">
-    <div class="admin-card" style="display: flex; justify-content: space-between; align-items: center;">
-        <div>
-            <h2>EAST WEST PLC - Live Control Panel</h2>
-            <p><a href="index.html" target="_blank">← View Main Website</a></p>
+    <!-- PRODUCTS SECTION -->
+    <section id="products" class="products-section">
+        <div class="container">
+            <h2 data-i18n="products_title">Featured Export Products</h2>
+            <div id="productsGrid" class="products-grid">
+                <!-- Dynamically populated from Firebase -->
+            </div>
         </div>
-        <button id="logoutBtn" class="btn-action btn-logout">Logout</button>
-    </div>
+    </section>
 
-    <!-- BRANDING & THEME CONTROL -->
-    <div class="admin-card">
-        <h3>1. Edit Logo & Theme Background</h3>
-        <form id="brandingForm">
-            <div class="form-row">
-                <label>Logo Image URL (Postimage Link)</label>
-                <input type="url" id="logoUrl" placeholder="https://i.postimg.cc/your-logo.png">
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2 data-i18n="contact_title">Get In Touch</h2>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3 data-i18n="contact_info_title">Contact Details</h3>
+                    <p><strong>Company:</strong> EAST WEST GRINDING OR MANUFACTURING OF GRAINS PLC</p>
+                    <p id="contactAddress"><strong>Address:</strong><br>Addis Ababa, Ethiopia</p>
+                    <p id="contactPhone"><strong>Phone:</strong><br>+251 91 267 8193</p>
+                    <p id="contactEmail"><strong>Email:</strong><br>info@eastwest.com.et</p>
+                </div>
+                <div class="contact-form">
+                    <form id="publicContactForm">
+                        <input type="text" placeholder="Your Name" required>
+                        <input type="email" placeholder="Your Email" required>
+                        <textarea placeholder="Your Message or Inquiry..." rows="5" required></textarea>
+                        <button type="submit" class="btn-primary">Send Inquiry</button>
+                    </form>
+                </div>
             </div>
-            <div class="form-row">
-                <label>Hero Background Image URL (Postimage Link)</label>
-                <input type="url" id="heroBgUrl" placeholder="https://i.postimg.cc/your-background.jpg">
-            </div>
-            <div class="form-row">
-                <label>Primary Theme Accent Color</label>
-                <input type="color" id="primaryColor" value="#1b5e20">
-            </div>
-            <button type="submit" class="btn-action">Save Branding & Theme</button>
-        </form>
-    </div>
+        </div>
+    </section>
 
-    <!-- HERO SECTION CONTROL -->
-    <div class="admin-card">
-        <h3>2. Edit Hero / Headline Banner</h3>
-        <form id="heroForm">
-            <div class="form-row">
-                <label>Main Headline</label>
-                <input type="text" id="heroHeadline" placeholder="EAST WEST GRINDING OR MANUFACTURING OF GRAINS PLC" required>
-            </div>
-            <div class="form-row">
-                <label>Sub-Headline</label>
-                <input type="text" id="heroSubhead" placeholder="Premium Ethiopian Exporter of Pulses, Beans and Oil Seeds" required>
-            </div>
-            <button type="submit" class="btn-action">Update Hero Banner</button>
-        </form>
-    </div>
+    <!-- FOOTER -->
+    <footer>
+        <div class="container footer-content">
+            <p>&copy; 2026 EAST WEST GRINDING OR MANUFACTURING OF GRAINS PLC. All Rights Reserved.</p>
+        </div>
+    </footer>
 
-    <!-- MISSION & VISION CONTROL -->
-    <div class="admin-card">
-        <h3>3. Edit Mission & Vision</h3>
-        <form id="missionForm">
-            <div class="form-row">
-                <label>Mission Statement</label>
-                <textarea id="compMission" rows="3" required></textarea>
-            </div>
-            <div class="form-row">
-                <label>Vision Statement</label>
-                <textarea id="compVision" rows="3" required></textarea>
-            </div>
-            <button type="submit" class="btn-action">Update Mission & Vision</button>
-        </form>
-    </div>
-
-    <!-- CONTACT DETAILS CONTROL -->
-    <div class="admin-card">
-        <h3>4. Edit Contact Information</h3>
-        <form id="contactInfoForm">
-            <div class="form-row">
-                <label>Phone Number(s)</label>
-                <input type="text" id="contactPhone" placeholder="+251 91 267 8193" required>
-            </div>
-            <div class="form-row">
-                <label>Email Address</label>
-                <input type="email" id="contactEmail" placeholder="info@eastwest.com.et" required>
-            </div>
-            <div class="form-row">
-                <label>Physical Address</label>
-                <input type="text" id="contactAddress" placeholder="Addis Ababa, Ethiopia" required>
-            </div>
-            <button type="submit" class="btn-action">Update Contact Info</button>
-        </form>
-    </div>
-
-    <!-- PRODUCT MANAGER -->
-    <div class="admin-card">
-        <h3>5. Add Export Product to Catalog</h3>
-        <form id="adminProductForm">
-            <div class="form-row">
-                <label>Product Name</label>
-                <input type="text" id="prodName" placeholder="e.g. Green Mung Beans" required>
-            </div>
-            <div class="form-row">
-                <label>Category</label>
-                <select id="prodCategory" required>
-                    <option value="Beans">Beans</option>
-                    <option value="Pulses">Pulses</option>
-                    <option value="Oil Seeds">Oil Seeds</option>
-                </select>
-            </div>
-            <div class="form-row">
-                <label>Image URL (Postimage Link)</label>
-                <input type="url" id="prodImg" required>
-            </div>
-            <div class="form-row">
-                <label>Origin</label>
-                <input type="text" id="prodOrigin" value="Ethiopia">
-            </div>
-            <button type="submit" class="btn-action">Publish Product</button>
-        </form>
-    </div>
-</div>
-
-<script type="module">
-    import { db } from "./firebase.js";
-    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } 
-        from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
-    import { collection, addDoc, doc, setDoc } 
-        from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
-
-    const auth = getAuth();
-
-    // Check Auth State
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-            document.getElementById("loginSection").style.display = "none";
-            document.getElementById("adminDashboard").style.display = "block";
-        } else {
-            document.getElementById("loginSection").style.display = "block";
-            document.getElementById("adminDashboard").style.display = "none";
-        }
-    });
-
-    // Login Form
-    document.getElementById("loginForm").addEventListener("submit", async (e) => {
-        e.preventDefault();
-        try {
-            await signInWithEmailAndPassword(auth, 
-                document.getElementById("loginEmail").value, 
-                document.getElementById("loginPassword").value
-            );
-            document.getElementById("loginError").style.display = "none";
-        } catch (err) {
-            const errEl = document.getElementById("loginError");
-            errEl.innerText = "Login failed: " + err.message;
-            errEl.style.display = "block";
-        }
-    });
-
-    // Logout Button
-    document.getElementById("logoutBtn").addEventListener("click", () => signOut(auth));
-
-    // 1. Save Branding & Theme
-    document.getElementById("brandingForm").addEventListener("submit", async (e) => {
-        e.preventDefault();
-        await setDoc(doc(db, "content", "theme"), {
-            logoUrl: document.getElementById("logoUrl").value,
-            heroBgUrl: document.getElementById("heroBgUrl").value,
-            primaryColor: document.getElementById("primaryColor").value
-        });
-        alert("Branding and theme updated!");
-    });
-
-    // 2. Save Hero Banner
-    document.getElementById("heroForm").addEventListener("submit", async (e) => {
-        e.preventDefault();
-        await setDoc(doc(db, "content", "hero"), {
-            headline: document.getElementById("heroHeadline").value,
-            subhead: document.getElementById("heroSubhead").value
-        });
-        alert("Hero banner updated!");
-    });
-
-    // 3. Save Mission & Vision
-    document.getElementById("missionForm").addEventListener("submit", async (e) => {
-        e.preventDefault();
-        await setDoc(doc(db, "company", "info"), {
-            mission: document.getElementById("compMission").value,
-            vision: document.getElementById("compVision").value
-        });
-        alert("Mission & Vision updated!");
-    });
-
-    // 4. Save Contact Details
-    document.getElementById("contactInfoForm").addEventListener("submit", async (e) => {
-        e.preventDefault();
-        await setDoc(doc(db, "content", "contact"), {
-            phone: document.getElementById("contactPhone").value,
-            email: document.getElementById("contactEmail").value,
-            address: document.getElementById("contactAddress").value
-        });
-        alert("Contact info updated!");
-    });
-
-    // 5. Publish Product
-    document.getElementById("adminProductForm").addEventListener("submit", async (e) => {
-        e.preventDefault();
-        await addDoc(collection(db, "products"), {
-            name: document.getElementById("prodName").value,
-            category: document.getElementById("prodCategory").value,
-            imageUrl: document.getElementById("prodImg").value,
-            origin: document.getElementById("prodOrigin").value
-        });
-        alert("Product published!");
-        e.target.reset();
-    });
-</script>
-
+    <!-- MAIN SCRIPT -->
+    <script type="module" src="script.js"></script>
 </body>
 </html>
