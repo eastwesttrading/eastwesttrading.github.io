@@ -381,3 +381,44 @@ document.addEventListener("DOMContentLoaded", () => {
     loadGallery();
     loadCompanyInfo();
 });
+// Fetch Dynamic Logo & Theme Settings
+async function loadThemeSettings() {
+    try {
+        const docRef = doc(db, "content", "theme");
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+            const data = docSnap.data();
+
+            // 1. Update Logo Image
+            const logoImg = document.getElementById("siteLogo");
+            const logoText = document.getElementById("logoText");
+
+            if (data.logoUrl && data.logoUrl.trim() !== "") {
+                logoImg.src = data.logoUrl;
+                logoImg.style.display = "block";
+                if (logoText) logoText.style.display = "none";
+            }
+
+            // 2. Update Hero Background Image
+            if (data.heroBgUrl && data.heroBgUrl.trim() !== "") {
+                const heroSection = document.querySelector(".hero");
+                if (heroSection) {
+                    heroSection.style.background = `linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url('${data.heroBgUrl}') no-repeat center center/cover`;
+                }
+            }
+
+            // 3. Update Primary Theme Accent Color
+            if (data.primaryColor) {
+                document.documentElement.style.setProperty("--primary-color", data.primaryColor);
+            }
+        }
+    } catch (err) {
+        console.log("Using default logo and background theme.");
+    }
+}
+
+// Ensure loadThemeSettings runs on page start
+document.addEventListener("DOMContentLoaded", () => {
+    loadThemeSettings();
+});
