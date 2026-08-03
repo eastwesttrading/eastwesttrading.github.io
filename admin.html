@@ -4,19 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Portal - EAST WEST PLC</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        .admin-body { font-family: sans-serif; background: #f4f6f9; padding: 20px; }
-        .admin-card { background: white; max-width: 900px; margin: 0 auto 25px; padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
-        .admin-card h2, .admin-card h3 { color: #1b5e20; margin-top: 0; }
-        .form-row { margin-bottom: 15px; }
-        .form-row label { display: block; font-weight: bold; margin-bottom: 5px; }
-        .form-row input, .form-row select, .form-row textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-        .btn-action { background: #1b5e20; color: white; padding: 12px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; font-weight: bold; }
-        .btn-action:hover { background: #2e7d32; }
-        .btn-logout { background: #c62828; margin-left: 15px; }
-        #adminDashboard { display: none; }
-    </style>
+    <link rel="stylesheet" href="admin.css">
 </head>
 <body class="admin-body">
 
@@ -26,7 +14,7 @@
     <form id="loginForm">
         <div class="form-row">
             <label>Admin Email</label>
-            <input type="email" id="loginEmail" required>
+            <input type="email" id="loginEmail" placeholder="admin@eastwest.com.et" required>
         </div>
         <div class="form-row">
             <label>Password</label>
@@ -37,7 +25,7 @@
     </form>
 </div>
 
-<!-- DASHBOARD -->
+<!-- DASHBOARD (Hidden until logged in) -->
 <div id="adminDashboard">
     <div class="admin-card" style="display: flex; justify-content: space-between; align-items: center;">
         <div>
@@ -47,7 +35,7 @@
         <button id="logoutBtn" class="btn-action btn-logout">Logout</button>
     </div>
 
-    <!-- BRANDING & THEME CONTROL -->
+    <!-- 1. BRANDING & THEME CONTROL -->
     <div class="admin-card">
         <h3>1. Edit Logo & Theme Background</h3>
         <form id="brandingForm">
@@ -67,7 +55,7 @@
         </form>
     </div>
 
-    <!-- HERO SECTION CONTROL -->
+    <!-- 2. HERO SECTION CONTROL -->
     <div class="admin-card">
         <h3>2. Edit Hero / Headline Banner</h3>
         <form id="heroForm">
@@ -83,7 +71,7 @@
         </form>
     </div>
 
-    <!-- MISSION & VISION CONTROL -->
+    <!-- 3. MISSION & VISION CONTROL -->
     <div class="admin-card">
         <h3>3. Edit Mission & Vision</h3>
         <form id="missionForm">
@@ -99,7 +87,7 @@
         </form>
     </div>
 
-    <!-- CONTACT DETAILS CONTROL -->
+    <!-- 4. CONTACT DETAILS CONTROL -->
     <div class="admin-card">
         <h3>4. Edit Contact Information</h3>
         <form id="contactInfoForm">
@@ -119,7 +107,7 @@
         </form>
     </div>
 
-    <!-- PRODUCT MANAGER -->
+    <!-- 5. PRODUCT MANAGER -->
     <div class="admin-card">
         <h3>5. Add Export Product to Catalog</h3>
         <form id="adminProductForm">
@@ -149,15 +137,13 @@
 </div>
 
 <script type="module">
-    import { db } from "./firebase.js";
-    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } 
+    import { db, auth } from "./firebase.js";
+    import { signInWithEmailAndPassword, onAuthStateChanged, signOut } 
         from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
     import { collection, addDoc, doc, setDoc } 
         from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
-    const auth = getAuth();
-
-    // Check Auth State
+    // Monitor Login State
     onAuthStateChanged(auth, (user) => {
         if (user) {
             document.getElementById("loginSection").style.display = "none";
@@ -168,11 +154,12 @@
         }
     });
 
-    // Login Form
+    // Handle Login
     document.getElementById("loginForm").addEventListener("submit", async (e) => {
         e.preventDefault();
         try {
-            await signInWithEmailAndPassword(auth, 
+            await signInWithEmailAndPassword(
+                auth, 
                 document.getElementById("loginEmail").value, 
                 document.getElementById("loginPassword").value
             );
@@ -184,10 +171,10 @@
         }
     });
 
-    // Logout Button
+    // Logout
     document.getElementById("logoutBtn").addEventListener("click", () => signOut(auth));
 
-    // 1. Save Branding & Theme
+    // Form Event Handlers
     document.getElementById("brandingForm").addEventListener("submit", async (e) => {
         e.preventDefault();
         await setDoc(doc(db, "content", "theme"), {
@@ -198,7 +185,6 @@
         alert("Branding and theme updated!");
     });
 
-    // 2. Save Hero Banner
     document.getElementById("heroForm").addEventListener("submit", async (e) => {
         e.preventDefault();
         await setDoc(doc(db, "content", "hero"), {
@@ -208,7 +194,6 @@
         alert("Hero banner updated!");
     });
 
-    // 3. Save Mission & Vision
     document.getElementById("missionForm").addEventListener("submit", async (e) => {
         e.preventDefault();
         await setDoc(doc(db, "company", "info"), {
@@ -218,7 +203,6 @@
         alert("Mission & Vision updated!");
     });
 
-    // 4. Save Contact Details
     document.getElementById("contactInfoForm").addEventListener("submit", async (e) => {
         e.preventDefault();
         await setDoc(doc(db, "content", "contact"), {
@@ -229,7 +213,6 @@
         alert("Contact info updated!");
     });
 
-    // 5. Publish Product
     document.getElementById("adminProductForm").addEventListener("submit", async (e) => {
         e.preventDefault();
         await addDoc(collection(db, "products"), {
