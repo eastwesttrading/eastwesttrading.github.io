@@ -1,17 +1,18 @@
-// firebase.js
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
+// Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyAC21sHOL7pIZi5044tNlu0hlt1rYlAqVg",
-    authDomain: "east-west-trading--plc.firebaseapp.com",
-    projectId: "east-west-trading--plc",
-    storageBucket: "east-west-trading--plc.firebasestorage.app",
-    messagingSenderId: "118174778678",
-    appId: "1:118174778678:web:44cab0c573dc1c6f9e1f97"
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+    projectId: "YOUR_PROJECT_ID",
+    storageBucket: "YOUR_PROJECT_ID.firebasestorage.app",
+    messagingSenderId: "YOUR_SENDER_ID",
+    appId: "YOUR_APP_ID"
 };
 
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-export { db };
+export const db = getFirestore(app);
+export const auth = getAuth(app);
