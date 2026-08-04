@@ -82,7 +82,7 @@ onAuthStateChanged(auth, async (user) => {
 loginForm.addEventListener("submit", async (e) => {
 
     e.preventDefault();
-
+alert("Login button clicked");
     hideError();
 
     const email = document
