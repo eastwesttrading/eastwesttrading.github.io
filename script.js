@@ -1,61 +1,173 @@
-import { db } from "./Firebase.js";
-import { collection, getDocs } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+// ==========================================
+// GALLERY
+// ==========================================
 
-// Language Toggle Handler
-function switchLang(lang) {
-    const langItems = document.querySelectorAll('.lang-item');
-    langItems.forEach(item => item.classList.remove('active'));
+async function loadGallery() {
 
-    if (langItems.length >= 2) {
-        if (lang === 'en') {
-            langItems[0].classList.add('active');
-        } else {
-            langItems[1].classList.add('active');
-        }
-    }
-
-    const elements = document.querySelectorAll('[data-en][data-am]');
-    elements.forEach(elem => {
-        elem.innerText = elem.getAttribute(`data-${lang}`);
-    });
-}
-
-// Mobile Menu Toggle
-const mobileToggle = document.getElementById('mobile-toggle');
-const navMenu = document.getElementById('nav-menu');
-
-if (mobileToggle && navMenu) {
-    mobileToggle.addEventListener('click', () => {
-        navMenu.classList.toggle('active');
-    });
-}
-
-// Load Products from Firestore
-async function loadProducts() {
-    const container = document.getElementById("products-list");
+    const container = document.getElementById("gallery-container");
 
     if (!container) return;
 
-    container.innerHTML = "";
+    container.innerHTML = "<p class='loading'>Loading gallery...</p>";
 
     try {
-        const querySnapshot = await getDocs(collection(db, "products"));
 
-        querySnapshot.forEach((doc) => {
-            const product = doc.data();
+        const snapshot = await getDocs(collection(db, "gallery"));
+
+        container.innerHTML = "";
+
+        snapshot.forEach((doc) => {
+
+            const item = doc.data();
 
             container.innerHTML += `
-                <div class="card">
-                    <h3>${product.name || "No Name"}</h3>
-                    <p><strong>Category:</strong> ${product.category || ""}</p>
-                    <p><strong>Origin:</strong> ${product.origin || ""}</p>
-                </div>
-            `;
+
+<div class="gallery-item">
+
+<img
+src="${item.imageUrl || ""}"
+alt="${item.title || "Gallery"}"
+onclick="openLightbox('${item.imageUrl || ""}','${item.title || ""}')">
+
+</div>
+
+`;
+
         });
 
     } catch (error) {
-        console.error("Error loading products:", error);
+
+        console.error("Gallery Error:", error);
+
+        container.innerHTML =
+        "<p class='loading'>Unable to load gallery.</p>";
+
     }
+
 }
 
-loadProducts();
+loadGallery();
+
+
+// ==========================================
+// IMAGE LIGHTBOX
+// ==========================================
+
+function openLightbox(image, caption = "") {
+
+    const lightbox =
+        document.getElementById("lightbox");
+
+    const img =
+        document.getElementById("lightboxImg");
+
+    const text =
+        document.getElementById("lightboxCaption");
+
+    if (!lightbox || !img) return;
+
+    lightbox.style.display = "flex";
+
+    img.src = image;
+
+    if (text) {
+
+        text.innerText = caption;
+
+    }
+
+}
+
+window.openLightbox = openLightbox;
+
+const closeBtn =
+document.getElementById("closeLightbox");
+
+if (closeBtn) {
+
+    closeBtn.onclick = () => {
+
+        document.getElementById("lightbox").style.display = "none";
+
+    };
+
+}
+
+
+// ==========================================
+// LOAD COMPANY INFORMATION
+// ==========================================
+
+async function loadCompanyInfo() {
+
+    try {
+
+        const snapshot =
+        await getDocs(collection(db, "company"));
+
+        snapshot.forEach((doc) => {
+
+            const data = doc.data();
+
+            if (document.getElementById("mission-text")) {
+
+                document.getElementById("mission-text").innerText =
+                data.mission || "";
+
+            }
+
+            if (document.getElementById("vision-text")) {
+
+                document.getElementById("vision-text").innerText =
+                data.vision || "";
+
+            }
+
+        });
+
+    }
+
+    catch (error) {
+
+        console.error("Company Info Error:", error);
+
+    }
+
+}
+
+loadCompanyInfo();
+
+
+// ==========================================
+// LOAD CONTACT INFORMATION
+// ==========================================
+
+async function loadContactInfo() {
+
+    try {
+
+        const snapshot =
+        await getDocs(collection(db, "contact"));
+
+        snapshot.forEach((doc) => {
+
+            const data = doc.data();
+
+            console.log("Contact Info:", data);
+
+            // Part 3 will display these automatically
+            // after we connect them to the HTML.
+
+        });
+
+    }
+
+    catch (error) {
+
+        console.error("Contact Error:", error);
+
+    }
+
+}
+
+loadContactInfo();
