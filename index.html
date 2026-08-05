@@ -1,100 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EAST WEST GRINDING OR MANUFACTURING OF GRAINS PLC</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loading...</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <header class="navbar">
+    <div class="logo-container">
+      <img id="site-logo" src="" alt="Logo" class="hidden">
+      <span id="company-name">...</span>
+    </div>
+    <nav>
+      <a href="#hero" id="lbl-navHome">Home</a>
+      <a href="#products" id="lbl-navProducts">Products</a>
+      <a href="#gallery" id="lbl-navGallery">Gallery</a>
+      <a href="#contact" id="lbl-navContact">Contact</a>
+      <a href="admin.html" id="lbl-navAdmin">Admin</a>
+    </nav>
+    <div class="lang-switch">
+      <button id="btn-lang-en" class="active">EN</button>
+      <button id="btn-lang-am">አማ</button>
+    </div>
+  </header>
 
-    <!-- NAVBAR -->
-    <header>
-        <nav class="navbar">
-            <div class="logo">
-                <a href="#home">
-                    <img id="siteLogo" src="" alt="EAST WEST PLC Logo" style="max-height: 50px; display: none;">
-                    <h2 id="logoText">EAST WEST PLC</h2>
-                </a>
-            </div>
-            <ul class="nav-links">
-                <li><a href="#home" data-i18n="nav_home">Home</a></li>
-                <li><a href="#about" data-i18n="nav_about">About Us</a></li>
-                <li><a href="#products" data-i18n="nav_products">Products</a></li>
-                <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
-                <li><button id="langToggleBtn" class="lang-btn">አማርኛ</button></li>
-            </ul>
-        </nav>
-    </header>
+  <section id="hero" class="hero-section">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1 id="hero-title">...</h1>
+      <p id="hero-subtitle">...</p>
+    </div>
+  </section>
 
-    <!-- HERO SECTION -->
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <h1 id="company-name">EAST WEST GRINDING OR MANUFACTURING OF GRAINS PLC</h1>
-            <p class="hero-text" data-i18n="hero_sub">Premium Ethiopian Exporter of High-Quality Green Mung Beans, White Pea Beans, and Pulses</p>
-            <a href="#products" class="btn-primary" data-i18n="hero_btn">Explore Export Products</a>
+  <section id="about" class="container">
+    <h2>About Us</h2>
+    <p id="about-text">...</p>
+    <div class="mv-grid">
+      <div class="card">
+        <h3>Mission</h3>
+        <p id="mission-text">...</p>
+      </div>
+      <div class="card">
+        <h3>Vision</h3>
+        <p id="vision-text">...</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="products" class="container">
+    <h2>Our Products</h2>
+    <div id="product-grid" class="grid"></div>
+  </section>
+
+  <section id="gallery" class="container">
+    <h2>Gallery</h2>
+    <div id="gallery-grid" class="gallery-grid"></div>
+  </section>
+
+  <section id="contact" class="container">
+    <h2 id="lbl-contactTitle">Get in Touch</h2>
+    <div class="contact-wrapper">
+      <div class="contact-info">
+        <p><strong>Phone:</strong> <span id="contact-phone"></span></p>
+        <p><strong>Email:</strong> <span id="contact-email"></span></p>
+        <p><strong>Address:</strong> <span id="contact-address"></span></p>
+        <div class="social-links">
+          <a id="link-whatsapp" href="#" target="_blank">WhatsApp</a>
         </div>
-    </section>
+      </div>
+      <form id="public-contact-form" class="form">
+        <input type="text" id="msg-name" placeholder="Your Name" required>
+        <input type="email" id="msg-email" placeholder="Your Email" required>
+        <input type="tel" id="msg-phone" placeholder="Phone Number">
+        <textarea id="msg-text" placeholder="Your Message" rows="4" required></textarea>
+        <button type="submit" id="lbl-sendBtn">Send Message</button>
+      </form>
+    </div>
+  </section>
 
-    <!-- ABOUT SECTION -->
-    <section id="about" class="about-section">
-        <div class="container">
-            <h2 data-i18n="about_title">About Our Company</h2>
-            <div class="about-grid">
-                <div class="about-card">
-                    <h3 data-i18n="mission_title">Our Mission</h3>
-                    <p id="missionText">To deliver world-class Ethiopian agricultural grains, beans, and pulses globally while upholding top quality standards and fair trading practices.</p>
-                </div>
-                <div class="about-card">
-                    <h3 data-i18n="vision_title">Our Vision</h3>
-                    <p id="visionText">To become East Africa's leading agricultural processing and exporting partner recognized for consistency, integrity, and operational excellence.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+  <footer>
+    <p>&copy; <span id="footer-year"></span> <span id="footer-company"></span>. All rights reserved.</p>
+  </footer>
 
-    <!-- PRODUCTS SECTION -->
-    <section id="products" class="products-section">
-        <div class="container">
-            <h2 data-i18n="products_title">Featured Export Products</h2>
-            <div id="productsGrid" class="products-grid">
-                <!-- Dynamically populated from Firebase -->
-            </div>
-        </div>
-    </section>
-
-    <!-- CONTACT SECTION -->
-    <section id="contact" class="contact-section">
-        <div class="container">
-            <h2 data-i18n="contact_title">Get In Touch</h2>
-            <div class="contact-grid">
-                <div class="contact-info">
-                    <h3 data-i18n="contact_info_title">Contact Details</h3>
-                    <p><strong>Company:</strong> EAST WEST GRINDING OR MANUFACTURING OF GRAINS PLC</p>
-                    <p id="contactAddress"><strong>Address:</strong><br>Addis Ababa, Ethiopia</p>
-                    <p id="contactPhone"><strong>Phone:</strong><br>+251 91 267 8193</p>
-                    <p id="contactEmail"><strong>Email:</strong><br>info@eastwest.com.et</p>
-                </div>
-                <div class="contact-form">
-                    <form id="publicContactForm">
-                        <input type="text" placeholder="Your Name" required>
-                        <input type="email" placeholder="Your Email" required>
-                        <textarea placeholder="Your Message or Inquiry..." rows="5" required></textarea>
-                        <button type="submit" class="btn-primary">Send Inquiry</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer>
-        <div class="container footer-content">
-            <p>&copy; 2026 EAST WEST GRINDING OR MANUFACTURING OF GRAINS PLC. All Rights Reserved.</p>
-        </div>
-    </footer>
-
-    <!-- MAIN SCRIPT -->
-    <script type="module" src="script.js"></script>
+  <script type="module" src="script.js"></script>
 </body>
 </html>
