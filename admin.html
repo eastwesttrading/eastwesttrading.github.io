@@ -1,142 +1,166 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Portal - EAST WEST PLC</title>
-    <link rel="stylesheet" href="admin.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="admin.css">
 </head>
-<body class="admin-body">
+<body>
 
-<!-- LOGIN SECTION -->
-<div id="loginSection" class="admin-card">
-    <h2>EAST WEST PLC - Admin Login</h2>
-    <form id="loginForm">
-        <div class="form-row">
-            <label>Admin Email</label>
-            <input type="email" id="loginEmail" placeholder="eastwestplc12@gmail.com" required>
-        </div>
-        <div class="form-row">
-            <label>Password</label>
-            <input type="password" id="loginPassword" required>
-        </div>
-        <button type="submit" class="btn-action">Log In</button>
-        <p id="loginError" style="color: red; margin-top: 10px; display: none;"></p>
+  <!-- Auth Wrapper -->
+  <div id="login-overlay" class="login-modal">
+    <form id="admin-login-form" class="admin-card">
+      <h2>Admin Authentication</h2>
+      <input type="email" id="login-email" placeholder="Admin Email" required>
+      <input type="password" id="login-password" placeholder="Password" required>
+      <button type="submit">Sign In</button>
+      <button type="button" id="btn-forgot-pass" class="btn-link">Forgot Password?</button>
     </form>
-</div>
+  </div>
 
-<!-- DASHBOARD (Hidden until logged in) -->
-<div id="adminDashboard">
-    <div class="admin-card" style="display: flex; justify-content: space-between; align-items: center;">
-        <div>
-            <h2>EAST WEST PLC - Live Control Panel</h2>
-            <p><a href="index.html" target="_blank">← View Main Website</a></p>
+  <!-- Dashboard App Interface -->
+  <div id="admin-app" class="admin-layout hidden">
+    <aside class="sidebar">
+      <h3>Control Center</h3>
+      <nav class="sidebar-nav">
+        <button class="nav-btn active" data-tab="tab-dashboard">Dashboard</button>
+        <button class="nav-btn" data-tab="tab-company">Company</button>
+        <button class="nav-btn" data-tab="tab-hero">Hero Section</button>
+        <button class="nav-btn" data-tab="tab-theme">Branding & Theme</button>
+        <button class="nav-btn" data-tab="tab-contact">Contact Settings</button>
+        <button class="nav-btn" data-tab="tab-products">Products</button>
+        <button class="nav-btn" data-tab="tab-gallery">Gallery</button>
+        <button class="nav-btn" data-tab="tab-messages">Messages</button>
+      </nav>
+      <button id="btn-logout" class="btn-danger">Logout</button>
+    </aside>
+
+    <main class="content-area">
+      
+      <!-- Tab: Dashboard -->
+      <section id="tab-dashboard" class="tab-content active">
+        <h2>Dashboard Analytics</h2>
+        <div class="metrics-grid">
+          <div class="metric-card"><h4>Products</h4><span id="stat-products">0</span></div>
+          <div class="metric-card"><h4>Gallery Images</h4><span id="stat-gallery">0</span></div>
+          <div class="metric-card"><h4>Total Messages</h4><span id="stat-messages">0</span></div>
+          <div class="metric-card"><h4>Unread Messages</h4><span id="stat-unread">0</span></div>
         </div>
-        <button id="logoutBtn" class="btn-action btn-logout">Logout</button>
-    </div>
+      </section>
 
-    <!-- 1. BRANDING & THEME CONTROL -->
-    <div class="admin-card">
-        <h3>1. Edit Logo & Theme Background</h3>
-        <form id="brandingForm">
-            <div class="form-row">
-                <label>Logo Image URL (Postimage Link)</label>
-                <input type="url" id="logoUrl" placeholder="https://i.postimg.cc/your-logo.png">
-            </div>
-            <div class="form-row">
-                <label>Hero Background Image URL (Postimage Link)</label>
-                <input type="url" id="heroBgUrl" placeholder="https://i.postimg.cc/your-background.jpg">
-            </div>
-            <div class="form-row">
-                <label>Primary Theme Accent Color</label>
-                <input type="color" id="primaryColor" value="#1b5e20">
-            </div>
-            <button type="submit" class="btn-action">Save Branding & Theme</button>
+      <!-- Tab: Company -->
+      <section id="tab-company" class="tab-content">
+        <h2>Company Details</h2>
+        <form id="form-company" class="admin-form">
+          <div class="field-group">
+            <label>Name (English / Amharic)</label>
+            <input type="text" id="comp-name-en" placeholder="English">
+            <input type="text" id="comp-name-am" placeholder="Amharic">
+          </div>
+          <div class="field-group">
+            <label>About Us (English / Amharic)</label>
+            <textarea id="comp-about-en" rows="3"></textarea>
+            <textarea id="comp-about-am" rows="3"></textarea>
+          </div>
+          <div class="field-group">
+            <label>Mission (English / Amharic)</label>
+            <textarea id="comp-mission-en" rows="2"></textarea>
+            <textarea id="comp-mission-am" rows="2"></textarea>
+          </div>
+          <div class="field-group">
+            <label>Vision (English / Amharic)</label>
+            <textarea id="comp-vision-en" rows="2"></textarea>
+            <textarea id="comp-vision-am" rows="2"></textarea>
+          </div>
+          <button type="submit">Save Company Info</button>
         </form>
-    </div>
+      </section>
 
-    <!-- 2. HERO SECTION CONTROL -->
-    <div class="admin-card">
-        <h3>2. Edit Hero / Headline Banner</h3>
-        <form id="heroForm">
-            <div class="form-row">
-                <label>Main Headline</label>
-                <input type="text" id="heroHeadline" placeholder="EAST WEST GRINDING OR MANUFACTURING OF GRAINS PLC" required>
-            </div>
-            <div class="form-row">
-                <label>Sub-Headline</label>
-                <input type="text" id="heroSubhead" placeholder="Premium Ethiopian Exporter of Pulses, Beans and Oil Seeds" required>
-            </div>
-            <button type="submit" class="btn-action">Update Hero Banner</button>
+      <!-- Tab: Hero -->
+      <section id="tab-hero" class="tab-content">
+        <h2>Hero Settings</h2>
+        <form id="form-hero" class="admin-form">
+          <input type="text" id="hero-title-en" placeholder="Title (EN)">
+          <input type="text" id="hero-title-am" placeholder="Title (AM)">
+          <input type="text" id="hero-sub-en" placeholder="Subtitle (EN)">
+          <input type="text" id="hero-sub-am" placeholder="Subtitle (AM)">
+          <input type="url" id="hero-bg-url" placeholder="Background Image URL">
+          <button type="submit">Save Hero</button>
         </form>
-    </div>
+      </section>
 
-    <!-- 3. MISSION & VISION CONTROL -->
-    <div class="admin-card">
-        <h3>3. Edit Mission & Vision</h3>
-        <form id="missionForm">
-            <div class="form-row">
-                <label>Mission Statement</label>
-                <textarea id="compMission" rows="3" required></textarea>
-            </div>
-            <div class="form-row">
-                <label>Vision Statement</label>
-                <textarea id="compVision" rows="3" required></textarea>
-            </div>
-            <button type="submit" class="btn-action">Update Mission & Vision</button>
+      <!-- Tab: Theme -->
+      <section id="tab-theme" class="tab-content">
+        <h2>Branding & Theme</h2>
+        <form id="form-theme" class="admin-form">
+          <label>Primary Color</label>
+          <input type="color" id="theme-primary">
+          <label>Secondary Color</label>
+          <input type="color" id="theme-secondary">
+          <label>Logo Image URL</label>
+          <input type="url" id="theme-logo">
+          <button type="submit">Save Theme</button>
         </form>
-    </div>
+      </section>
 
-    <!-- 4. CONTACT DETAILS CONTROL -->
-    <div class="admin-card">
-        <h3>4. Edit Contact Information</h3>
-        <form id="contactInfoForm">
-            <div class="form-row">
-                <label>Phone Number(s)</label>
-                <input type="text" id="contactPhone" placeholder="+251 91 267 8193" required>
-            </div>
-            <div class="form-row">
-                <label>Email Address</label>
-                <input type="email" id="contactEmail" placeholder="info@eastwest.com.et" required>
-            </div>
-            <div class="form-row">
-                <label>Physical Address</label>
-                <input type="text" id="contactAddress" placeholder="Addis Ababa, Ethiopia" required>
-            </div>
-            <button type="submit" class="btn-action">Update Contact Info</button>
+      <!-- Tab: Contact -->
+      <section id="tab-contact" class="tab-content">
+        <h2>Contact Details</h2>
+        <form id="form-contact" class="admin-form">
+          <input type="text" id="contact-phone-input" placeholder="Phone">
+          <input type="email" id="contact-email-input" placeholder="Email">
+          <input type="text" id="contact-whatsapp-input" placeholder="WhatsApp Number">
+          <input type="text" id="contact-addr-en" placeholder="Address (EN)">
+          <input type="text" id="contact-addr-am" placeholder="Address (AM)">
+          <button type="submit">Save Contact Info</button>
         </form>
-    </div>
+      </section>
 
-    <!-- 5. PRODUCT MANAGER -->
-    <div class="admin-card">
-        <h3>5. Add Export Product to Catalog</h3>
-        <form id="adminProductForm">
-            <div class="form-row">
-                <label>Product Name</label>
-                <input type="text" id="prodName" placeholder="e.g. Green Mung Beans" required>
-            </div>
-            <div class="form-row">
-                <label>Category</label>
-                <select id="prodCategory" required>
-                    <option value="Beans">Beans</option>
-                    <option value="Pulses">Pulses</option>
-                    <option value="Oil Seeds">Oil Seeds</option>
-                </select>
-            </div>
-            <div class="form-row">
-                <label>Image URL (Postimage Link)</label>
-                <input type="url" id="prodImg" required>
-            </div>
-            <div class="form-row">
-                <label>Origin</label>
-                <input type="text" id="prodOrigin" value="Ethiopia">
-            </div>
-            <button type="submit" class="btn-action">Publish Product</button>
+      <!-- Tab: Products -->
+      <section id="tab-products" class="tab-content">
+        <h2>Manage Products</h2>
+        <form id="form-product" class="admin-form">
+          <input type="hidden" id="prod-id">
+          <input type="text" id="prod-title-en" placeholder="Title (EN)" required>
+          <input type="text" id="prod-title-am" placeholder="Title (AM)" required>
+          <textarea id="prod-desc-en" placeholder="Description (EN)"></textarea>
+          <textarea id="prod-desc-am" placeholder="Description (AM)"></textarea>
+          <input type="text" id="prod-origin-en" placeholder="Origin (EN)">
+          <input type="text" id="prod-origin-am" placeholder="Origin (AM)">
+          <input type="text" id="prod-process-en" placeholder="Process (EN)">
+          <input type="text" id="prod-process-am" placeholder="Process (AM)">
+          <input type="text" id="prod-altitude" placeholder="Altitude (e.g. 2000m)">
+          <input type="url" id="prod-img" placeholder="Image URL">
+          <button type="submit" id="btn-save-prod">Add Product</button>
+          <button type="button" id="btn-cancel-prod" class="hidden">Cancel Edit</button>
         </form>
-    </div>
-</div>
+        <hr>
+        <div id="admin-products-list" class="data-table-container"></div>
+      </section>
 
-<script type="module" src="admin.js"></script>
+      <!-- Tab: Gallery -->
+      <section id="tab-gallery" class="tab-content">
+        <h2>Manage Gallery</h2>
+        <form id="form-gallery" class="admin-form">
+          <input type="url" id="gal-img-url" placeholder="Image URL" required>
+          <input type="text" id="gal-cap-en" placeholder="Caption (EN)">
+          <input type="text" id="gal-cap-am" placeholder="Caption (AM)">
+          <button type="submit">Add Image</button>
+        </form>
+        <hr>
+        <div id="admin-gallery-list" class="gallery-grid"></div>
+      </section>
 
+      <!-- Tab: Messages -->
+      <section id="tab-messages" class="tab-content">
+        <h2>Customer Messages</h2>
+        <div id="admin-messages-list" class="messages-list"></div>
+      </section>
+
+    </main>
+  </div>
+
+  <script type="module" src="admin.js"></script>
 </body>
 </html>
