@@ -1,175 +1,166 @@
-import { db } from "./firebase.js";
-import { collection, getDocs, doc, getDoc } 
-    from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+import { db } from './firebase.js';
+import { collection, doc, onSnapshot, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import { currentLang, getText, setLanguage, staticUI } from './translations.js';
+import { showNotification, escapeHTML } from './utils.js';
 
-// Multi-language Translations Dictionary
-const translations = {
-    en: {
-        nav_home: "Home",
-        nav_about: "About Us",
-        nav_products: "Products",
-        nav_contact: "Contact",
-        hero_sub: "Premium Ethiopian Exporter of High-Quality Green Mung Beans, White Pea Beans, and Pulses",
-        hero_btn: "Explore Export Products",
-        about_title: "About Our Company",
-        mission_title: "Our Mission",
-        vision_title: "Our Vision",
-        products_title: "Featured Export Products",
-        contact_title: "Get In Touch",
-        contact_info_title: "Contact Details"
-    },
-    am: {
-        nav_home: "መነሻ",
-        nav_about: "ስለ እኛ",
-        nav_products: "ምርቶች",
-        nav_contact: "ግንኙነት",
-        hero_sub: "ከፍተኛ ጥራት ያላቸው የኢትዮጵያ አረንጓዴ ማሾ፣ ነጭ ቦሎቄ እና ጥራጥሬዎች ላኪ",
-        hero_btn: "የኤክስፖርት ምርቶችን ይመልከቱ",
-        about_title: "ስለ ኩባንያችን",
-        mission_title: "ተልእኮአችን",
-        vision_title: "ራዕያችን",
-        products_title: "ዋና ዋና የኤክስፖርት ምርቶች",
-        contact_title: "ያግኙን",
-        contact_info_title: "የአድራሻ መረጃ"
+document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+// Dynamic Listener Store
+let siteData = { settings: {}, products: [], gallery: [] };
+
+// Initialize Real-time Listeners
+function initListeners() {
+  // Hero
+  onSnapshot(doc(db, 'settings', 'hero'), (snap) => {
+    if (snap.exists()) {
+      siteData.settings.hero = snap.data();
+      renderHero();
     }
-};
+  });
 
-let currentLang = "en";
+  // Company
+  onSnapshot(doc(db, 'settings', 'company'), (snap) => {
+    if (snap.exists()) {
+      siteData.settings.company = snap.data();
+      renderCompany();
+    }
+  });
 
-// Toggle Language Engine
-function initLanguageToggle() {
-    const langBtn = document.getElementById("langToggleBtn");
-    if (!langBtn) return;
+  // Theme
+  onSnapshot(doc(db, 'settings', 'theme'), (snap) => {
+    if (snap.exists()) {
+      const data = snap.data();
+      if (data.primaryColor) document.documentElement.style.setProperty('--primary-color', data.primaryColor);
+      if (data.secondaryColor) document.documentElement.style.setProperty('--secondary-color', data.secondaryColor);
+      if (data.logo) {
+        const logo = document.getElementById('site-logo');
+        logo.src = data.logo;
+        logo.classList.remove('hidden');
+      }
+    }
+  });
 
-    langBtn.addEventListener("click", () => {
-        currentLang = currentLang === "en" ? "am" : "en";
-        langBtn.innerText = currentLang === "en" ? "አማርኛ" : "English";
+  // Contact
+  onSnapshot(doc(db, 'settings', 'contact'), (snap) => {
+    if (snap.exists()) {
+      const data = snap.data();
+      document.getElementById('contact-phone').textContent = data.phone || '';
+      document.getElementById('contact-email').textContent = data.email || '';
+      document.getElementById('contact-address').textContent = getText(data.address);
+      if (data.whatsapp) {
+        document.getElementById('link-whatsapp').href = `https://wa.me/${data.whatsapp.replace(/[^0-9]/g, '')}`;
+      }
+    }
+  });
 
-        document.querySelectorAll("[data-i18n]").forEach(el => {
-            const key = el.getAttribute("data-i18n");
-            if (translations[currentLang][key]) {
-                el.innerText = translations[currentLang][key];
-            }
-        });
+  // Products
+  onSnapshot(collection(db, 'products'), (snap) => {
+    siteData.products = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    renderProducts();
+  });
+
+  // Gallery
+  onSnapshot(collection(db, 'gallery'), (snap) => {
+    siteData.gallery = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    renderGallery();
+  });
+}
+
+// Render Functions
+function renderHero() {
+  const h = siteData.settings.hero || {};
+  document.getElementById('hero-title').textContent = getText(h.title) || 'Welcome';
+  document.getElementById('hero-subtitle').textContent = getText(h.subtitle) || '';
+  if (h.backgroundImage) {
+    document.getElementById('hero').style.backgroundImage = `url('${h.backgroundImage}')`;
+  }
+}
+
+function renderCompany() {
+  const c = siteData.settings.company || {};
+  const name = getText(c.name) || 'Company';
+  document.getElementById('company-name').textContent = name;
+  document.getElementById('footer-company').textContent = name;
+  document.title = name;
+  document.getElementById('about-text').textContent = getText(c.about);
+  document.getElementById('mission-text').textContent = getText(c.mission);
+  document.getElementById('vision-text').textContent = getText(c.vision);
+}
+
+function renderProducts() {
+  const grid = document.getElementById('product-grid');
+  grid.innerHTML = siteData.products.map(p => `
+    <div class="product-card">
+      <img src="${escapeHTML(p.image || 'https://via.placeholder.com/300')}" alt="${escapeHTML(getText(p.title))}">
+      <div class="product-card-body">
+        <h3>${escapeHTML(getText(p.title))}</h3>
+        <p>${escapeHTML(getText(p.description))}</p>
+        <div class="export-specs">
+          <div><strong>${staticUI[currentLang.code].origin}:</strong> ${escapeHTML(getText(p.specs?.origin))}</div>
+          <div><strong>${staticUI[currentLang.code].process}:</strong> ${escapeHTML(getText(p.specs?.process))}</div>
+          <div><strong>${staticUI[currentLang.code].altitude}:</strong> ${escapeHTML(p.specs?.altitude || 'N/A')}</div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderGallery() {
+  const grid = document.getElementById('gallery-grid');
+  grid.innerHTML = siteData.gallery.map(g => `
+    <div class="gallery-item">
+      <img src="${escapeHTML(g.imageUrl)}" alt="Gallery image">
+      <div class="gallery-caption">${escapeHTML(getText(g.caption))}</div>
+    </div>
+  `).join('');
+}
+
+function renderStaticLabels() {
+  const ui = staticUI[currentLang.code];
+  Object.keys(ui).forEach(key => {
+    const el = document.getElementById(`lbl-${key}`);
+    if (el) el.textContent = ui[key];
+  });
+}
+
+// Contact Form Handler
+document.getElementById('public-contact-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = e.target.querySelector('button');
+  btn.disabled = true;
+
+  try {
+    await addDoc(collection(db, 'messages'), {
+      name: document.getElementById('msg-name').value,
+      email: document.getElementById('msg-email').value,
+      phone: document.getElementById('msg-phone').value,
+      message: document.getElementById('msg-text').value,
+      isRead: false,
+      createdAt: serverTimestamp()
     });
-}
-
-// Fetch Dynamic Logo & Theme Settings
-async function loadThemeSettings() {
-    try {
-        const docRef = doc(db, "content", "theme");
-        const docSnap = await getDoc(docRef);
-
-        if (docSnap.exists()) {
-            const data = docSnap.data();
-
-            // 1. Update Logo
-            const logoImg = document.getElementById("siteLogo");
-            const logoText = document.getElementById("logoText");
-
-            if (data.logoUrl && data.logoUrl.trim() !== "") {
-                logoImg.src = data.logoUrl;
-                logoImg.style.display = "block";
-                if (logoText) logoText.style.display = "none";
-            }
-
-            // 2. Update Hero Background Image
-            if (data.heroBgUrl && data.heroBgUrl.trim() !== "") {
-                const heroSection = document.querySelector(".hero");
-                if (heroSection) {
-                    heroSection.style.background = `linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url('${data.heroBgUrl}') no-repeat center center/cover`;
-                }
-            }
-
-            // 3. Update Primary Theme Accent Color
-            if (data.primaryColor) {
-                document.documentElement.style.setProperty("--primary-color", data.primaryColor);
-            }
-        }
-    } catch (err) {
-        console.log("Using default theme settings.");
-    }
-}
-
-// Fetch Dynamic Hero Text
-async function loadHeroContent() {
-    try {
-        const docRef = doc(db, "content", "hero");
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-            const data = docSnap.data();
-            if (data.headline) document.getElementById("company-name").innerText = data.headline;
-            if (data.subhead) document.querySelector(".hero-text").innerText = data.subhead;
-        }
-    } catch (err) {
-        console.log("Using default hero text.");
-    }
-}
-
-// Fetch Dynamic Mission & Vision
-async function loadCompanyInfo() {
-    try {
-        const docRef = doc(db, "company", "info");
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-            const data = docSnap.data();
-            if (data.mission) document.getElementById("missionText").innerText = data.mission;
-            if (data.vision) document.getElementById("visionText").innerText = data.vision;
-        }
-    } catch (err) {
-        console.log("Using default mission/vision text.");
-    }
-}
-
-// Fetch Dynamic Contact Info
-async function loadContactContent() {
-    try {
-        const docRef = doc(db, "content", "contact");
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-            const data = docSnap.data();
-            if (data.address) document.getElementById("contactAddress").innerHTML = `<strong>Address:</strong><br>${data.address}`;
-            if (data.phone) document.getElementById("contactPhone").innerHTML = `<strong>Phone:</strong><br>${data.phone}`;
-            if (data.email) document.getElementById("contactEmail").innerHTML = `<strong>Email:</strong><br>${data.email}`;
-        }
-    } catch (err) {
-        console.log("Using default contact details.");
-    }
-}
-
-// Fetch Products from Firestore
-async function loadProducts() {
-    const productsGrid = document.getElementById("productsGrid");
-    if (!productsGrid) return;
-
-    try {
-        const querySnapshot = await getDocs(collection(db, "products"));
-        if (!querySnapshot.empty) {
-            productsGrid.innerHTML = ""; // Clear placeholders
-            querySnapshot.forEach((docSnap) => {
-                const prod = docSnap.data();
-                const card = document.createElement("div");
-                card.className = "product-card";
-                card.innerHTML = `
-                    <img src="${prod.imageUrl || 'https://via.placeholder.com/300'}" alt="${prod.name}">
-                    <h3>${prod.name}</h3>
-                    <p><strong>Category:</strong> ${prod.category || 'Agricultural Export'}</p>
-                    <p><strong>Origin:</strong> ${prod.origin || 'Ethiopia'}</p>
-                `;
-                productsGrid.appendChild(card);
-            });
-        }
-    } catch (err) {
-        console.log("Loading products failed or table empty.");
-    }
-}
-
-// Initialize Dynamic Loaders
-document.addEventListener("DOMContentLoaded", () => {
-    initLanguageToggle();
-    loadThemeSettings();
-    loadHeroContent();
-    loadCompanyInfo();
-    loadContactContent();
-    loadProducts();
+    showNotification("Message sent successfully!");
+    e.target.reset();
+  } catch (err) {
+    showNotification("Failed to send message.", "error");
+  } finally {
+    btn.disabled = false;
+  }
 });
+
+// Language Switchers
+document.getElementById('btn-lang-en').addEventListener('click', () => setLanguage('en'));
+document.getElementById('btn-lang-am').addEventListener('click', () => setLanguage('am'));
+
+window.addEventListener('languageChanged', () => {
+  document.getElementById('btn-lang-en').classList.toggle('active', currentLang.code === 'en');
+  document.getElementById('btn-lang-am').classList.toggle('active', currentLang.code === 'am');
+  renderStaticLabels();
+  renderHero();
+  renderCompany();
+  renderProducts();
+  renderGallery();
+});
+
+// Boot
+renderStaticLabels();
+initListeners();
