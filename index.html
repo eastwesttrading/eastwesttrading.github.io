@@ -1,88 +1,912 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Loading...</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="East West Grinding or Manufacturing of Grains PLC - Premium Ethiopian exporter of pulses, oil seeds, green mung beans, and importer of essential food commodities.">
+    <meta name="keywords" content="Ethiopia export, Green Mung Beans, White Pea Beans, Oil Seeds, Sesame, Edible Oil import, Agro-processing Ethiopia">
+    <title>EAST WEST PLC | Premier Ethiopian Agro-Processing & International Trade</title>
+    
+    <!-- Google Fonts & FontAwesome icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #0F382C;        /* Deep Forest Emerald */
+            --primary-light: #1B5E46;  /* Lighter Forest Green */
+            --accent: #D4AF37;         /* Ethiopian Gold */
+            --accent-hover: #B59226;
+            --bg-light: #F8F9FA;
+            --surface: #FFFFFF;
+            --text-dark: #1E293B;
+            --text-muted: #64748B;
+            --border: #E2E8F0;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+            --shadow-lg: 0 10px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* --- Base & Reset --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; font-size: 16px; }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--text-dark);
+            background-color: var(--surface);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        h1, h2, h3, h4, .brand-font { font-family: 'Playfair Display', serif; }
+        a { text-decoration: none; color: inherit; transition: var(--transition); }
+        ul { list-style: none; }
+        img { max-width: 100%; height: auto; display: block; }
+        .container { width: 90%; max-width: 1280px; margin: 0 auto; padding: 0 15px; }
+
+        /* --- Utilities --- */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 28px;
+            font-weight: 600;
+            border-radius: 4px;
+            cursor: pointer;
+            border: none;
+            transition: var(--transition);
+        }
+        .btn-primary { background: var(--accent); color: #000; }
+        .btn-primary:hover { background: var(--accent-hover); transform: translateY(-2px); }
+        .btn-secondary { background: transparent; color: var(--surface); border: 2px solid var(--surface); }
+        .btn-secondary:hover { background: var(--surface); color: var(--primary); }
+        .btn-outline-dark { background: transparent; color: var(--primary); border: 2px solid var(--primary); }
+        .btn-outline-dark:hover { background: var(--primary); color: var(--surface); }
+
+        .section-padding { padding: 90px 0; }
+        .text-center { text-align: center; }
+        .section-header { margin-bottom: 50px; text-align: center; }
+        .section-header span { color: var(--accent); font-weight: 700; text-transform: uppercase; letter-spacing: 2px; font-size: 0.85rem; }
+        .section-header h2 { font-size: 2.5rem; color: var(--primary); margin-top: 5px; }
+        .section-header p { color: var(--text-muted); max-width: 650px; margin: 10px auto 0; }
+
+        /* --- Header & Navigation --- */
+        .top-bar {
+            background: var(--primary);
+            color: rgba(255,255,255,0.8);
+            font-size: 0.85rem;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .top-bar .container { display: flex; justify-content: space-between; align-items: center; }
+        .top-info span { margin-right: 20px; }
+        .top-info i { color: var(--accent); margin-right: 6px; }
+        .lang-switcher select {
+            background: transparent;
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.3);
+            padding: 2px 8px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .lang-switcher select option { color: var(--text-dark); }
+
+        header {
+            background: var(--surface);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-sm);
+        }
+        .navbar { display: flex; justify-content: space-between; align-items: center; padding: 18px 0; }
+        .brand-logo { display: flex; align-items: center; gap: 12px; }
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--primary);
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 1.4rem;
+        }
+        .logo-text { line-height: 1.1; }
+        .logo-text h1 { font-size: 1.25rem; color: var(--primary); font-weight: 700; letter-spacing: -0.5px; }
+        .logo-text span { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); font-family: 'Plus Jakarta Sans', sans-serif;}
+
+        .nav-links { display: flex; gap: 30px; align-items: center; }
+        .nav-links a { font-weight: 500; font-size: 0.95rem; color: var(--text-dark); position: relative; }
+        .nav-links a:hover, .nav-links a.active { color: var(--primary); }
+        .nav-links a::after {
+            content: ''; position: absolute; bottom: -6px; left: 0; width: 0; height: 2px; background: var(--accent); transition: var(--transition);
+        }
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+        .hamburger { display: none; cursor: pointer; font-size: 1.5rem; color: var(--primary); }
+
+        /* --- Hero Section --- */
+        .hero {
+            position: relative;
+            background: linear-gradient(rgba(15, 56, 44, 0.85), rgba(15, 56, 44, 0.75)), 
+                        url('https://images.unsplash.com/photo-1595246140625-573b715d11dc?auto=format&fit=crop&q=80&w=2000') center/cover no-repeat;
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+            color: #fff;
+        }
+        .hero-content { max-width: 800px; padding: 40px 0; }
+        .hero-tag {
+            display: inline-block;
+            background: rgba(212, 175, 55, 0.2);
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+        .hero h1 { font-size: 3.5rem; line-height: 1.15; margin-bottom: 20px; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+        .hero p { font-size: 1.25rem; color: rgba(255,255,255,0.9); margin-bottom: 35px; max-width: 650px; font-weight: 300; }
+        .hero-btns { display: flex; gap: 15px; flex-wrap: wrap; }
+
+        /* --- About Section --- */
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .about-img-group { position: relative; }
+        .about-img-main { border-radius: 8px; box-shadow: var(--shadow-lg); width: 100%; height: 420px; object-fit: cover; }
+        .about-img-badge {
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            background: var(--accent);
+            color: #000;
+            padding: 25px;
+            border-radius: 8px;
+            font-weight: 700;
+            box-shadow: var(--shadow-md);
+            text-align: center;
+        }
+        .about-img-badge .number { font-size: 2.5rem; line-height: 1; font-family: 'Playfair Display', serif; }
+        .values-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 30px; }
+        .value-card { background: var(--bg-light); padding: 20px; border-left: 3px solid var(--accent); border-radius: 0 6px 6px 0; }
+        .value-card h4 { color: var(--primary); font-size: 1.1rem; margin-bottom: 5px; }
+        .value-card p { font-size: 0.85rem; color: var(--text-muted); margin: 0; }
+
+        /* --- Products Section --- */
+        .product-tabs { display: flex; justify-content: center; gap: 15px; margin-bottom: 40px; }
+        .tab-btn {
+            padding: 10px 24px;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            font-weight: 600;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .tab-btn.active, .tab-btn:hover { background: var(--primary); color: var(--surface); border-color: var(--primary); }
+
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        .product-card {
+            background: var(--surface);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+        .product-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+        .product-img { position: relative; height: 220px; overflow: hidden; }
+        .product-img img { width: 100%; height: 100%; object-fit: cover; transition: var(--transition); }
+        .product-card:hover .product-img img { transform: scale(1.05); }
+        .product-tag {
+            position: absolute; top: 15px; right: 15px; background: var(--primary); color: #fff;
+            padding: 4px 12px; font-size: 0.75rem; border-radius: 20px; font-weight: 600;
+        }
+        .product-body { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
+        .product-body h3 { font-size: 1.35rem; color: var(--primary); margin-bottom: 10px; }
+        .product-body p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 15px; flex-grow: 1; }
+        .product-specs { border-top: 1px solid var(--border); padding-top: 15px; margin-bottom: 15px; font-size: 0.825rem; }
+        .spec-item { display: flex; justify-content: space-between; margin-bottom: 5px; }
+        .spec-item span:first-child { color: var(--text-muted); }
+        .spec-item span:last-child { font-weight: 600; color: var(--text-dark); }
+
+        /* --- Quality & Logistics --- */
+        .feature-bg { background: var(--bg-light); }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .feature-box {
+            background: var(--surface);
+            padding: 35px 25px;
+            border-radius: 8px;
+            box-shadow: var(--shadow-sm);
+            text-align: center;
+            border-top: 4px solid var(--primary);
+            transition: var(--transition);
+        }
+        .feature-box:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
+        .feature-icon {
+            width: 70px; height: 70px; background: rgba(15, 56, 44, 0.08); color: var(--primary);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 1.8rem; margin: 0 auto 20px;
+        }
+        .feature-box h3 { font-size: 1.25rem; margin-bottom: 12px; color: var(--primary); }
+        .feature-box p { font-size: 0.9rem; color: var(--text-muted); }
+
+        /* --- Calculator Section --- */
+        .calc-wrapper {
+            background: var(--primary);
+            color: var(--surface);
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: var(--shadow-lg);
+        }
+        .calc-form { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 25px; }
+        .form-group { display: flex; flex-direction: column; gap: 8px; }
+        .form-group label { font-size: 0.85rem; font-weight: 600; color: var(--accent); }
+        .form-group select, .form-group input {
+            padding: 12px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.1); color: var(--surface); font-family: inherit;
+        }
+        .form-group select option { background: var(--primary); color: var(--surface); }
+        .calc-result {
+            margin-top: 30px; padding: 20px; background: rgba(255,255,255,0.05);
+            border-radius: 6px; border-left: 4px solid var(--accent); display: flex;
+            justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;
+        }
+
+        /* --- Gallery Section --- */
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
+        .gallery-item {
+            position: relative; height: 200px; border-radius: 6px; overflow: hidden; cursor: pointer;
+        }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: var(--transition); }
+        .gallery-overlay {
+            position: absolute; inset: 0; background: rgba(15, 56, 44, 0.8);
+            display: flex; align-items: center; justify-content: center; opacity: 0;
+            transition: var(--transition); color: var(--surface); font-size: 1.5rem;
+        }
+        .gallery-item:hover img { transform: scale(1.1); }
+        .gallery-item:hover .gallery-overlay { opacity: 1; }
+
+        /* --- Contact & Map Section --- */
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; }
+        .contact-info-list { margin-top: 30px; display: flex; flex-direction: column; gap: 20px; }
+        .contact-info-item { display: flex; gap: 15px; align-items: flex-start; }
+        .contact-info-item i {
+            width: 40px; height: 40px; background: rgba(212, 175, 55, 0.15); color: var(--primary);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0;
+        }
+        .contact-form-container { background: var(--bg-light); padding: 35px; border-radius: 8px; border: 1px solid var(--border); }
+        .form-field { margin-bottom: 20px; }
+        .form-field input, .form-field textarea {
+            width: 100%; padding: 12px 15px; border: 1px solid var(--border); border-radius: 4px; font-family: inherit; outline: none; transition: var(--transition);
+        }
+        .form-field input:focus, .form-field textarea:focus { border-color: var(--primary); }
+        
+        /* Map Container */
+        .map-container {
+            width: 100%; height: 250px; border-radius: 8px; overflow: hidden; margin-top: 25px; border: 1px solid var(--border);
+        }
+        .map-container iframe { width: 100%; height: 100%; border: 0; }
+
+        /* --- Footer --- */
+        footer { background: #08211A; color: rgba(255,255,255,0.7); padding-top: 70px; padding-bottom: 20px; font-size: 0.9rem; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 40px; margin-bottom: 50px; }
+        .footer-logo { color: var(--surface); margin-bottom: 15px; }
+        .footer-links h4 { color: var(--surface); font-size: 1.1rem; margin-bottom: 20px; position: relative; }
+        .footer-links h4::after { content: ''; position: absolute; bottom: -8px; left: 0; width: 30px; height: 2px; background: var(--accent); }
+        .footer-links ul { display: flex; flex-direction: column; gap: 10px; }
+        .footer-links a:hover { color: var(--accent); }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 25px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
+        .social-links { display: flex; gap: 12px; }
+        .social-links a { width: 36px; height: 36px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--surface); }
+        .social-links a:hover { background: var(--accent); color: #000; }
+
+        /* --- Floating WhatsApp Button --- */
+        .whatsapp-float {
+            position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px;
+            background-color: #25d366; color: #fff; border-radius: 50px;
+            text-align: center; font-size: 30px; box-shadow: var(--shadow-lg);
+            z-index: 1000; display: flex; align-items: center; justify-content: center;
+            transition: var(--transition);
+        }
+        .whatsapp-float:hover { transform: scale(1.1); }
+
+        /* --- Modal Lightbox --- */
+        .lightbox-modal {
+            display: none; position: fixed; inset: 0; z-index: 2000; background: rgba(0,0,0,0.9);
+            justify-content: center; align-items: center; padding: 20px;
+        }
+        .lightbox-content { max-width: 90%; max-height: 85vh; border-radius: 4px; box-shadow: var(--shadow-lg); }
+        .lightbox-close { position: absolute; top: 20px; right: 30px; color: #fff; font-size: 2rem; cursor: pointer; }
+
+        /* --- Responsive Styles --- */
+        @media (max-width: 992px) {
+            .about-grid, .contact-grid, .footer-grid { grid-template-columns: 1fr; }
+            .grid-3 { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 2.5rem; }
+            .nav-links {
+                position: fixed; top: 80px; left: -100%; width: 100%; height: calc(100vh - 80px);
+                background: var(--surface); flex-direction: column; justify-content: center;
+                transition: var(--transition); box-shadow: var(--shadow-md);
+            }
+            .nav-links.active { left: 0; }
+            .hamburger { display: block; }
+        }
+    </style>
 </head>
 <body>
-  <header class="navbar">
-    <div class="logo-container">
-      <img id="site-logo" src="" alt="Logo" class="hidden">
-      <span id="company-name">...</span>
-    </div>
-    <nav>
-      <a href="#hero" id="lbl-navHome">Home</a>
-      <a href="#products" id="lbl-navProducts">Products</a>
-      <a href="#gallery" id="lbl-navGallery">Gallery</a>
-      <a href="#contact" id="lbl-navContact">Contact</a>
-      <a href="admin.html" id="lbl-navAdmin">Admin</a>
-    </nav>
-    <div class="lang-switch">
-      <button id="btn-lang-en" class="active">EN</button>
-      <button id="btn-lang-am">አማ</button>
-    </div>
-  </header>
 
-  <section id="hero" class="hero-section">
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-      <h1 id="hero-title">...</h1>
-      <p id="hero-subtitle">...</p>
-    </div>
-  </section>
-
-  <section id="about" class="container">
-    <h2>About Us</h2>
-    <p id="about-text">...</p>
-    <div class="mv-grid">
-      <div class="card">
-        <h3>Mission</h3>
-        <p id="mission-text">...</p>
-      </div>
-      <div class="card">
-        <h3>Vision</h3>
-        <p id="vision-text">...</p>
-      </div>
-    </div>
-  </section>
-
-  <section id="products" class="container">
-    <h2>Our Products</h2>
-    <div id="product-grid" class="grid"></div>
-  </section>
-
-  <section id="gallery" class="container">
-    <h2>Gallery</h2>
-    <div id="gallery-grid" class="gallery-grid"></div>
-  </section>
-
-  <section id="contact" class="container">
-    <h2 id="lbl-contactTitle">Get in Touch</h2>
-    <div class="contact-wrapper">
-      <div class="contact-info">
-        <p><strong>Phone:</strong> <span id="contact-phone"></span></p>
-        <p><strong>Email:</strong> <span id="contact-email"></span></p>
-        <p><strong>Address:</strong> <span id="contact-address"></span></p>
-        <div class="social-links">
-          <a id="link-whatsapp" href="#" target="_blank">WhatsApp</a>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container">
+            <div class="top-info">
+                <span><i class="fa-solid fa-location-dot"></i> Addis Ababa, Ethiopia</span>
+                <span><i class="fa-solid fa-envelope"></i> export@eastwestgrains.com</span>
+                <span><i class="fa-solid fa-phone"></i> +251 11 6XX XXXX</span>
+            </div>
+            <div class="lang-switcher">
+                <i class="fa-solid fa-globe"></i>
+                <select id="langSelect" onchange="changeLanguage(this.value)">
+                    <option value="en">English (EN)</option>
+                    <option value="am">አማርኛ (AM)</option>
+                </select>
+            </div>
         </div>
-      </div>
-      <form id="public-contact-form" class="form">
-        <input type="text" id="msg-name" placeholder="Your Name" required>
-        <input type="email" id="msg-email" placeholder="Your Email" required>
-        <input type="tel" id="msg-phone" placeholder="Phone Number">
-        <textarea id="msg-text" placeholder="Your Message" rows="4" required></textarea>
-        <button type="submit" id="lbl-sendBtn">Send Message</button>
-      </form>
     </div>
-  </section>
 
-  <footer>
-    <p>&copy; <span id="footer-year"></span> <span id="footer-company"></span>. All rights reserved.</p>
-  </footer>
+    <!-- Main Navigation Header -->
+    <header>
+        <div class="container navbar">
+            <a href="#home" class="brand-logo">
+                <div class="logo-icon"><i class="fa-solid fa-wheat-awn"></i></div>
+                <div class="logo-text">
+                    <h1>EAST WEST</h1>
+                    <span>GRAINS PLC</span>
+                </div>
+            </a>
+            <nav class="nav-links" id="navLinks">
+                <a href="#home" class="active" data-i18n="nav_home">Home</a>
+                <a href="#about" data-i18n="nav_about">About Us</a>
+                <a href="#products" data-i18n="nav_products">Products</a>
+                <a href="#quality" data-i18n="nav_quality">Quality Control</a>
+                <a href="#logistics" data-i18n="nav_logistics">Export & Logistics</a>
+                <a href="#gallery" data-i18n="nav_gallery">Gallery</a>
+                <a href="#contact" data-i18n="nav_contact">Contact</a>
+            </nav>
+            <div class="hamburger" onclick="toggleMenu()">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+        </div>
+    </header>
 
-  <script type="module" src="script.js"></script>
+    <!-- 1. Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <span class="hero-tag" data-i18n="hero_tag">Premium Agro-Processing Exporter</span>
+                <h1 data-i18n="hero_title">Connecting Ethiopia's Quality Agricultural Products to Global Markets</h1>
+                <p data-i18n="hero_desc">East West Grinding or Manufacturing of Grains PLC delivers machine-cleaned pulses, premium oil seeds, and essential imported food products worldwide with uncompromised quality standards.</p>
+                <div class="hero-btns">
+                    <a href="#products" class="btn btn-primary" data-i18n="btn_explore">Explore Products <i class="fa-solid fa-arrow-right"></i></a>
+                    <a href="#quote" class="btn btn-secondary" data-i18n="btn_quote">Request Quote</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. About Us Section -->
+    <section id="about" class="section-padding">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-img-group">
+                    <img src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&fit=crop&q=80&w=1000" alt="Ethiopian Grain Processing" class="about-img-main">
+                    <div class="about-img-badge">
+                        <div class="number">100%</div>
+                        <div style="font-size: 0.8rem; text-transform: uppercase;" data-i18n="badge_quality">Quality Assured</div>
+                    </div>
+                </div>
+                <div>
+                    <div class="section-header" style="text-align: left;">
+                        <span data-i18n="about_tag">About Our Company</span>
+                        <h2 data-i18n="about_title">Pioneering Commercial Excellence in Agricultural Processing</h2>
+                    </div>
+                    <p style="color: var(--text-muted); margin-bottom: 20px;" data-i18n="about_p1">
+                        East West Grinding or Manufacturing of Grains PLC stands as a primary Ethiopian enterprise bridging local agricultural capacity with global trade requirements. We specialize in processing high-grade agricultural commodities, ensuring precise cleaning, color sorting, and packaging.
+                    </p>
+                    <div class="values-grid">
+                        <div class="value-card">
+                            <h4 data-i18n="vision_title">Our Vision</h4>
+                            <p data-i18n="vision_desc">To become East Africa's most trusted agro-processor and exporter of choice globally.</p>
+                        </div>
+                        <div class="value-card">
+                            <h4 data-i18n="mission_title">Our Mission</h4>
+                            <p data-i18n="mission_desc">Delivering world-class Ethiopian produce efficiently while driving modern agricultural value addition.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Products Page / Section -->
+    <section id="products" class="section-padding feature-bg">
+        <div class="container">
+            <div class="section-header">
+                <span data-i18n="prod_tag">Product Catalog</span>
+                <h2 data-i18n="prod_title">Our Export & Import Commodities</h2>
+                <p data-i18n="prod_subtitle">We process and supply high-spec Ethiopian agricultural products and import key food goods.</p>
+            </div>
+
+            <div class="product-tabs">
+                <button class="tab-btn active" onclick="filterProducts('all')" data-i18n="tab_all">All Products</button>
+                <button class="tab-btn" onclick="filterProducts('export')" data-i18n="tab_export">Export Commodities</button>
+                <button class="tab-btn" onclick="filterProducts('import')" data-i18n="tab_import">Import Commodities</button>
+            </div>
+
+            <div class="products-grid" id="productsGrid">
+                <!-- Dynamically populated via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Export Quote Calculator Section -->
+    <section id="quote" class="section-padding">
+        <div class="container">
+            <div class="calc-wrapper">
+                <h2 style="font-size: 2rem; color: #fff;" data-i18n="calc_title">Quick Export Estimator</h2>
+                <p style="color: rgba(255,255,255,0.8); font-size: 0.95rem;" data-i18n="calc_desc">Estimate standard shipping container volumes for your target procurement order.</p>
+                
+                <form class="calc-form" id="quoteForm" onsubmit="calculateQuote(event)">
+                    <div class="form-group">
+                        <label data-i18n="calc_prod">Product Select</label>
+                        <select id="calcProduct">
+                            <option value="Green Mung Beans">Green Mung Beans (Shewa Type)</option>
+                            <option value="White Pea Beans">White Pea Beans</option>
+                            <option value="Sesame Seeds">Natural Sesame Seeds</option>
+                            <option value="Red Kidney Beans">Red Beans</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label data-i18n="calc_volume">Volume (Metric Tons)</label>
+                        <input type="number" id="calcVolume" value="24" min="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label data-i18n="calc_incoterm">Incoterm</label>
+                        <select id="calcIncoterm">
+                            <option value="FOB">FOB Djibouti Port</option>
+                            <option value="CFR">CFR Destination Port</option>
+                            <option value="CIF">CIF Destination Port</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="justify-content: flex-end;">
+                        <button type="submit" class="btn btn-primary" style="width: 100%;" data-i18n="btn_calc">Calculate Load</button>
+                    </div>
+                </form>
+
+                <div class="calc-result" id="calcResultDisplay" style="display: none;">
+                    <div>
+                        <h4 style="color: var(--accent); font-size: 1.1rem;" id="resTitle">FCL Load Estimation</h4>
+                        <p style="font-size: 0.85rem; margin: 0; color: #fff;" id="resDetails">Total 20ft Containers Required: 1 FCL</p>
+                    </div>
+                    <button class="btn btn-secondary" onclick="openQuoteModal()" data-i18n="btn_submit_rfq">Submit RFQ</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Quality Assurance Section -->
+    <section id="quality" class="section-padding">
+        <div class="container">
+            <div class="section-header">
+                <span data-i18n="qual_tag">Quality Control</span>
+                <h2 data-i18n="qual_title">International Food Safety Standards</h2>
+                <p data-i18n="qual_desc">From farm-gate sourcing to container seal, our multi-stage inspection process guarantees precise commodity purity specifications.</p>
+            </div>
+            <div class="grid-3">
+                <div class="feature-box">
+                    <div class="feature-icon"><i class="fa-solid fa-filter"></i></div>
+                    <h3 data-i18n="qual_step1_h">Advanced Processing</h3>
+                    <p data-i18n="qual_step1_p">State-of-the-art machine cleaning, gravity separation, and color-sorting for maximum purity level (99%+).</p>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-icon"><i class="fa-solid fa-microscope"></i></div>
+                    <h3 data-i18n="qual_step2_h">Lab Testing & Inspection</h3>
+                    <p data-i18n="qual_step2_p">Rigorous laboratory verification for moisture content, admixture levels, grain size, and chemical residue.</p>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-icon"><i class="fa-solid fa-certificate"></i></div>
+                    <h3 data-i18n="qual_step3_h">Phytosanitary Certification</h3>
+                    <p data-i18n="qual_step3_p">Fully compliant with Ministry of Agriculture regulations, offering complete SGS, Intertek, or Cotecna certification.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Export & Logistics Page / Section -->
+    <section id="logistics" class="section-padding feature-bg">
+        <div class="container">
+            <div class="section-header">
+                <span data-i18n="log_tag">Supply Chain & Logistics</span>
+                <h2 data-i18n="log_title">Efficient Global Trade Fulfillment</h2>
+            </div>
+            <div class="grid-3">
+                <div class="feature-box">
+                    <div class="feature-icon"><i class="fa-solid fa-truck-ramp-box"></i></div>
+                    <h3 data-i18n="log_s1_h">Ethio-Djibouti Corridor</h3>
+                    <p data-i18n="log_s1_p">Direct logistical highway access from main regional warehouses in Shewa to Djibouti Port terminal gates.</p>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-icon"><i class="fa-solid fa-box-archive"></i></div>
+                    <h3 data-i18n="log_s2_h">Export Packaging</h3>
+                    <p data-i18n="log_s2_p">Standard 25kg, 50kg PP bags or custom-branded food-grade packaging designed for oceanic transit longevity.</p>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-icon"><i class="fa-solid fa-ship"></i></div>
+                    <h3 data-i18n="log_s3_h">Global Shipping</h3>
+                    <p data-i18n="log_s3_p">Extensive experience executing FOB, CFR, and CIF contracts to Asia, Middle East, Europe, and Americas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Gallery Page / Section -->
+    <section id="gallery" class="section-padding">
+        <div class="container">
+            <div class="section-header">
+                <span data-i18n="gal_tag">Gallery</span>
+                <h2 data-i18n="gal_title">Operations & Products Gallery</h2>
+            </div>
+            <div class="gallery-grid" id="galleryGrid">
+                <!-- Dynamically Populated via JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. Contact Page / Section -->
+    <section id="contact" class="section-padding feature-bg">
+        <div class="container">
+            <div class="contact-grid">
+                <div>
+                    <div class="section-header" style="text-align: left;">
+                        <span data-i18n="cont_tag">Get In Touch</span>
+                        <h2 data-i18n="cont_title">Start Trading With Us Today</h2>
+                        <p data-i18n="cont_desc">Contact our international export desk directly to request official quotations, sample packages, or establish long-term trade relations.</p>
+                    </div>
+                    <div class="contact-info-list">
+                        <div class="contact-info-item">
+                            <i class="fa-solid fa-building"></i>
+                            <div>
+                                <h4 data-i18n="cont_headquarters">Head Office</h4>
+                                <p style="color: var(--text-muted);">Addis Ababa, Ethiopia</p>
+                            </div>
+                        </div>
+                        <div class="contact-info-item">
+                            <i class="fa-solid fa-envelope"></i>
+                            <div>
+                                <h4>Email Enquiries</h4>
+                                <p style="color: var(--text-muted);">info@eastwestgrains.com | export@eastwestgrains.com</p>
+                            </div>
+                        </div>
+                        <div class="contact-info-item">
+                            <i class="fa-solid fa-phone"></i>
+                            <div>
+                                <h4>Phone & Direct Line</h4>
+                                <p style="color: var(--text-muted);">+251 11 6XX XXXX / +251 91 1XX XXXX</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Embedded Google Map -->
+                    <div class="map-container">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d252230.02028886913!2d38.61332804245558!3d8.96347678589998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x164b85cef5ab402d%3A0x8467b6b037a24d49!2sAddis%20Ababa%2C%20Ethiopia!5e0!3m2!1sen!2sus!4v1680000000000!5m2!1sen!2sus" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </div>
+
+                <div class="contact-form-container">
+                    <h3 style="margin-bottom: 20px; color: var(--primary);" data-i18n="form_title">Send Trade Inquiry</h3>
+                    <form id="contactForm" onsubmit="handleFormSubmit(event)">
+                        <div class="form-field">
+                            <input type="text" id="contactName" placeholder="Your Name / Company Representative" required>
+                        </div>
+                        <div class="form-field">
+                            <input type="email" id="contactEmail" placeholder="Business Email Address" required>
+                        </div>
+                        <div class="form-field">
+                            <input type="text" id="contactSubject" placeholder="Product Category & Target Volume" required>
+                        </div>
+                        <div class="form-field">
+                            <textarea id="contactMessage" rows="5" placeholder="Detailed inquiry specifications (Destination Port, Packaging Type, Target Incoterms)..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;" data-i18n="btn_send">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Floating WhatsApp CTA -->
+    <a href="https://wa.me/251911000000" class="whatsapp-float" target="_blank" title="Contact export desk via WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="brand-logo footer-logo">
+                        <div class="logo-icon"><i class="fa-solid fa-wheat-awn"></i></div>
+                        <div class="logo-text">
+                            <h1 style="color:#fff;">EAST WEST</h1>
+                            <span style="color:var(--accent);">GRAINS PLC</span>
+                        </div>
+                    </div>
+                    <p style="margin-top: 15px; font-size: 0.85rem;" data-i18n="footer_about">EAST WEST GRINDING OR MANUFACTURING OF GRAINS PLC is a premier Ethiopian agro-processing and trade company dedicated to export excellence.</p>
+                </div>
+                <div class="footer-links">
+                    <h4 data-i18n="f_links">Quick Links</h4>
+                    <ul>
+                        <li><a href="#about" data-i18n="nav_about">About Us</a></li>
+                        <li><a href="#products" data-i18n="nav_products">Products</a></li>
+                        <li><a href="#quality" data-i18n="nav_quality">Quality Control</a></li>
+                        <li><a href="#logistics" data-i18n="nav_logistics">Logistics</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4 data-i18n="f_products">Products</h4>
+                    <ul>
+                        <li><a href="#products">Green Mung Beans</a></li>
+                        <li><a href="#products">White Pea Beans</a></li>
+                        <li><a href="#products">Sesame & Oil Seeds</a></li>
+                        <li><a href="#products">Edible Oils Import</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4 data-i18n="f_social">Connect</h4>
+                    <p style="margin-bottom: 15px; font-size:0.85rem;" data-i18n="f_social_desc">Follow our agricultural trade announcements.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 EAST WEST GRINDING OR MANUFACTURING OF GRAINS PLC. All Rights Reserved.</p>
+                <p style="font-size: 0.8rem;">Designed for International Trade Excellence</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Lightbox Modal for Gallery -->
+    <div class="lightbox-modal" id="lightbox" onclick="closeLightbox()">
+        <span class="lightbox-close">&times;</span>
+        <img class="lightbox-content" id="lightboxImg" src="" alt="Gallery Preview">
+    </div>
+
+    <!-- Firebase SDK Integration Placeholder Script Structure -->
+    <script type="module">
+        // Ready for production Firebase Integration:
+        // import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
+        // import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
+        
+        // const firebaseConfig = {
+        //   apiKey: "YOUR_API_KEY",
+        //   authDomain: "eastwest-grains.firebaseapp.com",
+        //   projectId: "eastwest-grains",
+        //   storageBucket: "eastwest-grains.appspot.com",
+        //   messagingSenderId: "SENDER_ID",
+        //   appId: "APP_ID"
+        // };
+        // const app = initializeApp(firebaseConfig);
+        // const db = getFirestore(app);
+    </script>
+
+    <!-- Core Dynamic Web Application Script -->
+    <script>
+        // --- 1. Dynamic Data Structures ---
+        const productsData = [
+            {
+                id: 1,
+                name: "Green Mung Beans (Shewa Type)",
+                category: "export",
+                image: "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&q=80&w=800",
+                desc: "Machine-cleaned, uniform bright green Ethiopian Shewa type mung beans processed for high purity.",
+                specs: { Purity: "99% Min", Admixture: "0.5% Max", Moisture: "12% Max", Packaging: "50kg PP Bags" }
+            },
+            {
+                id: 2,
+                name: "White Pea Beans",
+                category: "export",
+                image: "https://images.unsplash.com/photo-1551462147-ff29053bfc14?auto=format&fit=crop&q=80&w=800",
+                desc: "Premium Grade 1 White Pea Beans widely demanded by international canning and food industries.",
+                specs: { Purity: "98.5% Min", Admixture: "1% Max", Moisture: "13% Max", Packaging: "25kg / 50kg Bags" }
+            },
+            {
+                id: 3,
+                name: "Natural Sesame Seeds",
+                category: "export",
+                image: "https://images.unsplash.com/photo-1621996346565-e3d5d6281318?auto=format&fit=crop&q=80&w=800",
+                desc: "High oil content, natural Ethiopian oil seeds highly prized for rich aroma and purity.",
+                specs: { OilContent: "50% Min", Purity: "99% Min", Moisture: "7% Max", Packaging: "50kg PP Bags" }
+            },
+            {
+                id: 4,
+                name: "Red & Speckled Beans",
+                category: "export",
+                image: "https://images.unsplash.com/photo-1515543237350-b3eea1ec8082?auto=format&fit=crop&q=80&w=800",
+                desc: "Selected Ethiopian Red Kidney and Speckled Beans sorted rigorously for food processing markets.",
+                specs: { Purity: "98% Min", Admixture: "1% Max", Moisture: "12% Max", Packaging: "50kg Bags" }
+            },
+            {
+                id: 5,
+                name: "Refined Edible Oil",
+                category: "import",
+                image: "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&q=80&w=800",
+                desc: "High-grade imported sunflower and palm edible cooking oils distributed into domestic Ethiopian markets.",
+                specs: { Grade: "Refined Grade A", Quality: "Fortified", Unit: "5L / 20L Flexitanks" }
+            },
+            {
+                id: 6,
+                name: "Refined White Sugar",
+                category: "import",
+                image: "https://images.unsplash.com/photo-1581441363689-1f3c3c414635?auto=format&fit=crop&q=80&w=800",
+                desc: "ICUMSA 45 white refined sugar imported to support domestic food processing demand.",
+                specs: { Specification: "ICUMSA 45", Polarization: "99.80% Min", Packaging: "50kg Bags" }
+            }
+        ];
+
+        const galleryData = [
+            { img: "https://images.unsplash.com/photo-1595246140625-573b715d11dc?auto=format&fit=crop&q=80&w=800", title: "Harvesting & Sourcing" },
+            { img: "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&fit=crop&q=80&w=800", title: "Machine Cleaning Plant" },
+            { img: "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&q=80&w=800", title: "Mung Beans Inspection" },
+            { img: "https://images.unsplash.com/photo-1587293852726-70cdb56c2866?auto=format&fit=crop&q=80&w=800", title: "Logistics Warehouse" },
+            { img: "https://images.unsplash.com/photo-1515543237350-b3eea1ec8082?auto=format&fit=crop&q=80&w=800", title: "Export Cargo Loading" }
+        ];
+
+        // --- 2. Multi-Language Dictionary ---
+        const dictionary = {
+            en: {
+                nav_home: "Home", nav_about: "About Us", nav_products: "Products", nav_quality: "Quality Control",
+                nav_logistics: "Export & Logistics", nav_gallery: "Gallery", nav_contact: "Contact",
+                hero_tag: "Premium Agro-Processing Exporter", hero_title: "Connecting Ethiopia's Quality Agricultural Products to Global Markets",
+                hero_desc: "East West Grinding or Manufacturing of Grains PLC delivers machine-cleaned pulses, premium oil seeds, and essential imported food products worldwide.",
+                btn_explore: "Explore Products", btn_quote: "Request Quote", badge_quality: "Quality Assured",
+                about_tag: "About Our Company", about_title: "Pioneering Commercial Excellence in Agricultural Processing",
+                vision_title: "Our Vision", vision_desc: "To become East Africa's most trusted agro-processor and exporter of choice globally.",
+                mission_title: "Our Mission", mission_desc: "Delivering world-class Ethiopian produce efficiently while driving modern agricultural value addition.",
+                prod_tag: "Product Catalog", prod_title: "Our Export & Import Commodities",
+                tab_all: "All Products", tab_export: "Export Commodities", tab_import: "Import Commodities"
+            },
+            am: {
+                nav_home: "ዋና ገጽ", nav_about: "ስለ እኛ", nav_products: "ምርቶች", nav_quality: "የጥራት ቁጥጥር",
+                nav_logistics: "ኤክስፖርት እና ሎጂስቲክስ", nav_gallery: "ጋለሪ", nav_contact: "ግንኙነት",
+                hero_tag: "ከፍተኛ ጥራት ያለው የግብርና ምርቶች ላኪ", hero_title: "የኢትዮጵያን ጥራት ያላቸው የግብርና ምርቶች ከዓለም አቀፍ ገበያ ጋር ማገናኘት",
+                hero_desc: "ኢስት ዌስት እህል ፈጨት ወይም ማኑፋክቸሪንግ ኃ.የተ.የግ.ማህበር ጥራታቸውን የጠበቁ በጥራጥሬ፣ በቅባት እህሎች እና በምግብ ምርቶች ኤክስፖርት እና ኢምፖርት ንግድ ላይ ይሰማራል።",
+                btn_explore: "ምርቶችን ይመልከቱ", btn_quote: "ዋጋ ይጠይቁ", badge_quality: "የተረጋገጠ ጥራት",
+                about_tag: "ስለ ኩባንያችን", about_title: "በግብርና ምርት ማቀናበር ዘርፍ የላቀ የንግድ ስራ",
+                vision_title: "ራዕያችን", vision_desc: "በምስራቅ አፍሪካ ተመራጭ እና አስተማማኝ የግብርና ምርቶች ላኪ መሆን።",
+                mission_title: "ተልዕኮ", mission_desc: "የኢትዮጵያን የተፈጥሮ ምርቶች ለዓለም ገበያ በማቅረብ የላቀ እሴት መፍጠር።",
+                prod_tag: "የምርት ካታሎግ", prod_title: "የኤክስፖርት እና ኢምፖርት ምርቶቻችን",
+                tab_all: "ሁሉንም", tab_export: "የኤክስፖርት ምርቶች", tab_import: "የኢምፖርት ምርቶች"
+            }
+        };
+
+        // --- 3. UI Render Functions ---
+        function renderProducts(filter = 'all') {
+            const container = document.getElementById('productsGrid');
+            container.innerHTML = '';
+            
+            const filtered = filter === 'all' ? productsData : productsData.filter(p => p.category === filter);
+
+            filtered.forEach(p => {
+                let specsHTML = '';
+                for (const [key, val] of Object.entries(p.specs)) {
+                    specsHTML += `<div class="spec-item"><span>${key}:</span> <span>${val}</span></div>`;
+                }
+
+                container.innerHTML += `
+                    <div class="product-card">
+                        <div class="product-img">
+                            <img src="${p.image}" alt="${p.name}">
+                            <span class="product-tag">${p.category.toUpperCase()}</span>
+                        </div>
+                        <div class="product-body">
+                            <h3>${p.name}</h3>
+                            <p>${p.desc}</p>
+                            <div class="product-specs">${specsHTML}</div>
+                            <button onclick="requestProductQuote('${p.name}')" class="btn btn-outline-dark" style="width:100%; font-size: 0.85rem; padding: 10px;">Inquire Specification</button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function renderGallery() {
+            const container = document.getElementById('galleryGrid');
+            container.innerHTML = '';
+            galleryData.forEach(g => {
+                container.innerHTML += `
+                    <div class="gallery-item" onclick="openLightbox('${g.img}')">
+                        <img src="${g.img}" alt="${g.title}">
+                        <div class="gallery-overlay">
+                            <i class="fa-solid fa-magnifying-glass-plus"></i>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // --- 4. Interactive Logic ---
+        function filterProducts(type) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+            renderProducts(type);
+        }
+
+        function toggleMenu() {
+            document.getElementById('navLinks').classList.toggle('active');
+        }
+
+        function changeLanguage(lang) {
+            const keys = dictionary[lang];
+            if(!keys) return;
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if(keys[key]) el.textContent = keys[key];
+            });
+        }
+
+        function calculateQuote(e) {
+            e.preventDefault();
+            const product = document.getElementById('calcProduct').value;
+            const volume = parseFloat(document.getElementById('calcVolume').value);
+            const incoterm = document.getElementById('calcIncoterm').value;
+
+            // Average metric tons per 20ft container = 24 MT
+            const containers = Math.ceil(volume / 24);
+
+            document.getElementById('calcResultDisplay').style.display = 'flex';
+            document.getElementById('resTitle').textContent = `${volume} MT of ${product} (${incoterm})`;
+            document.getElementById('resDetails').textContent = `Estimated Logistics Load: ${containers} FCL (20ft Freight Container Units)`;
+        }
+
+        function openQuoteModal() {
+            document.getElementById('contactSubject').value = `Quote Request: ${document.getElementById('resTitle').textContent}`;
+            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function requestProductQuote(prodName) {
+            document.getElementById('contactSubject').value = `Inquiry regarding ${prodName}`;
+            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('contactName').value;
+            alert(`Thank you, ${name}. Your trade inquiry has been submitted directly to our export department. We will reply within 24 hours.`);
+            document.getElementById('contactForm').reset();
+        }
+
+        function openLightbox(src) {
+            document.getElementById('lightboxImg').src = src;
+            document.getElementById('lightbox').style.display = 'flex';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+        }
+
+        // Initialize execution on DOM ready
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProducts();
+            renderGallery();
+        });
+    </script>
 </body>
 </html>
