@@ -1,19 +1,11 @@
-// Firebase v10 Web SDK Initialization
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
-import { getFirestore, collection, getDocs, addDoc, deleteDoc, doc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
-import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js";
-
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-    apiKey: "YOUR_FIREBASE_API_KEY",
-    authDomain: "eastwest-grains.firebaseapp.com",
-    projectId: "eastwest-grains",
-    storageBucket: "eastwest-grains.appspot.com",
-    messagingSenderId: "YOUR_SENDER_ID",
-    appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyAC21sHOL7pIZi5044tNlu0hlt1rYlAqVg",
+  authDomain: "east-west-trading--plc.firebaseapp.com",
+  databaseURL: "https://east-west-trading--plc-default-rtdb.firebaseio.com",
+  projectId: "east-west-trading--plc",
+  storageBucket: "east-west-trading--plc.firebasestorage.app",
+  messagingSenderId: "118174778678",
+  appId: "1:118174778678:web:44cab0c573dc1c6f9e1f97",
+  measurementId: "G-QVQCLT0JB3"
 };
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-const auth = getAuth(app);
-
-export { db, auth, collection, getDocs, addDoc, deleteDoc, doc, query, orderBy, signInWithEmailAndPassword, signOut, onAuthStateChanged };
