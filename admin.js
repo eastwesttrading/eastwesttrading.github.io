@@ -1,151 +1,77 @@
-import { db, auth } from "./firebase.js";
+import { auth, db, signInWithEmailAndPassword, signOut, onAuthStateChanged, collection, getDocs, addDoc, deleteDoc, doc } from './firebase.js';
 
-import {
-    signInWithEmailAndPassword,
-    onAuthStateChanged,
-    signOut
-} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+const loginSection = document.getElementById('loginSection');
+const dashboardSection = document.getElementById('dashboardSection');
+const loginForm = document.getElementById('loginForm');
+const logoutBtn = document.getElementById('logoutBtn');
+const addProductForm = document.getElementById('addProductForm');
+const adminProductsTable = document.getElementById('adminProductsTable');
 
-import {
-    collection,
-    addDoc,
-    getDocs,
-    doc,
-    getDoc,
-    setDoc,
-    updateDoc,
-    deleteDoc
-} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
-
-/* =====================================================
-   DOM ELEMENTS
-===================================================== */
-
-const loginSection = document.getElementById("loginSection");
-const adminDashboard = document.getElementById("adminDashboard");
-const loginForm = document.getElementById("loginForm");
-const logoutBtn = document.getElementById("logoutBtn");
-const loginError = document.getElementById("loginError");
-
-/* =====================================================
-   HELPER FUNCTIONS
-===================================================== */
-
-function showDashboard() {
-    loginSection.style.display = "none";
-    adminDashboard.style.display = "block";
-}
-
-function showLogin() {
-    loginSection.style.display = "block";
-    adminDashboard.style.display = "none";
-}
-
-function showError(message) {
-    loginError.style.display = "block";
-    loginError.innerText = message;
-}
-
-function hideError() {
-    loginError.style.display = "none";
-    loginError.innerText = "";
-}
-
-/* =====================================================
-   AUTHENTICATION
-===================================================== */
-
-onAuthStateChanged(auth, async (user) => {
-
+onAuthStateChanged(auth, (user) => {
     if (user) {
-
-        showDashboard();
-
-        console.log("Logged in:", user.email);
-
-        // We'll load all website data here in Part 2
-        await initializeDashboard();
-
+        loginSection.style.display = 'none';
+        dashboardSection.style.display = 'block';
+        fetchAdminProducts();
     } else {
-
-        showLogin();
-
+        loginSection.style.display = 'block';
+        dashboardSection.style.display = 'none';
     }
-
 });
 
-/* =====================================================
-   LOGIN
-===================================================== */
-
-loginForm.addEventListener("submit", async (e) => {
-
+loginForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-
-    hideError();
-
-    const email = document
-        .getElementById("loginEmail")
-        .value
-        .trim();
-
-    const password = document
-        .getElementById("loginPassword")
-        .value;
-
+    const email = document.getElementById('adminEmail').value;
+    const pass = document.getElementById('adminPassword').value;
     try {
-
-        await signInWithEmailAndPassword(
-            auth,
-            email,
-            password
-        );
-
+        await signInWithEmailAndPassword(auth, email, pass);
+    } catch (err) {
+        alert("Authentication failed: " + err.message);
     }
-
-    catch (error) {
-
-        showError(error.message);
-
-        console.error(error);
-
-    }
-
 });
 
-/* =====================================================
-   LOGOUT
-===================================================== */
+logoutBtn.addEventListener('click', () => signOut(auth));
 
-logoutBtn.addEventListener("click", async () => {
-
+async function fetchAdminProducts() {
+    adminProductsTable.innerHTML = '';
     try {
+        const querySnapshot = await getDocs(collection(db, "products"));
+        querySnapshot.forEach((documentSnap) => {
+            const data = documentSnap.data();
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${data.name}</td>
+                <td>${data.category}</td>
+                <td><button class="btn-delete" data-id="${documentSnap.id}">Delete</button></td>
+            `;
+            adminProductsTable.appendChild(row);
+        });
 
-        await signOut(auth);
-
+        document.querySelectorAll('.btn-delete').forEach(btn => {
+            btn.addEventListener('click', async (e) => {
+                const docId = e.target.getAttribute('data-id');
+                await deleteDoc(doc(db, "products", docId));
+                fetchAdminProducts();
+            });
+        });
+    } catch (e) {
+        console.error("Firestore error:", e);
     }
-
-    catch (error) {
-
-        alert(error.message);
-
-    }
-
-});
-
-/* =====================================================
-   DASHBOARD INITIALIZATION
-===================================================== */
-
-async function initializeDashboard() {
-
-    console.log("Dashboard Ready");
-
-    // Part 2
-    // Load Theme
-    // Load Hero
-    // Load Company
-    // Load Contact
-    // Load Products
-
 }
+
+addProductForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const newProduct = {
+        name: document.getElementById('pName').value,
+        category: document.getElementById('pCategory').value,
+        image: document.getElementById('pImage').value,
+        desc: document.getElementById('pDesc').value,
+        specs: { Purity: "Standard", Moisture: "Standard" }
+    };
+    try {
+        await addDoc(collection(db, "products"), newProduct);
+        addProductForm.reset();
+        fetchAdminProducts();
+    } catch (err) {
+        alert("Could not save product: " + err.message);
+    }
+});
