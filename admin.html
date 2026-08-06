@@ -1,166 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Dashboard</title>
-  <link rel="stylesheet" href="admin.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | EAST WEST PLC</title>
+    <link rel="stylesheet" href="admin.css">
 </head>
 <body>
 
-  <!-- Auth Wrapper -->
-  <div id="login-overlay" class="login-modal">
-    <form id="admin-login-form" class="admin-card">
-      <h2>Admin Authentication</h2>
-      <input type="email" id="login-email" placeholder="Admin Email" required>
-      <input type="password" id="login-password" placeholder="Password" required>
-      <button type="submit">Sign In</button>
-      <button type="button" id="btn-forgot-pass" class="btn-link">Forgot Password?</button>
-    </form>
-  </div>
+    <div id="loginSection" class="login-card">
+        <h2>Admin Authentication</h2>
+        <form id="loginForm" style="margin-top: 15px;">
+            <div class="form-control">
+                <label>Email Address</label>
+                <input type="email" id="adminEmail" required>
+            </div>
+            <div class="form-control">
+                <label>Password</label>
+                <input type="password" id="adminPassword" required>
+            </div>
+            <button type="submit" style="width:100%; padding: 12px; background: #0F382C; color: #fff; border: none; border-radius: 4px; cursor: pointer;">Login</button>
+        </form>
+    </div>
 
-  <!-- Dashboard App Interface -->
-  <div id="admin-app" class="admin-layout hidden">
-    <aside class="sidebar">
-      <h3>Control Center</h3>
-      <nav class="sidebar-nav">
-        <button class="nav-btn active" data-tab="tab-dashboard">Dashboard</button>
-        <button class="nav-btn" data-tab="tab-company">Company</button>
-        <button class="nav-btn" data-tab="tab-hero">Hero Section</button>
-        <button class="nav-btn" data-tab="tab-theme">Branding & Theme</button>
-        <button class="nav-btn" data-tab="tab-contact">Contact Settings</button>
-        <button class="nav-btn" data-tab="tab-products">Products</button>
-        <button class="nav-btn" data-tab="tab-gallery">Gallery</button>
-        <button class="nav-btn" data-tab="tab-messages">Messages</button>
-      </nav>
-      <button id="btn-logout" class="btn-danger">Logout</button>
-    </aside>
-
-    <main class="content-area">
-      
-      <!-- Tab: Dashboard -->
-      <section id="tab-dashboard" class="tab-content active">
-        <h2>Dashboard Analytics</h2>
-        <div class="metrics-grid">
-          <div class="metric-card"><h4>Products</h4><span id="stat-products">0</span></div>
-          <div class="metric-card"><h4>Gallery Images</h4><span id="stat-gallery">0</span></div>
-          <div class="metric-card"><h4>Total Messages</h4><span id="stat-messages">0</span></div>
-          <div class="metric-card"><h4>Unread Messages</h4><span id="stat-unread">0</span></div>
+    <div id="dashboardSection" class="admin-container" style="display: none;">
+        <div class="admin-header">
+            <h2>EAST WEST PLC - Management Portal</h2>
+            <button id="logoutBtn" style="padding: 8px 16px; background: #64748b; color: #fff; border: none; border-radius: 4px; cursor: pointer;">Logout</button>
         </div>
-      </section>
 
-      <!-- Tab: Company -->
-      <section id="tab-company" class="tab-content">
-        <h2>Company Details</h2>
-        <form id="form-company" class="admin-form">
-          <div class="field-group">
-            <label>Name (English / Amharic)</label>
-            <input type="text" id="comp-name-en" placeholder="English">
-            <input type="text" id="comp-name-am" placeholder="Amharic">
-          </div>
-          <div class="field-group">
-            <label>About Us (English / Amharic)</label>
-            <textarea id="comp-about-en" rows="3"></textarea>
-            <textarea id="comp-about-am" rows="3"></textarea>
-          </div>
-          <div class="field-group">
-            <label>Mission (English / Amharic)</label>
-            <textarea id="comp-mission-en" rows="2"></textarea>
-            <textarea id="comp-mission-am" rows="2"></textarea>
-          </div>
-          <div class="field-group">
-            <label>Vision (English / Amharic)</label>
-            <textarea id="comp-vision-en" rows="2"></textarea>
-            <textarea id="comp-vision-am" rows="2"></textarea>
-          </div>
-          <button type="submit">Save Company Info</button>
-        </form>
-      </section>
+        <div class="dashboard-grid">
+            <div class="card">
+                <h3>Add New Product</h3>
+                <form id="addProductForm" style="margin-top: 15px;">
+                    <div class="form-control">
+                        <label>Product Name</label>
+                        <input type="text" id="pName" required>
+                    </div>
+                    <div class="form-control">
+                        <label>Category</label>
+                        <select id="pCategory">
+                            <option value="export">Export</option>
+                            <option value="import">Import</option>
+                        </select>
+                    </div>
+                    <div class="form-control">
+                        <label>Image URL</label>
+                        <input type="url" id="pImage" required>
+                    </div>
+                    <div class="form-control">
+                        <label>Description</label>
+                        <textarea id="pDesc" rows="3" required></textarea>
+                    </div>
+                    <button type="submit" style="width:100%; padding: 10px; background: #D4AF37; color: #000; border: none; border-radius: 4px; font-weight: bold; cursor: pointer;">Save Product</button>
+                </form>
+            </div>
 
-      <!-- Tab: Hero -->
-      <section id="tab-hero" class="tab-content">
-        <h2>Hero Settings</h2>
-        <form id="form-hero" class="admin-form">
-          <input type="text" id="hero-title-en" placeholder="Title (EN)">
-          <input type="text" id="hero-title-am" placeholder="Title (AM)">
-          <input type="text" id="hero-sub-en" placeholder="Subtitle (EN)">
-          <input type="text" id="hero-sub-am" placeholder="Subtitle (AM)">
-          <input type="url" id="hero-bg-url" placeholder="Background Image URL">
-          <button type="submit">Save Hero</button>
-        </form>
-      </section>
+            <div class="card">
+                <h3>Live Commodity Database</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Category</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="adminProductsTable"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
-      <!-- Tab: Theme -->
-      <section id="tab-theme" class="tab-content">
-        <h2>Branding & Theme</h2>
-        <form id="form-theme" class="admin-form">
-          <label>Primary Color</label>
-          <input type="color" id="theme-primary">
-          <label>Secondary Color</label>
-          <input type="color" id="theme-secondary">
-          <label>Logo Image URL</label>
-          <input type="url" id="theme-logo">
-          <button type="submit">Save Theme</button>
-        </form>
-      </section>
-
-      <!-- Tab: Contact -->
-      <section id="tab-contact" class="tab-content">
-        <h2>Contact Details</h2>
-        <form id="form-contact" class="admin-form">
-          <input type="text" id="contact-phone-input" placeholder="Phone">
-          <input type="email" id="contact-email-input" placeholder="Email">
-          <input type="text" id="contact-whatsapp-input" placeholder="WhatsApp Number">
-          <input type="text" id="contact-addr-en" placeholder="Address (EN)">
-          <input type="text" id="contact-addr-am" placeholder="Address (AM)">
-          <button type="submit">Save Contact Info</button>
-        </form>
-      </section>
-
-      <!-- Tab: Products -->
-      <section id="tab-products" class="tab-content">
-        <h2>Manage Products</h2>
-        <form id="form-product" class="admin-form">
-          <input type="hidden" id="prod-id">
-          <input type="text" id="prod-title-en" placeholder="Title (EN)" required>
-          <input type="text" id="prod-title-am" placeholder="Title (AM)" required>
-          <textarea id="prod-desc-en" placeholder="Description (EN)"></textarea>
-          <textarea id="prod-desc-am" placeholder="Description (AM)"></textarea>
-          <input type="text" id="prod-origin-en" placeholder="Origin (EN)">
-          <input type="text" id="prod-origin-am" placeholder="Origin (AM)">
-          <input type="text" id="prod-process-en" placeholder="Process (EN)">
-          <input type="text" id="prod-process-am" placeholder="Process (AM)">
-          <input type="text" id="prod-altitude" placeholder="Altitude (e.g. 2000m)">
-          <input type="url" id="prod-img" placeholder="Image URL">
-          <button type="submit" id="btn-save-prod">Add Product</button>
-          <button type="button" id="btn-cancel-prod" class="hidden">Cancel Edit</button>
-        </form>
-        <hr>
-        <div id="admin-products-list" class="data-table-container"></div>
-      </section>
-
-      <!-- Tab: Gallery -->
-      <section id="tab-gallery" class="tab-content">
-        <h2>Manage Gallery</h2>
-        <form id="form-gallery" class="admin-form">
-          <input type="url" id="gal-img-url" placeholder="Image URL" required>
-          <input type="text" id="gal-cap-en" placeholder="Caption (EN)">
-          <input type="text" id="gal-cap-am" placeholder="Caption (AM)">
-          <button type="submit">Add Image</button>
-        </form>
-        <hr>
-        <div id="admin-gallery-list" class="gallery-grid"></div>
-      </section>
-
-      <!-- Tab: Messages -->
-      <section id="tab-messages" class="tab-content">
-        <h2>Customer Messages</h2>
-        <div id="admin-messages-list" class="messages-list"></div>
-      </section>
-
-    </main>
-  </div>
-
-  <script type="module" src="admin.js"></script>
+    <script type="module" src="admin.js"></script>
 </body>
 </html>
