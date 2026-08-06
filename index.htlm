@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>East West Grinding or Manufacturing of Grains PLC | Ethiopian Exporter of Pulses & Oil Seeds</title>
+
+<meta name="description" content="East West Grinding or Manufacturing of Grains PLC is an Ethiopian exporter and importer specializing in premium pulses, oil seeds, cereals, agro-processing and international trade.">
+
+<meta name="keywords" content="Ethiopia Exporter, Green Mung Beans, White Pea Beans, Sesame Seeds, Pulses Export, Oil Seeds, Agro Processing, Ethiopia Agriculture">
+
+<meta name="author" content="East West Grinding or Manufacturing of Grains PLC">
+
+<meta property="og:title" content="East West Grinding or Manufacturing of Grains PLC">
+<meta property="og:description" content="Premium Ethiopian Agricultural Export Company">
+<meta property="og:type" content="website">
+<meta property="og:image" content="images/logo.png">
+
+<link rel="icon" href="images/favicon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<!-- ================= TOP BAR ================= -->
+
+<div class="top-bar">
+
+<div class="container">
+
+<div class="top-info">
+
+<span>
+<i class="fa-solid fa-location-dot"></i>
+Addis Ababa, Ethiopia
+</span>
+
+<span>
+<i class="fa-solid fa-envelope"></i>
+info@eastwestgrains.com
+</span>
+
+<span>
+<i class="fa-solid fa-phone"></i>
++251 XXX XX XX XX
+</span>
+
+</div>
+
+<div class="top-right">
+
+<div class="language-switch">
+
+<i class="fa-solid fa-globe"></i>
+
+<select id="langSelect">
+
+<option value="en">English</option>
+
+<option value="am">አማርኛ</option>
+
+</select>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ================= HEADER ================= -->
+
+<header>
+
+<div class="container navbar">
+
+<a href="#" class="brand-logo">
+
+<div class="logo-icon">
+
+<i class="fa-solid fa-wheat-awn"></i>
+
+</div>
+
+<div class="logo-text">
+
+<h2>EAST WEST</h2>
+
+<p>Grinding or Manufacturing of Grains PLC</p>
+
+</div>
+
+</a>
+
+<nav id="navLinks">
+
+<a href="#home" class="active">Home</a>
+
+<a href="#about">About</a>
+
+<a href="#products">Products</a>
+
+<a href="#quality">Quality</a>
+
+<a href="#services">Services</a>
+
+<a href="#gallery">Gallery</a>
+
+<a href="#contact">Contact</a>
+
+<a href="#quote" class="quote-btn">
+
+Request Quote
+
+</a>
+
+</nav>
+
+<div class="hamburger" id="hamburgerBtn">
+
+<i class="fas fa-bars"></i>
+
+</div>
+
+</div>
+
+</header>
+
+<!-- ================= HERO ================= -->
+
+<section class="hero" id="home">
+
+<div class="container hero-container">
+
+<div class="hero-content">
+
+<span class="hero-tag">
+
+Premium Ethiopian Agro Processing & Export Company
+
+</span>
+
+<h1>
+
+Connecting Ethiopian Agricultural Excellence to Global Markets
+
+</h1>
+
+<p>
+
+East West Grinding or Manufacturing of Grains PLC supplies premium quality Ethiopian pulses, oil seeds, cereals, and imported food products. We deliver reliable sourcing, modern processing, strict quality control, and efficient international logistics.
+
+</p>
+
+<div class="hero-buttons">
+
+<a href="#products" class="btn btn-primary">
+
+Explore Products
+
+<i class="fas fa-arrow-right"></i>
+
+</a>
+
+<a href="#contact" class="btn btn-secondary">
+
+Contact Us
+
+</a>
+
+</div>
+
+</div>
+
+<div class="hero-image">
+
+<img src="images/hero-grains.png"
+
+alt="East West Grinding PLC">
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ================= COMPANY HIGHLIGHTS ================= -->
+
+<section class="highlights">
+
+<div class="container">
+
+<div class="highlight-box">
+
+<h2>15+</h2>
+
+<p>Products</p>
+
+</div>
+
+<div class="highlight-box">
+
+<h2>100%</h2>
+
+<p>Quality Inspection</p>
+
+</div>
+
+<div class="highlight-box">
+
+<h2>Worldwide</h2>
+
+<p>Export Markets</p>
+
+</div>
+
+<div class="highlight-box">
+
+<h2>24/7</h2>
+
+<p>Customer Support</p>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ================= SCROLL INDICATOR ================= -->
+
+<div class="scroll-down">
+
+<a href="#about">
+
+<i class="fa-solid fa-angles-down"></i>
+
+</a>
+
+</div>
+
+<!-- ABOUT SECTION STARTS HERE -->
