@@ -1,86 +1,63 @@
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="description"
-        content="East West Grinding or Manufacturing of Grains PLC - Administration Portal"
-    >
+    <meta name="description"
+          content="EAST WEST GRINDING OR MANUFACTURING OF GRAINS PLC - Admin Portal">
 
-    <title>Admin Portal | EAST WEST GRAINS PLC</title>
+    <title>EAST WEST PLC | Admin Portal</title>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
-        rel="stylesheet"
-    >
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+          rel="stylesheet">
 
     <!-- Font Awesome -->
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    >
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <!-- Admin CSS -->
     <link rel="stylesheet" href="admin.css">
-
 </head>
 
 <body>
 
-<!-- =====================================================
-     LOGIN SCREEN
-===================================================== -->
+<!-- =========================================================
+     LOGIN SECTION
+========================================================= -->
 
-<section id="loginScreen" class="login-screen">
+<section id="loginSection" class="login-section">
 
     <div class="login-card">
 
         <div class="login-logo">
-
             <div class="login-logo-icon">
                 <i class="fa-solid fa-wheat-awn"></i>
             </div>
 
             <h1>EAST WEST</h1>
-
-            <span>
-                GRAINS PLC
-            </span>
-
+            <span>GRINDING OR MANUFACTURING OF GRAINS PLC</span>
         </div>
 
         <div class="login-heading">
-
             <h2>Admin Portal</h2>
-
-            <p>
-                Sign in to manage your company website.
-            </p>
-
+            <p>Sign in to manage your company website.</p>
         </div>
 
         <form id="loginForm">
 
-            <div class="form-group">
-
+            <div class="form-control">
                 <label for="loginEmail">
                     Email Address
                 </label>
 
-                <div class="input-with-icon">
-
+                <div class="input-wrapper">
                     <i class="fa-solid fa-envelope"></i>
 
                     <input
@@ -88,22 +65,16 @@
                         id="loginEmail"
                         placeholder="admin@example.com"
                         autocomplete="email"
-                        required
-                    >
-
+                        required>
                 </div>
-
             </div>
 
-
-            <div class="form-group">
-
+            <div class="form-control">
                 <label for="loginPassword">
                     Password
                 </label>
 
-                <div class="input-with-icon">
-
+                <div class="input-wrapper">
                     <i class="fa-solid fa-lock"></i>
 
                     <input
@@ -111,41 +82,37 @@
                         id="loginPassword"
                         placeholder="Enter your password"
                         autocomplete="current-password"
-                        required
-                    >
+                        required>
 
                     <button
                         type="button"
                         class="password-toggle"
-                        id="passwordToggle"
-                        aria-label="Show password"
-                    >
+                        id="togglePassword"
+                        aria-label="Show password">
+
                         <i class="fa-solid fa-eye"></i>
+
                     </button>
-
                 </div>
-
             </div>
 
+            <div id="loginError"
+                 class="form-message error-message"
+                 style="display:none;">
+            </div>
 
             <button
                 type="submit"
                 class="admin-btn admin-btn-primary login-btn"
-                id="loginButton"
-            >
+                id="loginBtn">
 
                 <i class="fa-solid fa-right-to-bracket"></i>
 
-                Sign In
+                <span>Sign In</span>
 
             </button>
 
         </form>
-
-        <div
-            id="loginMessage"
-            class="admin-message"
-        ></div>
 
         <div class="login-footer">
 
@@ -161,21 +128,17 @@
 </section>
 
 
-<!-- =====================================================
+<!-- =========================================================
      ADMIN DASHBOARD
-===================================================== -->
+========================================================= -->
 
-<section
-    id="dashboardScreen"
-    class="dashboard-screen hidden"
->
+<section id="dashboardSection"
+         class="dashboard-section"
+         style="display:none;">
 
     <!-- SIDEBAR -->
 
-    <aside
-        class="admin-sidebar"
-        id="adminSidebar"
-    >
+    <aside class="admin-sidebar" id="adminSidebar">
 
         <div class="sidebar-brand">
 
@@ -184,15 +147,14 @@
             </div>
 
             <div>
-
-                <strong>EAST WEST</strong>
-
-                <span>GRAINS PLC</span>
-
+                <h2>EAST WEST</h2>
+                <span>ADMIN PORTAL</span>
             </div>
 
         </div>
 
+
+        <!-- Navigation -->
 
         <nav class="sidebar-nav">
 
@@ -202,10 +164,11 @@
 
             <button
                 class="sidebar-link active"
-                data-section="dashboard"
-            >
+                data-section="dashboard">
+
                 <i class="fa-solid fa-chart-line"></i>
                 <span>Dashboard</span>
+
             </button>
 
 
@@ -215,34 +178,38 @@
 
             <button
                 class="sidebar-link"
-                data-section="products"
-            >
+                data-section="products">
+
                 <i class="fa-solid fa-box-open"></i>
                 <span>Products</span>
+
             </button>
 
             <button
                 class="sidebar-link"
-                data-section="gallery"
-            >
+                data-section="gallery">
+
                 <i class="fa-solid fa-images"></i>
                 <span>Gallery</span>
+
             </button>
 
             <button
                 class="sidebar-link"
-                data-section="news"
-            >
+                data-section="news">
+
                 <i class="fa-solid fa-newspaper"></i>
                 <span>News</span>
+
             </button>
 
             <button
                 class="sidebar-link"
-                data-section="certificates"
-            >
+                data-section="certificates">
+
                 <i class="fa-solid fa-certificate"></i>
                 <span>Certificates</span>
+
             </button>
 
 
@@ -252,32 +219,31 @@
 
             <button
                 class="sidebar-link"
-                data-section="quotations"
-            >
-                <i class="fa-solid fa-file-invoice-dollar"></i>
-                <span>Quotations</span>
+                data-section="messages">
+
+                <i class="fa-solid fa-envelope"></i>
+                <span>Messages</span>
 
                 <span
-                    class="nav-badge"
-                    id="quotationBadge"
-                >
+                    class="notification-badge"
+                    id="messageBadge"
+                    style="display:none;">
                     0
                 </span>
 
             </button>
 
-
             <button
                 class="sidebar-link"
-                data-section="messages"
-            >
-                <i class="fa-solid fa-envelope"></i>
-                <span>Messages</span>
+                data-section="quotations">
+
+                <i class="fa-solid fa-file-invoice-dollar"></i>
+                <span>Quotations</span>
 
                 <span
-                    class="nav-badge"
-                    id="messageBadge"
-                >
+                    class="notification-badge"
+                    id="quotationBadge"
+                    style="display:none;">
                     0
                 </span>
 
@@ -290,39 +256,46 @@
 
             <button
                 class="sidebar-link"
-                data-section="settings"
-            >
-                <i class="fa-solid fa-gear"></i>
-                <span>Company Settings</span>
+                data-section="users">
+
+                <i class="fa-solid fa-users"></i>
+                <span>Users</span>
+
             </button>
 
             <button
                 class="sidebar-link"
-                data-section="users"
-            >
-                <i class="fa-solid fa-users"></i>
-                <span>Admin Users</span>
+                data-section="settings">
+
+                <i class="fa-solid fa-gear"></i>
+                <span>Settings</span>
+
             </button>
 
         </nav>
 
 
+        <!-- Sidebar Bottom -->
+
         <div class="sidebar-bottom">
 
             <a
                 href="index.html"
-                class="sidebar-website-link"
-            >
+                target="_blank"
+                class="sidebar-link">
+
                 <i class="fa-solid fa-globe"></i>
-                View Website
+                <span>View Website</span>
+
             </a>
 
             <button
-                id="logoutButton"
-                class="sidebar-logout"
-            >
+                id="logoutBtn"
+                class="sidebar-link logout-link">
+
                 <i class="fa-solid fa-right-from-bracket"></i>
-                Sign Out
+                <span>Logout</span>
+
             </button>
 
         </div>
@@ -342,10 +315,10 @@
 
                 <button
                     id="sidebarToggle"
-                    class="sidebar-toggle"
-                    aria-label="Open menu"
-                >
+                    class="sidebar-toggle">
+
                     <i class="fa-solid fa-bars"></i>
+
                 </button>
 
                 <div>
@@ -355,7 +328,7 @@
                     </h1>
 
                     <p id="pageSubtitle">
-                        Overview of your website and business inquiries.
+                        Welcome to the EAST WEST PLC administration portal.
                     </p>
 
                 </div>
@@ -363,21 +336,25 @@
             </div>
 
 
-            <div class="admin-profile">
+            <div class="topbar-right">
 
-                <div class="admin-profile-icon">
-                    <i class="fa-solid fa-user-shield"></i>
-                </div>
+                <div class="admin-user">
 
-                <div class="admin-profile-info">
+                    <div class="admin-user-icon">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
 
-                    <strong id="adminName">
-                        Administrator
-                    </strong>
+                    <div class="admin-user-info">
 
-                    <span id="adminEmail">
-                        -
-                    </span>
+                        <strong id="adminUserName">
+                            Administrator
+                        </strong>
+
+                        <span id="adminUserEmail">
+                            Admin
+                        </span>
+
+                    </div>
 
                 </div>
 
@@ -387,138 +364,258 @@
 
 
         <!-- =================================================
-             DASHBOARD SECTION
+             CONTENT AREA
         ================================================== -->
 
-        <section
-            id="section-dashboard"
-            class="admin-section active-section"
-        >
-
-            <div class="section-intro">
-
-                <div>
-
-                    <span class="section-kicker">
-                        EAST WEST GRAINS PLC
-                    </span>
-
-                    <h2>
-                        Website Dashboard
-                    </h2>
-
-                    <p>
-                        Monitor products, inquiries,
-                        quotations and website content.
-                    </p>
-
-                </div>
-
-                <a
-                    href="index.html"
-                    target="_blank"
-                    class="admin-btn admin-btn-outline"
-                >
-                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                    View Website
-                </a>
-
-            </div>
+        <div class="admin-content">
 
 
-            <!-- STAT CARDS -->
+            <!-- =================================================
+                 DASHBOARD
+            ================================================== -->
 
-            <div class="stats-grid">
+            <section
+                id="section-dashboard"
+                class="admin-section active">
 
-                <div class="stat-card">
-
-                    <div class="stat-icon green">
-                        <i class="fa-solid fa-box-open"></i>
-                    </div>
+                <div class="section-intro">
 
                     <div>
-
-                        <span>
-                            Products
+                        <span class="section-label">
+                            OVERVIEW
                         </span>
 
-                        <strong id="statProducts">
-                            0
-                        </strong>
+                        <h2>Business Website Dashboard</h2>
+
+                        <p>
+                            Manage EAST WEST PLC website content,
+                            trade inquiries and business information.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <!-- STAT CARDS -->
+
+                <div class="stats-grid">
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon products-icon">
+                            <i class="fa-solid fa-box-open"></i>
+                        </div>
+
+                        <div class="stat-content">
+
+                            <span>Total Products</span>
+
+                            <strong id="statProducts">
+                                0
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon gallery-icon">
+                            <i class="fa-solid fa-images"></i>
+                        </div>
+
+                        <div class="stat-content">
+
+                            <span>Gallery Items</span>
+
+                            <strong id="statGallery">
+                                0
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon message-icon">
+                            <i class="fa-solid fa-envelope"></i>
+                        </div>
+
+                        <div class="stat-content">
+
+                            <span>Messages</span>
+
+                            <strong id="statMessages">
+                                0
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon quotation-icon">
+                            <i class="fa-solid fa-file-invoice"></i>
+                        </div>
+
+                        <div class="stat-content">
+
+                            <span>Quotations</span>
+
+                            <strong id="statQuotations">
+                                0
+                            </strong>
+
+                        </div>
 
                     </div>
 
                 </div>
 
 
-                <div class="stat-card">
+                <!-- QUICK ACTIONS -->
 
-                    <div class="stat-icon gold">
-                        <i class="fa-solid fa-images"></i>
+                <div class="admin-grid-2">
+
+                    <div class="admin-card">
+
+                        <div class="card-header">
+
+                            <div>
+
+                                <h3>
+                                    Quick Actions
+                                </h3>
+
+                                <p>
+                                    Frequently used administration tools.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="quick-actions">
+
+                            <button
+                                class="quick-action"
+                                data-open-section="products">
+
+                                <i class="fa-solid fa-plus"></i>
+
+                                <span>
+                                    Add Product
+                                </span>
+
+                            </button>
+
+                            <button
+                                class="quick-action"
+                                data-open-section="gallery">
+
+                                <i class="fa-solid fa-image"></i>
+
+                                <span>
+                                    Add Gallery Image
+                                </span>
+
+                            </button>
+
+                            <button
+                                class="quick-action"
+                                data-open-section="news">
+
+                                <i class="fa-solid fa-pen"></i>
+
+                                <span>
+                                    Publish News
+                                </span>
+
+                            </button>
+
+                            <button
+                                class="quick-action"
+                                data-open-section="certificates">
+
+                                <i class="fa-solid fa-certificate"></i>
+
+                                <span>
+                                    Add Certificate
+                                </span>
+
+                            </button>
+
+                        </div>
+
                     </div>
 
-                    <div>
 
-                        <span>
-                            Gallery Items
-                        </span>
+                    <!-- COMPANY INFO -->
 
-                        <strong id="statGallery">
-                            0
-                        </strong>
+                    <div class="admin-card">
+
+                        <div class="card-header">
+
+                            <div>
+
+                                <h3>
+                                    Company Information
+                                </h3>
+
+                                <p>
+                                    Current website configuration.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                        <div class="company-info-list">
+
+                            <div>
+                                <span>Company</span>
+                                <strong>
+                                    EAST WEST GRINDING OR
+                                    MANUFACTURING OF GRAINS PLC
+                                </strong>
+                            </div>
+
+                            <div>
+                                <span>Location</span>
+                                <strong>
+                                    Addis Ababa, Ethiopia
+                                </strong>
+                            </div>
+
+                            <div>
+                                <span>Business</span>
+                                <strong>
+                                    Agro-Processing,
+                                    Export & Import
+                                </strong>
+                            </div>
+
+                            <div>
+                                <span>Primary Market</span>
+                                <strong>
+                                    International
+                                </strong>
+                            </div>
+
+                        </div>
 
                     </div>
 
                 </div>
 
 
-                <div class="stat-card">
-
-                    <div class="stat-icon blue">
-                        <i class="fa-solid fa-file-invoice-dollar"></i>
-                    </div>
-
-                    <div>
-
-                        <span>
-                            Quotations
-                        </span>
-
-                        <strong id="statQuotations">
-                            0
-                        </strong>
-
-                    </div>
-
-                </div>
-
-
-                <div class="stat-card">
-
-                    <div class="stat-icon orange">
-                        <i class="fa-solid fa-envelope"></i>
-                    </div>
-
-                    <div>
-
-                        <span>
-                            Unread Messages
-                        </span>
-
-                        <strong id="statMessages">
-                            0
-                        </strong>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- DASHBOARD CARDS -->
-
-            <div class="dashboard-columns">
+                <!-- RECENT ACTIVITY -->
 
                 <div class="admin-card">
 
@@ -527,110 +624,36 @@
                         <div>
 
                             <h3>
-                                Quick Actions
+                                Recent Messages
                             </h3>
 
                             <p>
-                                Manage your website content.
+                                Latest trade inquiries from website visitors.
                             </p>
 
                         </div>
 
-                    </div>
-
-
-                    <div class="quick-actions">
-
                         <button
-                            class="quick-action"
-                            data-section="products"
-                        >
+                            class="text-btn"
+                            data-open-section="messages">
 
-                            <i class="fa-solid fa-plus"></i>
-
-                            <span>
-                                Add Product
-                            </span>
-
-                        </button>
-
-
-                        <button
-                            class="quick-action"
-                            data-section="gallery"
-                        >
-
-                            <i class="fa-solid fa-image"></i>
-
-                            <span>
-                                Manage Gallery
-                            </span>
-
-                        </button>
-
-
-                        <button
-                            class="quick-action"
-                            data-section="news"
-                        >
-
-                            <i class="fa-solid fa-newspaper"></i>
-
-                            <span>
-                                Add News
-                            </span>
-
-                        </button>
-
-
-                        <button
-                            class="quick-action"
-                            data-section="certificates"
-                        >
-
-                            <i class="fa-solid fa-certificate"></i>
-
-                            <span>
-                                Certificates
-                            </span>
+                            View All
+                            <i class="fa-solid fa-arrow-right"></i>
 
                         </button>
 
                     </div>
-
-                </div>
-
-
-                <div class="admin-card">
-
-                    <div class="card-header">
-
-                        <div>
-
-                            <h3>
-                                Business Inquiries
-                            </h3>
-
-                            <p>
-                                Recent customer activity.
-                            </p>
-
-                        </div>
-
-                    </div>
-
 
                     <div
-                        id="recentActivity"
-                        class="recent-activity"
-                    >
+                        id="recentMessages"
+                        class="recent-list">
 
-                        <div class="empty-dashboard">
+                        <div class="empty-state">
 
                             <i class="fa-solid fa-inbox"></i>
 
                             <p>
-                                No recent activity.
+                                No messages available.
                             </p>
 
                         </div>
@@ -639,672 +662,270 @@
 
                 </div>
 
-            </div>
+            </section>
 
-        </section>
 
+            <!-- =================================================
+                 PRODUCTS
+            ================================================== -->
 
-        <!-- =================================================
-             PRODUCTS
-        ================================================== -->
+            <section
+                id="section-products"
+                class="admin-section">
 
-        <section
-            id="section-products"
-            class="admin-section"
-        >
-
-            <div class="section-intro">
-
-                <div>
-
-                    <span class="section-kicker">
-                        PRODUCT MANAGEMENT
-                    </span>
-
-                    <h2>
-                        Products
-                    </h2>
-
-                    <p>
-                        Add and manage your export and import commodities.
-                    </p>
-
-                </div>
-
-                <button
-                    class="admin-btn admin-btn-primary"
-                    id="addProductButton"
-                >
-                    <i class="fa-solid fa-plus"></i>
-                    Add Product
-                </button>
-
-            </div>
-
-
-            <div class="admin-card">
-
-                <div class="table-wrapper">
-
-                    <table class="admin-table">
-
-                        <thead>
-
-                            <tr>
-
-                                <th>Product</th>
-                                <th>Category</th>
-                                <th>Origin</th>
-                                <th>Status</th>
-                                <th>Actions</th>
-
-                            </tr>
-
-                        </thead>
-
-                        <tbody id="productsTableBody">
-
-                            <tr>
-
-                                <td
-                                    colspan="5"
-                                    class="table-loading"
-                                >
-                                    Loading products...
-                                </td>
-
-                            </tr>
-
-                        </tbody>
-
-                    </table>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =================================================
-             GALLERY
-        ================================================== -->
-
-        <section
-            id="section-gallery"
-            class="admin-section"
-        >
-
-            <div class="section-intro">
-
-                <div>
-
-                    <span class="section-kicker">
-                        MEDIA MANAGEMENT
-                    </span>
-
-                    <h2>
-                        Gallery
-                    </h2>
-
-                    <p>
-                        Manage photos displayed on your company website.
-                    </p>
-
-                </div>
-
-                <button
-                    class="admin-btn admin-btn-primary"
-                    id="addGalleryButton"
-                >
-                    <i class="fa-solid fa-plus"></i>
-                    Add Image
-                </button>
-
-            </div>
-
-
-            <div
-                id="galleryAdminGrid"
-                class="admin-gallery-grid"
-            >
-
-                <div class="table-loading">
-                    Loading gallery...
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =================================================
-             NEWS
-        ================================================== -->
-
-        <section
-            id="section-news"
-            class="admin-section"
-        >
-
-            <div class="section-intro">
-
-                <div>
-
-                    <span class="section-kicker">
-                        COMPANY NEWS
-                    </span>
-
-                    <h2>
-                        News & Updates
-                    </h2>
-
-                    <p>
-                        Publish company news, export updates and announcements.
-                    </p>
-
-                </div>
-
-                <button
-                    class="admin-btn admin-btn-primary"
-                    id="addNewsButton"
-                >
-                    <i class="fa-solid fa-plus"></i>
-                    Add News
-                </button>
-
-            </div>
-
-
-            <div class="admin-card">
-
-                <div class="table-wrapper">
-
-                    <table class="admin-table">
-
-                        <thead>
-
-                            <tr>
-
-                                <th>Title</th>
-                                <th>Published</th>
-                                <th>Date</th>
-                                <th>Actions</th>
-
-                            </tr>
-
-                        </thead>
-
-                        <tbody id="newsTableBody">
-
-                            <tr>
-
-                                <td
-                                    colspan="4"
-                                    class="table-loading"
-                                >
-                                    Loading news...
-                                </td>
-
-                            </tr>
-
-                        </tbody>
-
-                    </table>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =================================================
-             CERTIFICATES
-        ================================================== -->
-
-        <section
-            id="section-certificates"
-            class="admin-section"
-        >
-
-            <div class="section-intro">
-
-                <div>
-
-                    <span class="section-kicker">
-                        QUALITY & COMPLIANCE
-                    </span>
-
-                    <h2>
-                        Certificates
-                    </h2>
-
-                    <p>
-                        Manage certificates and compliance documents.
-                    </p>
-
-                </div>
-
-                <button
-                    class="admin-btn admin-btn-primary"
-                    id="addCertificateButton"
-                >
-                    <i class="fa-solid fa-plus"></i>
-                    Add Certificate
-                </button>
-
-            </div>
-
-
-            <div class="admin-card">
-
-                <div class="table-wrapper">
-
-                    <table class="admin-table">
-
-                        <thead>
-
-                            <tr>
-
-                                <th>Certificate</th>
-                                <th>Issuer</th>
-                                <th>Issue Date</th>
-                                <th>Expiry Date</th>
-                                <th>Status</th>
-                                <th>Actions</th>
-
-                            </tr>
-
-                        </thead>
-
-                        <tbody id="certificatesTableBody">
-
-                            <tr>
-
-                                <td
-                                    colspan="6"
-                                    class="table-loading"
-                                >
-                                    Loading certificates...
-                                </td>
-
-                            </tr>
-
-                        </tbody>
-
-                    </table>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =================================================
-             QUOTATIONS
-        ================================================== -->
-
-        <section
-            id="section-quotations"
-            class="admin-section"
-        >
-
-            <div class="section-intro">
-
-                <div>
-
-                    <span class="section-kicker">
-                        SALES INQUIRIES
-                    </span>
-
-                    <h2>
-                        Quotations / RFQs
-                    </h2>
-
-                    <p>
-                        Review quotation requests submitted by potential buyers.
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <div class="admin-card">
-
-                <div class="table-wrapper">
-
-                    <table class="admin-table">
-
-                        <thead>
-
-                            <tr>
-
-                                <th>Company</th>
-                                <th>Contact</th>
-                                <th>Product</th>
-                                <th>Quantity</th>
-                                <th>Incoterm</th>
-                                <th>Status</th>
-                                <th>Date</th>
-                                <th>Action</th>
-
-                            </tr>
-
-                        </thead>
-
-                        <tbody id="quotationsTableBody">
-
-                            <tr>
-
-                                <td
-                                    colspan="8"
-                                    class="table-loading"
-                                >
-                                    Loading quotations...
-                                </td>
-
-                            </tr>
-
-                        </tbody>
-
-                    </table>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =================================================
-             MESSAGES
-        ================================================== -->
-
-        <section
-            id="section-messages"
-            class="admin-section"
-        >
-
-            <div class="section-intro">
-
-                <div>
-
-                    <span class="section-kicker">
-                        CUSTOMER COMMUNICATION
-                    </span>
-
-                    <h2>
-                        Messages
-                    </h2>
-
-                    <p>
-                        Review messages received through the website contact form.
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <div class="admin-card">
-
-                <div class="table-wrapper">
-
-                    <table class="admin-table">
-
-                        <thead>
-
-                            <tr>
-
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Subject</th>
-                                <th>Status</th>
-                                <th>Date</th>
-                                <th>Action</th>
-
-                            </tr>
-
-                        </thead>
-
-                        <tbody id="messagesTableBody">
-
-                            <tr>
-
-                                <td
-                                    colspan="6"
-                                    class="table-loading"
-                                >
-                                    Loading messages...
-                                </td>
-
-                            </tr>
-
-                        </tbody>
-
-                    </table>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =================================================
-             SETTINGS
-        ================================================== -->
-
-        <section
-            id="section-settings"
-            class="admin-section"
-        >
-
-            <div class="section-intro">
-
-                <div>
-
-                    <span class="section-kicker">
-                        COMPANY INFORMATION
-                    </span>
-
-                    <h2>
-                        Company Settings
-                    </h2>
-
-                    <p>
-                        Update the contact and company information displayed on the website.
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <div class="admin-card">
-
-                <form id="settingsForm">
-
-                    <div class="form-grid">
-
-                        <div class="form-group">
-
-                            <label for="settingCompanyName">
-                                Company Name
-                            </label>
-
-                            <input
-                                type="text"
-                                id="settingCompanyName"
-                                placeholder="East West Grinding or Manufacturing of Grains PLC"
-                            >
-
-                        </div>
-
-
-                        <div class="form-group">
-
-                            <label for="settingEmail">
-                                Email
-                            </label>
-
-                            <input
-                                type="email"
-                                id="settingEmail"
-                                placeholder="export@example.com"
-                            >
-
-                        </div>
-
-
-                        <div class="form-group">
-
-                            <label for="settingPhone">
-                                Phone
-                            </label>
-
-                            <input
-                                type="text"
-                                id="settingPhone"
-                                placeholder="+251..."
-                            >
-
-                        </div>
-
-
-                        <div class="form-group">
-
-                            <label for="settingWhatsApp">
-                                WhatsApp
-                            </label>
-
-                            <input
-                                type="text"
-                                id="settingWhatsApp"
-                                placeholder="+251..."
-                            >
-
-                        </div>
-
-
-                        <div class="form-group">
-
-                            <label for="settingAddress">
-                                Address
-                            </label>
-
-                            <input
-                                type="text"
-                                id="settingAddress"
-                                placeholder="Addis Ababa, Ethiopia"
-                            >
-
-                        </div>
-
-
-                        <div class="form-group">
-
-                            <label for="settingWebsite">
-                                Website
-                            </label>
-
-                            <input
-                                type="text"
-                                id="settingWebsite"
-                                placeholder="https://..."
-                            >
-
-                        </div>
-
-
-                        <div class="form-group full-width">
-
-                            <label for="settingLogo">
-                                Logo Image URL
-                            </label>
-
-                            <input
-                                type="url"
-                                id="settingLogo"
-                                placeholder="https://..."
-                            >
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="form-actions">
-
-                        <button
-                            type="submit"
-                            class="admin-btn admin-btn-primary"
-                        >
-
-                            <i class="fa-solid fa-floppy-disk"></i>
-
-                            Save Settings
-
-                        </button>
-
-                    </div>
-
-                </form>
-
-            </div>
-
-        </section>
-
-
-        <!-- =================================================
-             USERS
-        ================================================== -->
-
-        <section
-            id="section-users"
-            class="admin-section"
-        >
-
-            <div class="section-intro">
-
-                <div>
-
-                    <span class="section-kicker">
-                        ACCESS CONTROL
-                    </span>
-
-                    <h2>
-                        Admin Users
-                    </h2>
-
-                    <p>
-                        Manage authorized administrators for the website.
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <div class="admin-card">
-
-                <div class="info-box">
-
-                    <i class="fa-solid fa-shield-halved"></i>
+                <div class="section-intro">
 
                     <div>
 
-                        <strong>
-                            Firebase Authentication
-                        </strong>
+                        <span class="section-label">
+                            WEBSITE CONTENT
+                        </span>
+
+                        <h2>Products</h2>
 
                         <p>
-                            Administrator accounts are protected using Firebase Authentication.
-                            New administrators should be created through Firebase Authentication
-                            rather than storing passwords in Firestore.
+                            Manage export and import commodities
+                            displayed on the website.
+                        </p>
+
+                    </div>
+
+                    <button
+                        id="addProductBtn"
+                        class="admin-btn admin-btn-primary">
+
+                        <i class="fa-solid fa-plus"></i>
+                        Add Product
+
+                    </button>
+
+                </div>
+
+
+                <div class="admin-card">
+
+                    <div class="table-toolbar">
+
+                        <div class="search-box">
+
+                            <i class="fa-solid fa-search"></i>
+
+                            <input
+                                type="search"
+                                id="productSearch"
+                                placeholder="Search products...">
+
+                        </div>
+
+                        <select id="productCategoryFilter">
+
+                            <option value="all">
+                                All Categories
+                            </option>
+
+                            <option value="export">
+                                Export
+                            </option>
+
+                            <option value="import">
+                                Import
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="table-responsive">
+
+                        <table class="data-table">
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>Product</th>
+                                    <th>Category</th>
+                                    <th>Description</th>
+                                    <th>Specifications</th>
+                                    <th>Actions</th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody id="productsTableBody">
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 GALLERY
+            ================================================== -->
+
+            <section
+                id="section-gallery"
+                class="admin-section">
+
+                <div class="section-intro">
+
+                    <div>
+
+                        <span class="section-label">
+                            WEBSITE CONTENT
+                        </span>
+
+                        <h2>Gallery</h2>
+
+                        <p>
+                            Manage company operation,
+                            product and facility images.
+                        </p>
+
+                    </div>
+
+                    <button
+                        id="addGalleryBtn"
+                        class="admin-btn admin-btn-primary">
+
+                        <i class="fa-solid fa-plus"></i>
+                        Add Image
+
+                    </button>
+
+                </div>
+
+
+                <div
+                    id="galleryAdminGrid"
+                    class="admin-gallery-grid">
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 NEWS
+            ================================================== -->
+
+            <section
+                id="section-news"
+                class="admin-section">
+
+                <div class="section-intro">
+
+                    <div>
+
+                        <span class="section-label">
+                            WEBSITE CONTENT
+                        </span>
+
+                        <h2>News & Updates</h2>
+
+                        <p>
+                            Publish company announcements,
+                            trade updates and business news.
+                        </p>
+
+                    </div>
+
+                    <button
+                        id="addNewsBtn"
+                        class="admin-btn admin-btn-primary">
+
+                        <i class="fa-solid fa-plus"></i>
+                        Add News
+
+                    </button>
+
+                </div>
+
+
+                <div
+                    id="newsAdminGrid"
+                    class="news-admin-grid">
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 CERTIFICATES
+            ================================================== -->
+
+            <section
+                id="section-certificates"
+                class="admin-section">
+
+                <div class="section-intro">
+
+                    <div>
+
+                        <span class="section-label">
+                            TRUST & COMPLIANCE
+                        </span>
+
+                        <h2>Certificates</h2>
+
+                        <p>
+                            Manage certificates, registrations
+                            and company documents displayed online.
+                        </p>
+
+                    </div>
+
+                    <button
+                        id="addCertificateBtn"
+                        class="admin-btn admin-btn-primary">
+
+                        <i class="fa-solid fa-plus"></i>
+                        Add Certificate
+
+                    </button>
+
+                </div>
+
+
+                <div
+                    id="certificatesAdminGrid"
+                    class="certificate-admin-grid">
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 MESSAGES
+            ================================================== -->
+
+            <section
+                id="section-messages"
+                class="admin-section">
+
+                <div class="section-intro">
+
+                    <div>
+
+                        <span class="section-label">
+                            CUSTOMER INQUIRIES
+                        </span>
+
+                        <h2>Trade Messages</h2>
+
+                        <p>
+                            Review inquiries submitted through
+                            the company website.
                         </p>
 
                     </div>
@@ -1312,792 +933,541 @@
                 </div>
 
 
-                <div class="table-wrapper">
+                <div class="admin-card">
 
-                    <table class="admin-table">
+                    <div class="table-toolbar">
 
-                        <thead>
+                        <div class="search-box">
 
-                            <tr>
+                            <i class="fa-solid fa-search"></i>
 
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Role</th>
-                                <th>Status</th>
-                                <th>Created</th>
+                            <input
+                                type="search"
+                                id="messageSearch"
+                                placeholder="Search messages...">
 
-                            </tr>
+                        </div>
 
-                        </thead>
+                        <select id="messageStatusFilter">
 
-                        <tbody id="usersTableBody">
+                            <option value="all">
+                                All Messages
+                            </option>
 
-                            <tr>
+                            <option value="new">
+                                New
+                            </option>
 
-                                <td
-                                    colspan="5"
-                                    class="table-loading"
-                                >
-                                    Loading users...
-                                </td>
+                            <option value="read">
+                                Read
+                            </option>
 
-                            </tr>
+                            <option value="replied">
+                                Replied
+                            </option>
 
-                        </tbody>
+                        </select>
 
-                    </table>
+                    </div>
+
+
+                    <div class="table-responsive">
+
+                        <table class="data-table">
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>Date</th>
+                                    <th>Name / Company</th>
+                                    <th>Email</th>
+                                    <th>Subject</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody id="messagesTableBody">
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
 
                 </div>
 
-            </div>
+            </section>
 
-        </section>
+
+            <!-- =================================================
+                 QUOTATIONS
+            ================================================== -->
+
+            <section
+                id="section-quotations"
+                class="admin-section">
+
+                <div class="section-intro">
+
+                    <div>
+
+                        <span class="section-label">
+                            SALES & TRADE
+                        </span>
+
+                        <h2>Quotation Requests</h2>
+
+                        <p>
+                            Manage quotation and RFQ requests
+                            received from potential buyers.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="admin-card">
+
+                    <div class="table-toolbar">
+
+                        <div class="search-box">
+
+                            <i class="fa-solid fa-search"></i>
+
+                            <input
+                                type="search"
+                                id="quotationSearch"
+                                placeholder="Search quotations...">
+
+                        </div>
+
+                        <select id="quotationStatusFilter">
+
+                            <option value="all">
+                                All
+                            </option>
+
+                            <option value="new">
+                                New
+                            </option>
+
+                            <option value="processing">
+                                Processing
+                            </option>
+
+                            <option value="quoted">
+                                Quoted
+                            </option>
+
+                            <option value="closed">
+                                Closed
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="table-responsive">
+
+                        <table class="data-table">
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>Date</th>
+                                    <th>Buyer</th>
+                                    <th>Product</th>
+                                    <th>Volume</th>
+                                    <th>Incoterm</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody id="quotationsTableBody">
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 USERS
+            ================================================== -->
+
+            <section
+                id="section-users"
+                class="admin-section">
+
+                <div class="section-intro">
+
+                    <div>
+
+                        <span class="section-label">
+                            SYSTEM
+                        </span>
+
+                        <h2>Admin Users</h2>
+
+                        <p>
+                            Manage authorized users of the
+                            administration portal.
+                        </p>
+
+                    </div>
+
+                    <button
+                        id="addUserBtn"
+                        class="admin-btn admin-btn-primary">
+
+                        <i class="fa-solid fa-user-plus"></i>
+                        Add User
+
+                    </button>
+
+                </div>
+
+
+                <div class="admin-card">
+
+                    <div class="table-responsive">
+
+                        <table class="data-table">
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>User</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody id="usersTableBody">
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 SETTINGS
+            ================================================== -->
+
+            <section
+                id="section-settings"
+                class="admin-section">
+
+                <div class="section-intro">
+
+                    <div>
+
+                        <span class="section-label">
+                            SYSTEM CONFIGURATION
+                        </span>
+
+                        <h2>Website Settings</h2>
+
+                        <p>
+                            Manage basic company information
+                            used throughout the website.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="admin-grid-2">
+
+                    <!-- COMPANY SETTINGS -->
+
+                    <div class="admin-card">
+
+                        <div class="card-header">
+
+                            <div>
+
+                                <h3>
+                                    Company Information
+                                </h3>
+
+                                <p>
+                                    Public company details.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <form id="companySettingsForm">
+
+                            <div class="form-control">
+
+                                <label>
+                                    Company Name
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="settingCompanyName"
+                                    required>
+
+                            </div>
+
+
+                            <div class="form-control">
+
+                                <label>
+                                    Short Name
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="settingShortName">
+
+                            </div>
+
+
+                            <div class="form-control">
+
+                                <label>
+                                    Email
+                                </label>
+
+                                <input
+                                    type="email"
+                                    id="settingEmail">
+
+                            </div>
+
+
+                            <div class="form-control">
+
+                                <label>
+                                    Phone
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="settingPhone">
+
+                            </div>
+
+
+                            <div class="form-control">
+
+                                <label>
+                                    Address
+                                </label>
+
+                                <textarea
+                                    id="settingAddress"
+                                    rows="3">
+                                </textarea>
+
+                            </div>
+
+
+                            <button
+                                type="submit"
+                                class="admin-btn admin-btn-primary">
+
+                                <i class="fa-solid fa-save"></i>
+                                Save Settings
+
+                            </button>
+
+                        </form>
+
+                    </div>
+
+
+                    <!-- SOCIAL / CONTACT SETTINGS -->
+
+                    <div class="admin-card">
+
+                        <div class="card-header">
+
+                            <div>
+
+                                <h3>
+                                    Contact & Social
+                                </h3>
+
+                                <p>
+                                    Website contact channels.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <form id="contactSettingsForm">
+
+                            <div class="form-control">
+
+                                <label>
+                                    WhatsApp Number
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="settingWhatsapp"
+                                    placeholder="2519XXXXXXXX">
+
+                            </div>
+
+
+                            <div class="form-control">
+
+                                <label>
+                                    Website
+                                </label>
+
+                                <input
+                                    type="url"
+                                    id="settingWebsite">
+
+                            </div>
+
+
+                            <div class="form-control">
+
+                                <label>
+                                    Facebook
+                                </label>
+
+                                <input
+                                    type="url"
+                                    id="settingFacebook">
+
+                            </div>
+
+
+                            <div class="form-control">
+
+                                <label>
+                                    LinkedIn
+                                </label>
+
+                                <input
+                                    type="url"
+                                    id="settingLinkedin">
+
+                            </div>
+
+
+                            <div class="form-control">
+
+                                <label>
+                                    About Company
+                                </label>
+
+                                <textarea
+                                    id="settingAbout"
+                                    rows="6">
+                                </textarea>
+
+                            </div>
+
+
+                            <button
+                                type="submit"
+                                class="admin-btn admin-btn-primary">
+
+                                <i class="fa-solid fa-save"></i>
+                                Save Contact Settings
+
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
 
     </main>
 
 </section>
 
 
-<!-- =====================================================
-     PRODUCT MODAL
-===================================================== -->
+<!-- =========================================================
+     MODAL
+========================================================= -->
 
 <div
-    id="productModal"
-    class="modal hidden"
->
-
-    <div class="modal-overlay"></div>
-
-    <div class="modal-box">
-
-        <div class="modal-header">
-
-            <div>
-
-                <span class="section-kicker">
-                    PRODUCT
-                </span>
-
-                <h2 id="productModalTitle">
-                    Add Product
-                </h2>
-
-            </div>
-
-            <button
-                class="modal-close"
-                data-close-modal="productModal"
-            >
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-
-        </div>
-
-
-        <form id="productForm">
-
-            <input
-                type="hidden"
-                id="productId"
-            >
-
-            <div class="form-grid">
-
-                <div class="form-group">
-
-                    <label for="productName">
-                        Product Name *
-                    </label>
-
-                    <input
-                        type="text"
-                        id="productName"
-                        required
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label for="productCategory">
-                        Category *
-                    </label>
-
-                    <select
-                        id="productCategory"
-                        required
-                    >
-
-                        <option value="export">
-                            Export
-                        </option>
-
-                        <option value="import">
-                            Import
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-                <div class="form-group full-width">
-
-                    <label for="productDescription">
-                        Description *
-                    </label>
-
-                    <textarea
-                        id="productDescription"
-                        rows="4"
-                        required
-                    ></textarea>
-
-                </div>
-
-
-                <div class="form-group full-width">
-
-                    <label for="productImage">
-                        Product Image URL *
-                    </label>
-
-                    <input
-                        type="url"
-                        id="productImage"
-                        placeholder="https://..."
-                        required
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label for="productPurity">
-                        Purity
-                    </label>
-
-                    <input
-                        type="text"
-                        id="productPurity"
-                        placeholder="99% Min"
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label for="productMoisture">
-                        Moisture
-                    </label>
-
-                    <input
-                        type="text"
-                        id="productMoisture"
-                        placeholder="12% Max"
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label for="productPacking">
-                        Packing
-                    </label>
-
-                    <input
-                        type="text"
-                        id="productPacking"
-                        placeholder="25kg / 50kg PP Bags"
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label for="productOrigin">
-                        Origin
-                    </label>
-
-                    <input
-                        type="text"
-                        id="productOrigin"
-                        value="Ethiopia"
-                    >
-
-                </div>
-
-
-                <div class="form-group checkbox-group">
-
-                    <label>
-
-                        <input
-                            type="checkbox"
-                            id="productAvailable"
-                            checked
-                        >
-
-                        <span>
-                            Available
-                        </span>
-
-                    </label>
-
-                </div>
-
-
-                <div class="form-group checkbox-group">
-
-                    <label>
-
-                        <input
-                            type="checkbox"
-                            id="productFeatured"
-                        >
-
-                        <span>
-                            Featured Product
-                        </span>
-
-                    </label>
-
-                </div>
-
-            </div>
-
-
-            <div class="modal-actions">
-
-                <button
-                    type="button"
-                    class="admin-btn admin-btn-outline"
-                    data-close-modal="productModal"
-                >
-                    Cancel
-                </button>
-
-                <button
-                    type="submit"
-                    class="admin-btn admin-btn-primary"
-                >
-
-                    <i class="fa-solid fa-floppy-disk"></i>
-
-                    Save Product
-
-                </button>
-
-            </div>
-
-        </form>
-
+    id="adminModal"
+    class="modal"
+    style="display:none;">
+
+    <div class="modal-overlay"
+         id="modalOverlay">
     </div>
 
-</div>
-
-
-<!-- =====================================================
-     GALLERY MODAL
-===================================================== -->
-
-<div
-    id="galleryModal"
-    class="modal hidden"
->
-
-    <div class="modal-overlay"></div>
-
-    <div class="modal-box">
+    <div class="modal-container">
 
         <div class="modal-header">
 
             <div>
 
-                <span class="section-kicker">
-                    GALLERY
-                </span>
+                <h3 id="modalTitle">
+                    Add Item
+                </h3>
 
-                <h2>
-                    Add Gallery Image
-                </h2>
-
-            </div>
-
-            <button
-                class="modal-close"
-                data-close-modal="galleryModal"
-            >
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-
-        </div>
-
-
-        <form id="galleryForm">
-
-            <div class="form-group">
-
-                <label for="galleryTitle">
-                    Image Title *
-                </label>
-
-                <input
-                    type="text"
-                    id="galleryTitle"
-                    required
-                >
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label for="galleryImage">
-                    Image URL *
-                </label>
-
-                <input
-                    type="url"
-                    id="galleryImage"
-                    placeholder="https://..."
-                    required
-                >
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label for="galleryDescription">
-                    Description
-                </label>
-
-                <textarea
-                    id="galleryDescription"
-                    rows="4"
-                ></textarea>
-
-            </div>
-
-
-            <div class="modal-actions">
-
-                <button
-                    type="button"
-                    class="admin-btn admin-btn-outline"
-                    data-close-modal="galleryModal"
-                >
-                    Cancel
-                </button>
-
-                <button
-                    type="submit"
-                    class="admin-btn admin-btn-primary"
-                >
-
-                    <i class="fa-solid fa-plus"></i>
-
-                    Add Image
-
-                </button>
-
-            </div>
-
-        </form>
-
-    </div>
-
-</div>
-
-
-<!-- =====================================================
-     NEWS MODAL
-===================================================== -->
-
-<div
-    id="newsModal"
-    class="modal hidden"
->
-
-    <div class="modal-overlay"></div>
-
-    <div class="modal-box">
-
-        <div class="modal-header">
-
-            <div>
-
-                <span class="section-kicker">
-                    NEWS
-                </span>
-
-                <h2>
-                    Add News
-                </h2>
+                <p id="modalSubtitle">
+                    Enter the required information.
+                </p>
 
             </div>
 
             <button
+                type="button"
                 class="modal-close"
-                data-close-modal="newsModal"
-            >
+                id="modalClose">
+
                 <i class="fa-solid fa-xmark"></i>
-            </button>
 
-        </div>
-
-
-        <form id="newsForm">
-
-            <div class="form-group">
-
-                <label for="newsTitle">
-                    Title *
-                </label>
-
-                <input
-                    type="text"
-                    id="newsTitle"
-                    required
-                >
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label for="newsShortDescription">
-                    Short Description
-                </label>
-
-                <textarea
-                    id="newsShortDescription"
-                    rows="3"
-                ></textarea>
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label for="newsContent">
-                    News Content *
-                </label>
-
-                <textarea
-                    id="newsContent"
-                    rows="7"
-                    required
-                ></textarea>
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label for="newsImage">
-                    Image URL
-                </label>
-
-                <input
-                    type="url"
-                    id="newsImage"
-                    placeholder="https://..."
-                >
-
-            </div>
-
-
-            <div class="form-group checkbox-group">
-
-                <label>
-
-                    <input
-                        type="checkbox"
-                        id="newsPublished"
-                        checked
-                    >
-
-                    <span>
-                        Publish immediately
-                    </span>
-
-                </label>
-
-            </div>
-
-
-            <div class="modal-actions">
-
-                <button
-                    type="button"
-                    class="admin-btn admin-btn-outline"
-                    data-close-modal="newsModal"
-                >
-                    Cancel
-                </button>
-
-                <button
-                    type="submit"
-                    class="admin-btn admin-btn-primary"
-                >
-
-                    <i class="fa-solid fa-paper-plane"></i>
-
-                    Save News
-
-                </button>
-
-            </div>
-
-        </form>
-
-    </div>
-
-</div>
-
-
-<!-- =====================================================
-     CERTIFICATE MODAL
-===================================================== -->
-
-<div
-    id="certificateModal"
-    class="modal hidden"
->
-
-    <div class="modal-overlay"></div>
-
-    <div class="modal-box">
-
-        <div class="modal-header">
-
-            <div>
-
-                <span class="section-kicker">
-                    CERTIFICATE
-                </span>
-
-                <h2>
-                    Add Certificate
-                </h2>
-
-            </div>
-
-            <button
-                class="modal-close"
-                data-close-modal="certificateModal"
-            >
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-
-        </div>
-
-
-        <form id="certificateForm">
-
-            <div class="form-grid">
-
-                <div class="form-group">
-
-                    <label for="certificateName">
-                        Certificate Name *
-                    </label>
-
-                    <input
-                        type="text"
-                        id="certificateName"
-                        required
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label for="certificateIssuer">
-                        Issuing Organization
-                    </label>
-
-                    <input
-                        type="text"
-                        id="certificateIssuer"
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label for="certificateIssueDate">
-                        Issue Date
-                    </label>
-
-                    <input
-                        type="date"
-                        id="certificateIssueDate"
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label for="certificateExpiryDate">
-                        Expiry Date
-                    </label>
-
-                    <input
-                        type="date"
-                        id="certificateExpiryDate"
-                    >
-
-                </div>
-
-
-                <div class="form-group full-width">
-
-                    <label for="certificateImage">
-                        Certificate Image URL
-                    </label>
-
-                    <input
-                        type="url"
-                        id="certificateImage"
-                        placeholder="https://..."
-                    >
-
-                </div>
-
-
-                <div class="form-group full-width">
-
-                    <label for="certificateFile">
-                        Certificate Document URL
-                    </label>
-
-                    <input
-                        type="url"
-                        id="certificateFile"
-                        placeholder="https://..."
-                    >
-
-                </div>
-
-
-                <div class="form-group checkbox-group">
-
-                    <label>
-
-                        <input
-                            type="checkbox"
-                            id="certificateActive"
-                            checked
-                        >
-
-                        <span>
-                            Active Certificate
-                        </span>
-
-                    </label>
-
-                </div>
-
-            </div>
-
-
-            <div class="modal-actions">
-
-                <button
-                    type="button"
-                    class="admin-btn admin-btn-outline"
-                    data-close-modal="certificateModal"
-                >
-                    Cancel
-                </button>
-
-                <button
-                    type="submit"
-                    class="admin-btn admin-btn-primary"
-                >
-
-                    <i class="fa-solid fa-floppy-disk"></i>
-
-                    Save Certificate
-
-                </button>
-
-            </div>
-
-        </form>
-
-    </div>
-
-</div>
-
-
-<!-- =====================================================
-     DETAIL MODAL
-     Used for messages and quotations
-===================================================== -->
-
-<div
-    id="detailModal"
-    class="modal hidden"
->
-
-    <div class="modal-overlay"></div>
-
-    <div class="modal-box detail-modal-box">
-
-        <div class="modal-header">
-
-            <div>
-
-                <span
-                    class="section-kicker"
-                    id="detailModalKicker"
-                >
-                    DETAILS
-                </span>
-
-                <h2 id="detailModalTitle">
-                    Details
-                </h2>
-
-            </div>
-
-            <button
-                class="modal-close"
-                data-close-modal="detailModal"
-            >
-                <i class="fa-solid fa-xmark"></i>
             </button>
 
         </div>
 
 
         <div
-            id="detailModalContent"
-            class="detail-content"
-        ></div>
-
-
-        <div class="modal-actions">
-
-            <button
-                class="admin-btn admin-btn-outline"
-                data-close-modal="detailModal"
-            >
-                Close
-            </button>
+            id="modalBody"
+            class="modal-body">
 
         </div>
 
@@ -2106,37 +1476,42 @@
 </div>
 
 
-<!-- =====================================================
-     GLOBAL NOTIFICATION
-===================================================== -->
+<!-- =========================================================
+     TOAST NOTIFICATION
+========================================================= -->
 
 <div
-    id="adminNotification"
-    class="admin-notification"
->
+    id="toast"
+    class="toast">
 
-    <i
-        id="notificationIcon"
-        class="fa-solid fa-circle-check"
-    ></i>
+    <div class="toast-icon">
+        <i class="fa-solid fa-check"></i>
+    </div>
 
-    <span id="notificationText"></span>
+    <div>
 
-    <button id="notificationClose">
+        <strong id="toastTitle">
+            Success
+        </strong>
+
+        <p id="toastMessage">
+            Operation completed successfully.
+        </p>
+
+    </div>
+
+    <button id="toastClose">
         <i class="fa-solid fa-xmark"></i>
     </button>
 
 </div>
 
 
-<!-- =====================================================
-     ADMIN JAVASCRIPT
-===================================================== -->
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
 
-<script
-    type="module"
-    src="admin.js"
-></script>
+<script type="module" src="admin.js"></script>
 
 </body>
 </html>
