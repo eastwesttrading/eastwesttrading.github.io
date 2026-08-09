@@ -9,10 +9,16 @@ import {
 } from "./firebase.js";
 
 import {
+    initializeApp,
+    deleteApp
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
     signInWithEmailAndPassword,
     onAuthStateChanged,
     signOut,
-    createUserWithEmailAndPassword
+    createUserWithEmailAndPassword,
+    getAuth
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 import {
@@ -24,9 +30,6 @@ import {
     updateDoc,
     deleteDoc,
     setDoc,
-    query,
-    orderBy,
-    limit,
     serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
@@ -60,6 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
     initializeSearchAndFilters();
     initializeQuickActions();
     initializeSettings();
+    initializeToast();
 
 });
 
@@ -70,94 +74,143 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function initializeLogin() {
 
-    const loginForm = document.getElementById("loginForm");
+    const loginForm =
+        document.getElementById("loginForm");
 
     if (!loginForm) return;
 
-    loginForm.addEventListener("submit", async (event) => {
+    loginForm.addEventListener(
+        "submit",
+        async event => {
 
-        event.preventDefault();
+            event.preventDefault();
 
-        const email =
-            document.getElementById("loginEmail").value.trim();
+            const emailElement =
+                document.getElementById("loginEmail");
 
-        const password =
-            document.getElementById("loginPassword").value;
+            const passwordElement =
+                document.getElementById("loginPassword");
 
-        const loginButton =
-            document.getElementById("loginBtn");
+            const loginButton =
+                document.getElementById("loginBtn");
 
-        const errorBox =
-            document.getElementById("loginError");
+            const errorBox =
+                document.getElementById("loginError");
 
-        try {
+            if (!emailElement || !passwordElement) {
+                return;
+            }
 
-            loginButton.disabled = true;
+            const email =
+                emailElement.value.trim();
 
-            loginButton.innerHTML = `
-                <i class="fa-solid fa-spinner fa-spin"></i>
-                <span>Signing In...</span>
-            `;
+            const password =
+                passwordElement.value;
 
-            errorBox.style.display = "none";
+            try {
 
-            await signInWithEmailAndPassword(
-                auth,
-                email,
-                password
-            );
+                if (loginButton) {
 
-        } catch (error) {
+                    loginButton.disabled = true;
 
-            console.error("Login error:", error);
+                    loginButton.innerHTML = `
+                        <i class="fa-solid fa-spinner fa-spin"></i>
+                        <span>Signing In...</span>
+                    `;
 
-            errorBox.textContent =
-                getFirebaseErrorMessage(error);
+                }
 
-            errorBox.style.display = "block";
+                if (errorBox) {
+                    errorBox.style.display = "none";
+                }
 
-            loginButton.disabled = false;
+                await signInWithEmailAndPassword(
+                    auth,
+                    email,
+                    password
+                );
 
-            loginButton.innerHTML = `
-                <i class="fa-solid fa-right-to-bracket"></i>
-                <span>Sign In</span>
-            `;
+            } catch (error) {
+
+                console.error(
+                    "Login error:",
+                    error
+                );
+
+                if (errorBox) {
+
+                    errorBox.textContent =
+                        getFirebaseErrorMessage(error);
+
+                    errorBox.style.display =
+                        "block";
+
+                }
+
+                if (loginButton) {
+
+                    loginButton.disabled = false;
+
+                    loginButton.innerHTML = `
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                        <span>Sign In</span>
+                    `;
+
+                }
+
+            }
+
         }
+    );
 
-    });
 
-
-    // Password visibility
+    // --------------------------------------------------------
+    // PASSWORD VISIBILITY
+    // --------------------------------------------------------
 
     const togglePassword =
-        document.getElementById("togglePassword");
+        document.getElementById(
+            "togglePassword"
+        );
 
     if (togglePassword) {
 
-        togglePassword.addEventListener("click", () => {
+        togglePassword.addEventListener(
+            "click",
+            () => {
 
-            const password =
-                document.getElementById("loginPassword");
+                const password =
+                    document.getElementById(
+                        "loginPassword"
+                    );
 
-            const icon =
-                togglePassword.querySelector("i");
+                if (!password) return;
 
-            if (password.type === "password") {
+                const icon =
+                    togglePassword.querySelector("i");
 
-                password.type = "text";
+                if (password.type === "password") {
 
-                icon.classList.remove("fa-eye");
-                icon.classList.add("fa-eye-slash");
+                    password.type = "text";
 
-            } else {
+                    if (icon) {
+                        icon.classList.remove("fa-eye");
+                        icon.classList.add("fa-eye-slash");
+                    }
 
-                password.type = "password";
+                } else {
 
-                icon.classList.remove("fa-eye-slash");
-                icon.classList.add("fa-eye");
+                    password.type = "password";
+
+                    if (icon) {
+                        icon.classList.remove("fa-eye-slash");
+                        icon.classList.add("fa-eye");
+                    }
+
+                }
+
             }
-
-        });
+        );
 
     }
 
@@ -168,47 +221,69 @@ function initializeLogin() {
 // AUTH STATE
 // ============================================================
 
-onAuthStateChanged(auth, async (user) => {
+onAuthStateChanged(
+    auth,
+    async user => {
 
-    const loginSection =
-        document.getElementById("loginSection");
+        const loginSection =
+            document.getElementById(
+                "loginSection"
+            );
 
-    const dashboardSection =
-        document.getElementById("dashboardSection");
+        const dashboardSection =
+            document.getElementById(
+                "dashboardSection"
+            );
 
-    if (!user) {
+        if (!user) {
 
-        currentUser = null;
+            currentUser = null;
 
-        if (loginSection)
-            loginSection.style.display = "flex";
+            if (loginSection) {
+                loginSection.style.display =
+                    "flex";
+            }
 
-        if (dashboardSection)
-            dashboardSection.style.display = "none";
+            if (dashboardSection) {
+                dashboardSection.style.display =
+                    "none";
+            }
 
-        return;
+            return;
+        }
+
+
+        currentUser = user;
+
+        if (loginSection) {
+            loginSection.style.display =
+                "none";
+        }
+
+        if (dashboardSection) {
+            dashboardSection.style.display =
+                "flex";
+        }
+
+
+        const emailElement =
+            document.getElementById(
+                "adminUserEmail"
+            );
+
+        if (emailElement) {
+
+            emailElement.textContent =
+                user.email ||
+                "Administrator";
+
+        }
+
+
+        await loadAdminData();
+
     }
-
-
-    currentUser = user;
-
-    if (loginSection)
-        loginSection.style.display = "none";
-
-    if (dashboardSection)
-        dashboardSection.style.display = "flex";
-
-
-    const emailElement =
-        document.getElementById("adminUserEmail");
-
-    if (emailElement)
-        emailElement.textContent = user.email || "Administrator";
-
-
-    await loadAdminData();
-
-});
+);
 
 
 // ============================================================
@@ -244,6 +319,7 @@ async function loadAdminData() {
             "Some website data could not be loaded.",
             "error"
         );
+
     }
 
 }
@@ -253,11 +329,16 @@ async function loadAdminData() {
 // GENERIC COLLECTION LOADER
 // ============================================================
 
-async function getCollectionData(collectionName) {
+async function getCollectionData(
+    collectionName
+) {
 
     const snapshot =
         await getDocs(
-            collection(db, collectionName)
+            collection(
+                db,
+                collectionName
+            )
         );
 
     return snapshot.docs.map(item => ({
@@ -275,7 +356,9 @@ async function getCollectionData(collectionName) {
 async function loadProducts() {
 
     products =
-        await getCollectionData("products");
+        await getCollectionData(
+            "products"
+        );
 
     renderProductsTable();
 
@@ -285,11 +368,14 @@ async function loadProducts() {
 function renderProductsTable() {
 
     const tbody =
-        document.getElementById("productsTableBody");
+        document.getElementById(
+            "productsTableBody"
+        );
 
     if (!tbody) return;
 
     tbody.innerHTML = "";
+
 
     if (!products.length) {
 
@@ -310,8 +396,9 @@ function renderProductsTable() {
         const specifications =
             product.specs
                 ? Object.entries(product.specs)
-                    .map(([key, value]) =>
-                        `${key}: ${value}`
+                    .map(
+                        ([key, value]) =>
+                            `${escapeHTML(key)}: ${escapeHTML(value)}`
                     )
                     .join("<br>")
                 : "-";
@@ -326,26 +413,39 @@ function renderProductsTable() {
                 <div class="table-product">
 
                     <img
-                        src="${escapeHTML(product.image || "")}"
-                        alt="${escapeHTML(product.name || "")}">
+                        src="${escapeAttribute(
+                            safeUrl(product.image)
+                        )}"
+                        alt="${escapeAttribute(
+                            product.name || ""
+                        )}">
 
                     <strong>
-                        ${escapeHTML(product.name || "-")}
+                        ${escapeHTML(
+                            product.name || "-"
+                        )}
                     </strong>
 
                 </div>
             </td>
 
             <td>
-                <span class="status-badge ${product.category === "export"
-                    ? "status-success"
-                    : "status-info"}">
+
+                <span class="status-badge ${
+                    product.category === "export"
+                        ? "status-success"
+                        : "status-info"
+                }">
 
                     ${escapeHTML(
-                        (product.category || "-").toUpperCase()
+                        (
+                            product.category ||
+                            "-"
+                        ).toUpperCase()
                     )}
 
                 </span>
+
             </td>
 
             <td>
@@ -364,7 +464,7 @@ function renderProductsTable() {
 
                     <button
                         class="icon-btn edit-btn"
-                        data-id="${product.id}"
+                        data-id="${escapeAttribute(product.id)}"
                         data-type="product"
                         title="Edit">
 
@@ -374,7 +474,7 @@ function renderProductsTable() {
 
                     <button
                         class="icon-btn delete-btn"
-                        data-id="${product.id}"
+                        data-id="${escapeAttribute(product.id)}"
                         data-type="product"
                         title="Delete">
 
@@ -400,13 +500,20 @@ function renderProductsTable() {
 // ADD / EDIT PRODUCT
 // ============================================================
 
-function openProductModal(product = null) {
+function openProductModal(
+    product = null
+) {
 
-    const isEdit = !!product;
+    const isEdit =
+        !!product;
 
     openModal(
-        isEdit ? "Edit Product" : "Add Product",
+        isEdit
+            ? "Edit Product"
+            : "Add Product",
+
         "Enter product information.",
+
         `
         <form id="productForm">
 
@@ -417,7 +524,9 @@ function openProductModal(product = null) {
                 <input
                     type="text"
                     id="productName"
-                    value="${escapeAttribute(product?.name || "")}"
+                    value="${escapeAttribute(
+                        product?.name || ""
+                    )}"
                     required>
 
             </div>
@@ -429,12 +538,20 @@ function openProductModal(product = null) {
                 <select id="productCategory">
 
                     <option value="export"
-                        ${product?.category === "export" ? "selected" : ""}>
+                        ${
+                            product?.category === "export"
+                                ? "selected"
+                                : ""
+                        }>
                         Export
                     </option>
 
                     <option value="import"
-                        ${product?.category === "import" ? "selected" : ""}>
+                        ${
+                            product?.category === "import"
+                                ? "selected"
+                                : ""
+                        }>
                         Import
                     </option>
 
@@ -449,7 +566,9 @@ function openProductModal(product = null) {
                 <input
                     type="url"
                     id="productImage"
-                    value="${escapeAttribute(product?.image || "")}"
+                    value="${escapeAttribute(
+                        product?.image || ""
+                    )}"
                     placeholder="https://..."
                     required>
 
@@ -462,7 +581,9 @@ function openProductModal(product = null) {
                 <textarea
                     id="productDescription"
                     rows="4"
-                    required>${escapeHTML(product?.desc || "")}</textarea>
+                    required>${escapeHTML(
+                        product?.desc || ""
+                    )}</textarea>
 
             </div>
 
@@ -473,7 +594,9 @@ function openProductModal(product = null) {
                 <input
                     type="text"
                     id="productPurity"
-                    value="${escapeAttribute(product?.specs?.Purity || "")}"
+                    value="${escapeAttribute(
+                        product?.specs?.Purity || ""
+                    )}"
                     placeholder="99% Min">
 
             </div>
@@ -485,7 +608,9 @@ function openProductModal(product = null) {
                 <input
                     type="text"
                     id="productMoisture"
-                    value="${escapeAttribute(product?.specs?.Moisture || "")}"
+                    value="${escapeAttribute(
+                        product?.specs?.Moisture || ""
+                    )}"
                     placeholder="12% Max">
 
             </div>
@@ -507,7 +632,11 @@ function openProductModal(product = null) {
 
                     <i class="fa-solid fa-save"></i>
 
-                    ${isEdit ? "Update Product" : "Save Product"}
+                    ${
+                        isEdit
+                            ? "Update Product"
+                            : "Save Product"
+                    }
 
                 </button>
 
@@ -518,49 +647,60 @@ function openProductModal(product = null) {
     );
 
 
-    document
-        .getElementById("productForm")
-        .addEventListener("submit", async event => {
+    const form =
+        document.getElementById(
+            "productForm"
+        );
+
+    if (!form) return;
+
+
+    form.addEventListener(
+        "submit",
+        async event => {
 
             event.preventDefault();
 
             const data = {
 
                 name:
-                    document
-                        .getElementById("productName")
-                        .value.trim(),
+                    getValue(
+                        "productName"
+                    ),
 
                 category:
-                    document
-                        .getElementById("productCategory")
-                        .value,
+                    getValue(
+                        "productCategory"
+                    ),
 
                 image:
-                    document
-                        .getElementById("productImage")
-                        .value.trim(),
+                    safeUrl(
+                        getValue(
+                            "productImage"
+                        )
+                    ),
 
                 desc:
-                    document
-                        .getElementById("productDescription")
-                        .value.trim(),
+                    getValue(
+                        "productDescription"
+                    ),
 
                 specs: {
 
                     Purity:
-                        document
-                            .getElementById("productPurity")
-                            .value.trim(),
+                        getValue(
+                            "productPurity"
+                        ),
 
                     Moisture:
-                        document
-                            .getElementById("productMoisture")
-                            .value.trim()
+                        getValue(
+                            "productMoisture"
+                        )
 
                 },
 
-                updatedAt: serverTimestamp()
+                updatedAt:
+                    serverTimestamp()
 
             };
 
@@ -570,7 +710,11 @@ function openProductModal(product = null) {
                 if (isEdit) {
 
                     await updateDoc(
-                        doc(db, "products", product.id),
+                        doc(
+                            db,
+                            "products",
+                            product.id
+                        ),
                         data
                     );
 
@@ -585,7 +729,10 @@ function openProductModal(product = null) {
                         serverTimestamp();
 
                     await addDoc(
-                        collection(db, "products"),
+                        collection(
+                            db,
+                            "products"
+                        ),
                         data
                     );
 
@@ -593,6 +740,7 @@ function openProductModal(product = null) {
                         "Success",
                         "Product added successfully."
                     );
+
                 }
 
 
@@ -604,22 +752,36 @@ function openProductModal(product = null) {
 
             } catch (error) {
 
-                console.error(error);
+                console.error(
+                    "Product save error:",
+                    error
+                );
 
                 showToast(
                     "Error",
-                    "Could not save product.",
+                    getFirebaseErrorMessage(error),
                     "error"
                 );
 
             }
 
-        });
+        }
+    );
 
 
-    document
-        .getElementById("cancelProductBtn")
-        .addEventListener("click", closeModal);
+    const cancelButton =
+        document.getElementById(
+            "cancelProductBtn"
+        );
+
+    if (cancelButton) {
+
+        cancelButton.addEventListener(
+            "click",
+            closeModal
+        );
+
+    }
 
 }
 
@@ -631,7 +793,9 @@ function openProductModal(product = null) {
 async function loadGallery() {
 
     gallery =
-        await getCollectionData("gallery");
+        await getCollectionData(
+            "gallery"
+        );
 
     renderGalleryAdmin();
 
@@ -641,7 +805,9 @@ async function loadGallery() {
 function renderGalleryAdmin() {
 
     const container =
-        document.getElementById("galleryAdminGrid");
+        document.getElementById(
+            "galleryAdminGrid"
+        );
 
     if (!container) return;
 
@@ -652,8 +818,13 @@ function renderGalleryAdmin() {
 
         container.innerHTML = `
             <div class="empty-state">
+
                 <i class="fa-solid fa-images"></i>
-                <p>No gallery images available.</p>
+
+                <p>
+                    No gallery images available.
+                </p>
+
             </div>
         `;
 
@@ -666,25 +837,33 @@ function renderGalleryAdmin() {
         const card =
             document.createElement("div");
 
-        card.className = "admin-gallery-card";
+        card.className =
+            "admin-gallery-card";
 
         card.innerHTML = `
 
             <img
-                src="${escapeHTML(item.img || "")}"
-                alt="${escapeHTML(item.title || "")}">
+                src="${escapeAttribute(
+                    safeUrl(item.img)
+                )}"
+                alt="${escapeAttribute(
+                    item.title || ""
+                )}">
 
             <div class="gallery-card-body">
 
                 <strong>
-                    ${escapeHTML(item.title || "Untitled")}
+                    ${escapeHTML(
+                        item.title ||
+                        "Untitled"
+                    )}
                 </strong>
 
                 <div class="table-actions">
 
                     <button
                         class="icon-btn edit-btn"
-                        data-id="${item.id}"
+                        data-id="${escapeAttribute(item.id)}"
                         data-type="gallery">
 
                         <i class="fa-solid fa-pen"></i>
@@ -693,7 +872,7 @@ function renderGalleryAdmin() {
 
                     <button
                         class="icon-btn delete-btn"
-                        data-id="${item.id}"
+                        data-id="${escapeAttribute(item.id)}"
                         data-type="gallery">
 
                         <i class="fa-solid fa-trash"></i>
@@ -718,13 +897,20 @@ function renderGalleryAdmin() {
 // GALLERY MODAL
 // ============================================================
 
-function openGalleryModal(item = null) {
+function openGalleryModal(
+    item = null
+) {
 
-    const isEdit = !!item;
+    const isEdit =
+        !!item;
 
     openModal(
-        isEdit ? "Edit Gallery Image" : "Add Gallery Image",
+        isEdit
+            ? "Edit Gallery Image"
+            : "Add Gallery Image",
+
         "Add an image to the company gallery.",
+
         `
         <form id="galleryForm">
 
@@ -735,7 +921,9 @@ function openGalleryModal(item = null) {
                 <input
                     type="url"
                     id="galleryImage"
-                    value="${escapeAttribute(item?.img || "")}"
+                    value="${escapeAttribute(
+                        item?.img || ""
+                    )}"
                     placeholder="https://..."
                     required>
 
@@ -748,7 +936,9 @@ function openGalleryModal(item = null) {
                 <input
                     type="text"
                     id="galleryTitle"
-                    value="${escapeAttribute(item?.title || "")}"
+                    value="${escapeAttribute(
+                        item?.title || ""
+                    )}"
                     required>
 
             </div>
@@ -770,7 +960,11 @@ function openGalleryModal(item = null) {
 
                     <i class="fa-solid fa-save"></i>
 
-                    ${isEdit ? "Update Image" : "Save Image"}
+                    ${
+                        isEdit
+                            ? "Update Image"
+                            : "Save Image"
+                    }
 
                 </button>
 
@@ -781,23 +975,33 @@ function openGalleryModal(item = null) {
     );
 
 
-    document
-        .getElementById("galleryForm")
-        .addEventListener("submit", async event => {
+    const form =
+        document.getElementById(
+            "galleryForm"
+        );
+
+    if (!form) return;
+
+
+    form.addEventListener(
+        "submit",
+        async event => {
 
             event.preventDefault();
 
             const data = {
 
                 img:
-                    document
-                        .getElementById("galleryImage")
-                        .value.trim(),
+                    safeUrl(
+                        getValue(
+                            "galleryImage"
+                        )
+                    ),
 
                 title:
-                    document
-                        .getElementById("galleryTitle")
-                        .value.trim(),
+                    getValue(
+                        "galleryTitle"
+                    ),
 
                 updatedAt:
                     serverTimestamp()
@@ -810,7 +1014,11 @@ function openGalleryModal(item = null) {
                 if (isEdit) {
 
                     await updateDoc(
-                        doc(db, "gallery", item.id),
+                        doc(
+                            db,
+                            "gallery",
+                            item.id
+                        ),
                         data
                     );
 
@@ -820,7 +1028,10 @@ function openGalleryModal(item = null) {
                         serverTimestamp();
 
                     await addDoc(
-                        collection(db, "gallery"),
+                        collection(
+                            db,
+                            "gallery"
+                        ),
                         data
                     );
 
@@ -841,22 +1052,36 @@ function openGalleryModal(item = null) {
 
             } catch (error) {
 
-                console.error(error);
+                console.error(
+                    "Gallery save error:",
+                    error
+                );
 
                 showToast(
                     "Error",
-                    "Could not save gallery image.",
+                    getFirebaseErrorMessage(error),
                     "error"
                 );
 
             }
 
-        });
+        }
+    );
 
 
-    document
-        .getElementById("cancelGalleryBtn")
-        .addEventListener("click", closeModal);
+    const cancelButton =
+        document.getElementById(
+            "cancelGalleryBtn"
+        );
+
+    if (cancelButton) {
+
+        cancelButton.addEventListener(
+            "click",
+            closeModal
+        );
+
+    }
 
 }
 
@@ -868,7 +1093,9 @@ function openGalleryModal(item = null) {
 async function loadNews() {
 
     news =
-        await getCollectionData("news");
+        await getCollectionData(
+            "news"
+        );
 
     renderNews();
 
@@ -878,7 +1105,9 @@ async function loadNews() {
 function renderNews() {
 
     const container =
-        document.getElementById("newsAdminGrid");
+        document.getElementById(
+            "newsAdminGrid"
+        );
 
     if (!container) return;
 
@@ -889,8 +1118,13 @@ function renderNews() {
 
         container.innerHTML = `
             <div class="empty-state">
+
                 <i class="fa-solid fa-newspaper"></i>
-                <p>No news articles available.</p>
+
+                <p>
+                    No news articles available.
+                </p>
+
             </div>
         `;
 
@@ -903,7 +1137,8 @@ function renderNews() {
         const card =
             document.createElement("div");
 
-        card.className = "news-admin-card";
+        card.className =
+            "news-admin-card";
 
         card.innerHTML = `
 
@@ -924,7 +1159,10 @@ function renderNews() {
                 </span>
 
                 <h3>
-                    ${escapeHTML(item.title || "Untitled")}
+                    ${escapeHTML(
+                        item.title ||
+                        "Untitled"
+                    )}
                 </h3>
 
                 <p>
@@ -939,7 +1177,7 @@ function renderNews() {
 
                     <button
                         class="icon-btn edit-btn"
-                        data-id="${item.id}"
+                        data-id="${escapeAttribute(item.id)}"
                         data-type="news">
 
                         <i class="fa-solid fa-pen"></i>
@@ -948,7 +1186,7 @@ function renderNews() {
 
                     <button
                         class="icon-btn delete-btn"
-                        data-id="${item.id}"
+                        data-id="${escapeAttribute(item.id)}"
                         data-type="news">
 
                         <i class="fa-solid fa-trash"></i>
@@ -973,13 +1211,20 @@ function renderNews() {
 // NEWS MODAL
 // ============================================================
 
-function openNewsModal(item = null) {
+function openNewsModal(
+    item = null
+) {
 
-    const isEdit = !!item;
+    const isEdit =
+        !!item;
 
     openModal(
-        isEdit ? "Edit News" : "Publish News",
+        isEdit
+            ? "Edit News"
+            : "Publish News",
+
         "Create a company announcement or business update.",
+
         `
         <form id="newsForm">
 
@@ -990,7 +1235,9 @@ function openNewsModal(item = null) {
                 <input
                     type="text"
                     id="newsTitle"
-                    value="${escapeAttribute(item?.title || "")}"
+                    value="${escapeAttribute(
+                        item?.title || ""
+                    )}"
                     required>
 
             </div>
@@ -1002,7 +1249,9 @@ function openNewsModal(item = null) {
                 <input
                     type="url"
                     id="newsImage"
-                    value="${escapeAttribute(item?.image || "")}"
+                    value="${escapeAttribute(
+                        item?.image || ""
+                    )}"
                     placeholder="https://...">
 
             </div>
@@ -1013,7 +1262,9 @@ function openNewsModal(item = null) {
 
                 <textarea
                     id="newsExcerpt"
-                    rows="3">${escapeHTML(item?.excerpt || "")}</textarea>
+                    rows="3">${escapeHTML(
+                        item?.excerpt || ""
+                    )}</textarea>
 
             </div>
 
@@ -1024,19 +1275,27 @@ function openNewsModal(item = null) {
                 <textarea
                     id="newsContent"
                     rows="7"
-                    required>${escapeHTML(item?.content || "")}</textarea>
+                    required>${escapeHTML(
+                        item?.content || ""
+                    )}</textarea>
 
             </div>
 
             <div class="form-control">
 
                 <label>
+
                     <input
                         type="checkbox"
                         id="newsPublished"
-                        ${item?.published ? "checked" : ""}>
+                        ${
+                            item?.published
+                                ? "checked"
+                                : ""
+                        }>
 
                     Publish on website
+
                 </label>
 
             </div>
@@ -1058,7 +1317,11 @@ function openNewsModal(item = null) {
 
                     <i class="fa-solid fa-save"></i>
 
-                    ${isEdit ? "Update News" : "Save News"}
+                    ${
+                        isEdit
+                            ? "Update News"
+                            : "Save News"
+                    }
 
                 </button>
 
@@ -1069,38 +1332,53 @@ function openNewsModal(item = null) {
     );
 
 
-    document
-        .getElementById("newsForm")
-        .addEventListener("submit", async event => {
+    const form =
+        document.getElementById(
+            "newsForm"
+        );
+
+    if (!form) return;
+
+
+    form.addEventListener(
+        "submit",
+        async event => {
 
             event.preventDefault();
+
+            const publishedElement =
+                document.getElementById(
+                    "newsPublished"
+                );
 
             const data = {
 
                 title:
-                    document
-                        .getElementById("newsTitle")
-                        .value.trim(),
+                    getValue(
+                        "newsTitle"
+                    ),
 
                 image:
-                    document
-                        .getElementById("newsImage")
-                        .value.trim(),
+                    safeUrl(
+                        getValue(
+                            "newsImage"
+                        )
+                    ),
 
                 excerpt:
-                    document
-                        .getElementById("newsExcerpt")
-                        .value.trim(),
+                    getValue(
+                        "newsExcerpt"
+                    ),
 
                 content:
-                    document
-                        .getElementById("newsContent")
-                        .value.trim(),
+                    getValue(
+                        "newsContent"
+                    ),
 
                 published:
-                    document
-                        .getElementById("newsPublished")
-                        .checked,
+                    publishedElement
+                        ? publishedElement.checked
+                        : false,
 
                 updatedAt:
                     serverTimestamp()
@@ -1113,7 +1391,11 @@ function openNewsModal(item = null) {
                 if (isEdit) {
 
                     await updateDoc(
-                        doc(db, "news", item.id),
+                        doc(
+                            db,
+                            "news",
+                            item.id
+                        ),
                         data
                     );
 
@@ -1123,7 +1405,10 @@ function openNewsModal(item = null) {
                         serverTimestamp();
 
                     await addDoc(
-                        collection(db, "news"),
+                        collection(
+                            db,
+                            "news"
+                        ),
                         data
                     );
 
@@ -1142,22 +1427,36 @@ function openNewsModal(item = null) {
 
             } catch (error) {
 
-                console.error(error);
+                console.error(
+                    "News save error:",
+                    error
+                );
 
                 showToast(
                     "Error",
-                    "Could not save news.",
+                    getFirebaseErrorMessage(error),
                     "error"
                 );
 
             }
 
-        });
+        }
+    );
 
 
-    document
-        .getElementById("cancelNewsBtn")
-        .addEventListener("click", closeModal);
+    const cancelButton =
+        document.getElementById(
+            "cancelNewsBtn"
+        );
+
+    if (cancelButton) {
+
+        cancelButton.addEventListener(
+            "click",
+            closeModal
+        );
+
+    }
 
 }
 
@@ -1169,7 +1468,9 @@ function openNewsModal(item = null) {
 async function loadCertificates() {
 
     certificates =
-        await getCollectionData("certificates");
+        await getCollectionData(
+            "certificates"
+        );
 
     renderCertificates();
 
@@ -1192,8 +1493,13 @@ function renderCertificates() {
 
         container.innerHTML = `
             <div class="empty-state">
+
                 <i class="fa-solid fa-certificate"></i>
-                <p>No certificates available.</p>
+
+                <p>
+                    No certificates available.
+                </p>
+
             </div>
         `;
 
@@ -1206,7 +1512,8 @@ function renderCertificates() {
         const card =
             document.createElement("div");
 
-        card.className = "certificate-admin-card";
+        card.className =
+            "certificate-admin-card";
 
         card.innerHTML = `
 
@@ -1217,15 +1524,22 @@ function renderCertificates() {
             <div>
 
                 <h3>
-                    ${escapeHTML(item.name || "Certificate")}
+                    ${escapeHTML(
+                        item.name ||
+                        "Certificate"
+                    )}
                 </h3>
 
                 <p>
-                    ${escapeHTML(item.issuer || "")}
+                    ${escapeHTML(
+                        item.issuer || ""
+                    )}
                 </p>
 
                 <small>
-                    ${escapeHTML(item.number || "")}
+                    ${escapeHTML(
+                        item.number || ""
+                    )}
                 </small>
 
             </div>
@@ -1234,7 +1548,7 @@ function renderCertificates() {
 
                 <button
                     class="icon-btn edit-btn"
-                    data-id="${item.id}"
+                    data-id="${escapeAttribute(item.id)}"
                     data-type="certificate">
 
                     <i class="fa-solid fa-pen"></i>
@@ -1243,7 +1557,7 @@ function renderCertificates() {
 
                 <button
                     class="icon-btn delete-btn"
-                    data-id="${item.id}"
+                    data-id="${escapeAttribute(item.id)}"
                     data-type="certificate">
 
                     <i class="fa-solid fa-trash"></i>
@@ -1266,13 +1580,20 @@ function renderCertificates() {
 // CERTIFICATE MODAL
 // ============================================================
 
-function openCertificateModal(item = null) {
+function openCertificateModal(
+    item = null
+) {
 
-    const isEdit = !!item;
+    const isEdit =
+        !!item;
 
     openModal(
-        isEdit ? "Edit Certificate" : "Add Certificate",
+        isEdit
+            ? "Edit Certificate"
+            : "Add Certificate",
+
         "Enter certificate or registration information.",
+
         `
         <form id="certificateForm">
 
@@ -1283,7 +1604,9 @@ function openCertificateModal(item = null) {
                 <input
                     type="text"
                     id="certificateName"
-                    value="${escapeAttribute(item?.name || "")}"
+                    value="${escapeAttribute(
+                        item?.name || ""
+                    )}"
                     required>
 
             </div>
@@ -1295,7 +1618,9 @@ function openCertificateModal(item = null) {
                 <input
                     type="text"
                     id="certificateIssuer"
-                    value="${escapeAttribute(item?.issuer || "")}">
+                    value="${escapeAttribute(
+                        item?.issuer || ""
+                    )}">
 
             </div>
 
@@ -1306,7 +1631,9 @@ function openCertificateModal(item = null) {
                 <input
                     type="text"
                     id="certificateNumber"
-                    value="${escapeAttribute(item?.number || "")}">
+                    value="${escapeAttribute(
+                        item?.number || ""
+                    )}">
 
             </div>
 
@@ -1317,7 +1644,9 @@ function openCertificateModal(item = null) {
                 <input
                     type="url"
                     id="certificateUrl"
-                    value="${escapeAttribute(item?.url || "")}"
+                    value="${escapeAttribute(
+                        item?.url || ""
+                    )}"
                     placeholder="https://...">
 
             </div>
@@ -1339,7 +1668,11 @@ function openCertificateModal(item = null) {
 
                     <i class="fa-solid fa-save"></i>
 
-                    ${isEdit ? "Update Certificate" : "Save Certificate"}
+                    ${
+                        isEdit
+                            ? "Update Certificate"
+                            : "Save Certificate"
+                    }
 
                 </button>
 
@@ -1350,33 +1683,43 @@ function openCertificateModal(item = null) {
     );
 
 
-    document
-        .getElementById("certificateForm")
-        .addEventListener("submit", async event => {
+    const form =
+        document.getElementById(
+            "certificateForm"
+        );
+
+    if (!form) return;
+
+
+    form.addEventListener(
+        "submit",
+        async event => {
 
             event.preventDefault();
 
             const data = {
 
                 name:
-                    document
-                        .getElementById("certificateName")
-                        .value.trim(),
+                    getValue(
+                        "certificateName"
+                    ),
 
                 issuer:
-                    document
-                        .getElementById("certificateIssuer")
-                        .value.trim(),
+                    getValue(
+                        "certificateIssuer"
+                    ),
 
                 number:
-                    document
-                        .getElementById("certificateNumber")
-                        .value.trim(),
+                    getValue(
+                        "certificateNumber"
+                    ),
 
                 url:
-                    document
-                        .getElementById("certificateUrl")
-                        .value.trim(),
+                    safeUrl(
+                        getValue(
+                            "certificateUrl"
+                        )
+                    ),
 
                 updatedAt:
                     serverTimestamp()
@@ -1423,22 +1766,36 @@ function openCertificateModal(item = null) {
 
             } catch (error) {
 
-                console.error(error);
+                console.error(
+                    "Certificate save error:",
+                    error
+                );
 
                 showToast(
                     "Error",
-                    "Could not save certificate.",
+                    getFirebaseErrorMessage(error),
                     "error"
                 );
 
             }
 
-        });
+        }
+    );
 
 
-    document
-        .getElementById("cancelCertificateBtn")
-        .addEventListener("click", closeModal);
+    const cancelButton =
+        document.getElementById(
+            "cancelCertificateBtn"
+        );
+
+    if (cancelButton) {
+
+        cancelButton.addEventListener(
+            "click",
+            closeModal
+        );
+
+    }
 
 }
 
@@ -1450,10 +1807,14 @@ function openCertificateModal(item = null) {
 async function loadMessages() {
 
     messages =
-        await getCollectionData("messages");
+        await getCollectionData(
+            "messages"
+        );
 
     messages.sort(
-        (a, b) => getTime(b.createdAt) - getTime(a.createdAt)
+        (a, b) =>
+            getTime(b.createdAt) -
+            getTime(a.createdAt)
     );
 
     renderMessages();
@@ -1470,7 +1831,9 @@ async function loadMessages() {
 function renderMessages() {
 
     const tbody =
-        document.getElementById("messagesTableBody");
+        document.getElementById(
+            "messagesTableBody"
+        );
 
     if (!tbody) return;
 
@@ -1499,7 +1862,9 @@ function renderMessages() {
         row.innerHTML = `
 
             <td>
-                ${formatDate(message.createdAt)}
+                ${formatDate(
+                    message.createdAt
+                )}
             </td>
 
             <td>
@@ -1511,22 +1876,33 @@ function renderMessages() {
             </td>
 
             <td>
-                ${escapeHTML(message.email || "-")}
+                ${escapeHTML(
+                    message.email ||
+                    "-"
+                )}
             </td>
 
             <td>
-                ${escapeHTML(message.subject || "-")}
+                ${escapeHTML(
+                    message.subject ||
+                    "-"
+                )}
             </td>
 
             <td>
 
-                <span class="status-badge ${getStatusClass(
-                    message.status || "new"
-                )}">
+                <span class="status-badge ${
+                    getStatusClass(
+                        message.status ||
+                        "new"
+                    )
+                }">
 
                     ${escapeHTML(
-                        (message.status || "new")
-                            .toUpperCase()
+                        (
+                            message.status ||
+                            "new"
+                        ).toUpperCase()
                     )}
 
                 </span>
@@ -1539,7 +1915,7 @@ function renderMessages() {
 
                     <button
                         class="icon-btn view-message-btn"
-                        data-id="${message.id}"
+                        data-id="${escapeAttribute(message.id)}"
                         title="View">
 
                         <i class="fa-solid fa-eye"></i>
@@ -1548,7 +1924,7 @@ function renderMessages() {
 
                     <button
                         class="icon-btn delete-btn"
-                        data-id="${message.id}"
+                        data-id="${escapeAttribute(message.id)}"
                         data-type="message"
                         title="Delete">
 
@@ -1576,16 +1952,21 @@ function renderMessages() {
 // VIEW MESSAGE
 // ============================================================
 
-function openMessageModal(message) {
+function openMessageModal(
+    message
+) {
 
     openModal(
         "Trade Inquiry",
         "Customer message details.",
+
         `
         <div class="message-details">
 
             <div class="detail-row">
+
                 <span>Name / Company</span>
+
                 <strong>
                     ${escapeHTML(
                         message.name ||
@@ -1593,27 +1974,45 @@ function openMessageModal(message) {
                         "-"
                     )}
                 </strong>
+
             </div>
 
             <div class="detail-row">
+
                 <span>Email</span>
+
                 <strong>
-                    ${escapeHTML(message.email || "-")}
+                    ${escapeHTML(
+                        message.email ||
+                        "-"
+                    )}
                 </strong>
+
             </div>
 
             <div class="detail-row">
+
                 <span>Subject</span>
+
                 <strong>
-                    ${escapeHTML(message.subject || "-")}
+                    ${escapeHTML(
+                        message.subject ||
+                        "-"
+                    )}
                 </strong>
+
             </div>
 
             <div class="detail-row">
+
                 <span>Date</span>
+
                 <strong>
-                    ${formatDate(message.createdAt)}
+                    ${formatDate(
+                        message.createdAt
+                    )}
                 </strong>
+
             </div>
 
             <div class="message-body">
@@ -1621,7 +2020,10 @@ function openMessageModal(message) {
                 <h4>Message</h4>
 
                 <p>
-                    ${escapeHTML(message.message || "")}
+                    ${escapeHTML(
+                        message.message ||
+                        ""
+                    )}
                 </p>
 
             </div>
@@ -1648,53 +2050,56 @@ function openMessageModal(message) {
             "markMessageReadBtn"
         );
 
-    if (button) {
+    if (!button) return;
 
-        button.addEventListener(
-            "click",
-            async () => {
 
-                try {
+    button.addEventListener(
+        "click",
+        async () => {
 
-                    await updateDoc(
-                        doc(
-                            db,
-                            "messages",
-                            message.id
-                        ),
-                        {
-                            status: "read",
-                            updatedAt: serverTimestamp()
-                        }
-                    );
+            try {
 
-                    closeModal();
+                await updateDoc(
+                    doc(
+                        db,
+                        "messages",
+                        message.id
+                    ),
+                    {
+                        status: "read",
+                        updatedAt:
+                            serverTimestamp()
+                    }
+                );
 
-                    await loadMessages();
+                closeModal();
 
-                    updateDashboardStats();
+                await loadMessages();
 
-                    showToast(
-                        "Success",
-                        "Message marked as read."
-                    );
+                updateDashboardStats();
 
-                } catch (error) {
+                showToast(
+                    "Success",
+                    "Message marked as read."
+                );
 
-                    console.error(error);
+            } catch (error) {
 
-                    showToast(
-                        "Error",
-                        "Could not update message.",
-                        "error"
-                    );
+                console.error(
+                    "Message update error:",
+                    error
+                );
 
-                }
+                showToast(
+                    "Error",
+                    "Could not update message.",
+                    "error"
+                );
 
             }
-        );
 
-    }
+        }
+    );
 
 }
 
@@ -1706,7 +2111,9 @@ function openMessageModal(message) {
 async function loadQuotations() {
 
     quotations =
-        await getCollectionData("quotations");
+        await getCollectionData(
+            "quotations"
+        );
 
     quotations.sort(
         (a, b) =>
@@ -1753,7 +2160,9 @@ function renderQuotations() {
         row.innerHTML = `
 
             <td>
-                ${formatDate(quote.createdAt)}
+                ${formatDate(
+                    quote.createdAt
+                )}
             </td>
 
             <td>
@@ -1766,31 +2175,39 @@ function renderQuotations() {
 
             <td>
                 ${escapeHTML(
-                    quote.product || "-"
+                    quote.product ||
+                    "-"
                 )}
             </td>
 
             <td>
                 ${escapeHTML(
-                    quote.volume || "-"
+                    quote.volume ||
+                    "-"
                 )}
             </td>
 
             <td>
                 ${escapeHTML(
-                    quote.incoterm || "-"
+                    quote.incoterm ||
+                    "-"
                 )}
             </td>
 
             <td>
 
-                <span class="status-badge ${getStatusClass(
-                    quote.status || "new"
-                )}">
+                <span class="status-badge ${
+                    getStatusClass(
+                        quote.status ||
+                        "new"
+                    )
+                }">
 
                     ${escapeHTML(
-                        (quote.status || "new")
-                            .toUpperCase()
+                        (
+                            quote.status ||
+                            "new"
+                        ).toUpperCase()
                     )}
 
                 </span>
@@ -1803,7 +2220,7 @@ function renderQuotations() {
 
                     <button
                         class="icon-btn view-quotation-btn"
-                        data-id="${quote.id}">
+                        data-id="${escapeAttribute(quote.id)}">
 
                         <i class="fa-solid fa-eye"></i>
 
@@ -1811,7 +2228,7 @@ function renderQuotations() {
 
                     <button
                         class="icon-btn delete-btn"
-                        data-id="${quote.id}"
+                        data-id="${escapeAttribute(quote.id)}"
                         data-type="quotation">
 
                         <i class="fa-solid fa-trash"></i>
@@ -1838,16 +2255,28 @@ function renderQuotations() {
 // VIEW QUOTATION
 // ============================================================
 
-function openQuotationModal(quote) {
+function openQuotationModal(
+    quote
+) {
+
+    const statuses = [
+        "new",
+        "processing",
+        "quoted",
+        "closed"
+    ];
 
     openModal(
         "Quotation Request",
         "Review buyer RFQ information.",
+
         `
         <div class="message-details">
 
             <div class="detail-row">
+
                 <span>Buyer</span>
+
                 <strong>
                     ${escapeHTML(
                         quote.buyer ||
@@ -1855,54 +2284,82 @@ function openQuotationModal(quote) {
                         "-"
                     )}
                 </strong>
+
             </div>
 
             <div class="detail-row">
+
                 <span>Email</span>
+
                 <strong>
-                    ${escapeHTML(quote.email || "-")}
+                    ${escapeHTML(
+                        quote.email ||
+                        "-"
+                    )}
                 </strong>
+
             </div>
 
             <div class="detail-row">
+
                 <span>Product</span>
+
                 <strong>
-                    ${escapeHTML(quote.product || "-")}
+                    ${escapeHTML(
+                        quote.product ||
+                        "-"
+                    )}
                 </strong>
+
             </div>
 
             <div class="detail-row">
+
                 <span>Volume</span>
+
                 <strong>
-                    ${escapeHTML(quote.volume || "-")}
+                    ${escapeHTML(
+                        quote.volume ||
+                        "-"
+                    )}
                 </strong>
+
             </div>
 
             <div class="detail-row">
+
                 <span>Incoterm</span>
+
                 <strong>
-                    ${escapeHTML(quote.incoterm || "-")}
+                    ${escapeHTML(
+                        quote.incoterm ||
+                        "-"
+                    )}
                 </strong>
+
             </div>
 
             <div class="detail-row">
+
                 <span>Status</span>
 
                 <select id="quotationStatusUpdate">
 
-                    ${[
-                        "new",
-                        "processing",
-                        "quoted",
-                        "closed"
-                    ].map(status => `
-                        <option value="${status}"
-                            ${quote.status === status
-                                ? "selected"
-                                : ""}>
-                            ${status.toUpperCase()}
-                        </option>
-                    `).join("")}
+                    ${statuses.map(
+                        status => `
+                            <option
+                                value="${status}"
+                                ${
+                                    quote.status === status
+                                        ? "selected"
+                                        : ""
+                                }>
+
+                                ${status.toUpperCase()}
+
+                            </option>
+                        `
+                    ).join("")}
 
                 </select>
 
@@ -1914,7 +2371,8 @@ function openQuotationModal(quote) {
 
                 <p>
                     ${escapeHTML(
-                        quote.message || "-"
+                        quote.message ||
+                        "-"
                     )}
                 </p>
 
@@ -1939,16 +2397,27 @@ function openQuotationModal(quote) {
     );
 
 
-    document
-        .getElementById("saveQuotationStatus")
-        .addEventListener("click", async () => {
+    const saveButton =
+        document.getElementById(
+            "saveQuotationStatus"
+        );
+
+    if (!saveButton) return;
+
+
+    saveButton.addEventListener(
+        "click",
+        async () => {
+
+            const statusElement =
+                document.getElementById(
+                    "quotationStatusUpdate"
+                );
+
+            if (!statusElement) return;
 
             const status =
-                document
-                    .getElementById(
-                        "quotationStatusUpdate"
-                    )
-                    .value;
+                statusElement.value;
 
             try {
 
@@ -1969,6 +2438,8 @@ function openQuotationModal(quote) {
 
                 await loadQuotations();
 
+                updateDashboardStats();
+
                 showToast(
                     "Success",
                     "Quotation status updated."
@@ -1976,7 +2447,10 @@ function openQuotationModal(quote) {
 
             } catch (error) {
 
-                console.error(error);
+                console.error(
+                    "Quotation update error:",
+                    error
+                );
 
                 showToast(
                     "Error",
@@ -1986,7 +2460,8 @@ function openQuotationModal(quote) {
 
             }
 
-        });
+        }
+    );
 
 }
 
@@ -1998,7 +2473,9 @@ function openQuotationModal(quote) {
 async function loadUsers() {
 
     users =
-        await getCollectionData("users");
+        await getCollectionData(
+            "users"
+        );
 
     renderUsers();
 
@@ -2036,18 +2513,31 @@ function renderUsers() {
         const row =
             document.createElement("tr");
 
+        const isCurrentUser =
+            currentUser &&
+            user.id === currentUser.uid;
+
         row.innerHTML = `
 
             <td>
-                ${escapeHTML(user.name || "-")}
+                ${escapeHTML(
+                    user.name ||
+                    "-"
+                )}
             </td>
 
             <td>
-                ${escapeHTML(user.email || "-")}
+                ${escapeHTML(
+                    user.email ||
+                    "-"
+                )}
             </td>
 
             <td>
-                ${escapeHTML(user.role || "admin")}
+                ${escapeHTML(
+                    user.role ||
+                    "admin"
+                )}
             </td>
 
             <td>
@@ -2070,14 +2560,29 @@ function renderUsers() {
 
             <td>
 
-                <button
-                    class="icon-btn delete-btn"
-                    data-id="${user.id}"
-                    data-type="user">
+                ${
+                    isCurrentUser
+                        ? `
+                            <span
+                                class="status-badge status-info"
+                                title="You cannot delete the account currently in use.">
 
-                    <i class="fa-solid fa-trash"></i>
+                                CURRENT USER
 
-                </button>
+                            </span>
+                        `
+                        : `
+                            <button
+                                class="icon-btn delete-btn"
+                                data-id="${escapeAttribute(user.id)}"
+                                data-type="user"
+                                title="Remove admin record">
+
+                                <i class="fa-solid fa-trash"></i>
+
+                            </button>
+                        `
+                }
 
             </td>
         `;
@@ -2094,12 +2599,20 @@ function renderUsers() {
 // ============================================================
 // USER MODAL
 // ============================================================
+//
+// IMPORTANT:
+// A secondary Firebase Auth application is used here.
+// This prevents creation of a new administrator from
+// replacing/signing out the administrator currently using
+// the portal.
+// ============================================================
 
 function openUserModal() {
 
     openModal(
         "Add Admin User",
         "Create an authentication account for an administrator.",
+
         `
         <form id="userForm">
 
@@ -2183,38 +2696,80 @@ function openUserModal() {
     );
 
 
-    document
-        .getElementById("userForm")
-        .addEventListener("submit", async event => {
+    const form =
+        document.getElementById(
+            "userForm"
+        );
+
+    if (!form) return;
+
+
+    form.addEventListener(
+        "submit",
+        async event => {
 
             event.preventDefault();
 
             const name =
-                document
-                    .getElementById("userName")
-                    .value.trim();
+                getValue(
+                    "userName"
+                );
 
             const email =
-                document
-                    .getElementById("userEmail")
-                    .value.trim();
+                getValue(
+                    "userEmail"
+                );
 
-            const password =
-                document
-                    .getElementById("userPassword")
-                    .value;
+            const passwordElement =
+                document.getElementById(
+                    "userPassword"
+                );
 
             const role =
-                document
-                    .getElementById("userRole")
-                    .value;
+                getValue(
+                    "userRole"
+                );
+
+
+            if (!passwordElement) return;
+
+            const password =
+                passwordElement.value;
+
+
+            let secondaryApp = null;
 
 
             try {
 
+                /*
+                 * Create a SECOND Firebase app instance.
+                 *
+                 * This is important because calling
+                 * createUserWithEmailAndPassword(auth,...)
+                 * directly on the main auth instance would
+                 * sign the current administrator into the
+                 * newly-created account.
+                 */
+
+                const appName =
+                    `east-west-admin-${Date.now()}`;
+
+                secondaryApp =
+                    initializeApp(
+                        auth.app.options,
+                        appName
+                    );
+
+                const secondaryAuth =
+                    getAuth(
+                        secondaryApp
+                    );
+
+
                 const credential =
                     await createUserWithEmailAndPassword(
-                        auth,
+                        secondaryAuth,
                         email,
                         password
                     );
@@ -2243,12 +2798,16 @@ function openUserModal() {
 
                 showToast(
                     "Success",
-                    "Admin user created."
+                    "Admin user created successfully."
                 );
+
 
             } catch (error) {
 
-                console.error(error);
+                console.error(
+                    "Admin user creation error:",
+                    error
+                );
 
                 showToast(
                     "Error",
@@ -2256,14 +2815,52 @@ function openUserModal() {
                     "error"
                 );
 
+
+            } finally {
+
+                /*
+                 * Always close the secondary Firebase
+                 * application when finished.
+                 */
+
+                if (secondaryApp) {
+
+                    try {
+
+                        await deleteApp(
+                            secondaryApp
+                        );
+
+                    } catch (cleanupError) {
+
+                        console.warn(
+                            "Secondary Firebase app cleanup failed:",
+                            cleanupError
+                        );
+
+                    }
+
+                }
+
             }
 
-        });
+        }
+    );
 
 
-    document
-        .getElementById("cancelUserBtn")
-        .addEventListener("click", closeModal);
+    const cancelButton =
+        document.getElementById(
+            "cancelUserBtn"
+        );
+
+    if (cancelButton) {
+
+        cancelButton.addEventListener(
+            "click",
+            closeModal
+        );
+
+    }
 
 }
 
@@ -2277,14 +2874,21 @@ async function loadSettings() {
     try {
 
         const settingsRef =
-            doc(db, "settings", "company");
+            doc(
+                db,
+                "settings",
+                "company"
+            );
 
         const snapshot =
-            await getDoc(settingsRef);
+            await getDoc(
+                settingsRef
+            );
 
         if (!snapshot.exists()) return;
 
-        const data = snapshot.data();
+        const data =
+            snapshot.data();
 
 
         setValue(
@@ -2400,34 +3004,54 @@ async function saveSettings() {
     const data = {
 
         companyName:
-            getValue("settingCompanyName"),
+            getValue(
+                "settingCompanyName"
+            ),
 
         shortName:
-            getValue("settingShortName"),
+            getValue(
+                "settingShortName"
+            ),
 
         email:
-            getValue("settingEmail"),
+            getValue(
+                "settingEmail"
+            ),
 
         phone:
-            getValue("settingPhone"),
+            getValue(
+                "settingPhone"
+            ),
 
         address:
-            getValue("settingAddress"),
+            getValue(
+                "settingAddress"
+            ),
 
         whatsapp:
-            getValue("settingWhatsapp"),
+            getValue(
+                "settingWhatsapp"
+            ),
 
         website:
-            getValue("settingWebsite"),
+            getValue(
+                "settingWebsite"
+            ),
 
         facebook:
-            getValue("settingFacebook"),
+            getValue(
+                "settingFacebook"
+            ),
 
         linkedin:
-            getValue("settingLinkedin"),
+            getValue(
+                "settingLinkedin"
+            ),
 
         about:
-            getValue("settingAbout"),
+            getValue(
+                "settingAbout"
+            ),
 
         updatedAt:
             serverTimestamp()
@@ -2438,9 +3062,15 @@ async function saveSettings() {
     try {
 
         await setDoc(
-            doc(db, "settings", "company"),
+            doc(
+                db,
+                "settings",
+                "company"
+            ),
             data,
-            { merge: true }
+            {
+                merge: true
+            }
         );
 
         showToast(
@@ -2450,11 +3080,14 @@ async function saveSettings() {
 
     } catch (error) {
 
-        console.error(error);
+        console.error(
+            "Settings save error:",
+            error
+        );
 
         showToast(
             "Error",
-            "Could not save settings.",
+            getFirebaseErrorMessage(error),
             "error"
         );
 
@@ -2470,7 +3103,9 @@ async function saveSettings() {
 function initializeNavigation() {
 
     document
-        .querySelectorAll(".sidebar-link[data-section]")
+        .querySelectorAll(
+            ".sidebar-link[data-section]"
+        )
         .forEach(button => {
 
             button.addEventListener(
@@ -2489,13 +3124,19 @@ function initializeNavigation() {
 }
 
 
-function openAdminSection(sectionName) {
+function openAdminSection(
+    sectionName
+) {
 
     document
-        .querySelectorAll(".admin-section")
+        .querySelectorAll(
+            ".admin-section"
+        )
         .forEach(section => {
 
-            section.classList.remove("active");
+            section.classList.remove(
+                "active"
+            );
 
         });
 
@@ -2505,8 +3146,13 @@ function openAdminSection(sectionName) {
             `section-${sectionName}`
         );
 
-    if (target)
-        target.classList.add("active");
+    if (target) {
+
+        target.classList.add(
+            "active"
+        );
+
+    }
 
 
     document
@@ -2517,7 +3163,8 @@ function openAdminSection(sectionName) {
 
             button.classList.toggle(
                 "active",
-                button.dataset.section === sectionName
+                button.dataset.section ===
+                    sectionName
             );
 
         });
@@ -2575,15 +3222,29 @@ function openAdminSection(sectionName) {
 
     if (titles[sectionName]) {
 
-        document.getElementById(
-            "pageTitle"
-        ).textContent =
-            titles[sectionName][0];
+        const pageTitle =
+            document.getElementById(
+                "pageTitle"
+            );
 
-        document.getElementById(
-            "pageSubtitle"
-        ).textContent =
-            titles[sectionName][1];
+        const pageSubtitle =
+            document.getElementById(
+                "pageSubtitle"
+            );
+
+        if (pageTitle) {
+
+            pageTitle.textContent =
+                titles[sectionName][0];
+
+        }
+
+        if (pageSubtitle) {
+
+            pageSubtitle.textContent =
+                titles[sectionName][1];
+
+        }
 
     }
 
@@ -2598,7 +3259,9 @@ function openAdminSection(sectionName) {
         window.innerWidth <= 992
     ) {
 
-        sidebar.classList.remove("open");
+        sidebar.classList.remove(
+            "open"
+        );
 
     }
 
@@ -2623,11 +3286,14 @@ function initializeSidebar() {
 
     if (!toggle || !sidebar) return;
 
+
     toggle.addEventListener(
         "click",
         () => {
 
-            sidebar.classList.toggle("open");
+            sidebar.classList.toggle(
+                "open"
+            );
 
         }
     );
@@ -2642,9 +3308,12 @@ function initializeSidebar() {
 function initializeLogout() {
 
     const logoutButton =
-        document.getElementById("logoutBtn");
+        document.getElementById(
+            "logoutBtn"
+        );
 
     if (!logoutButton) return;
+
 
     logoutButton.addEventListener(
         "click",
@@ -2652,7 +3321,9 @@ function initializeLogout() {
 
             try {
 
-                await signOut(auth);
+                await signOut(
+                    auth
+                );
 
                 showToast(
                     "Success",
@@ -2661,7 +3332,10 @@ function initializeLogout() {
 
             } catch (error) {
 
-                console.error(error);
+                console.error(
+                    "Logout error:",
+                    error
+                );
 
                 showToast(
                     "Error",
@@ -2696,19 +3370,55 @@ function initializeQuickActions() {
                     const section =
                         button.dataset.openSection;
 
-                    openAdminSection(section);
+                    openAdminSection(
+                        section
+                    );
 
-                    if (section === "products")
+
+                    if (
+                        section ===
+                        "products"
+                    ) {
+
                         openProductModal();
 
-                    if (section === "gallery")
+                    }
+
+                    if (
+                        section ===
+                        "gallery"
+                    ) {
+
                         openGalleryModal();
 
-                    if (section === "news")
+                    }
+
+                    if (
+                        section ===
+                        "news"
+                    ) {
+
                         openNewsModal();
 
-                    if (section === "certificates")
+                    }
+
+                    if (
+                        section ===
+                        "certificates"
+                    ) {
+
                         openCertificateModal();
+
+                    }
+
+                    if (
+                        section ===
+                        "users"
+                    ) {
+
+                        openUserModal();
+
+                    }
 
                 }
             );
@@ -2721,11 +3431,15 @@ function initializeQuickActions() {
             "addProductBtn"
         );
 
-    if (addProduct)
+    if (addProduct) {
+
         addProduct.addEventListener(
             "click",
-            () => openProductModal()
+            () =>
+                openProductModal()
         );
+
+    }
 
 
     const addGallery =
@@ -2733,11 +3447,15 @@ function initializeQuickActions() {
             "addGalleryBtn"
         );
 
-    if (addGallery)
+    if (addGallery) {
+
         addGallery.addEventListener(
             "click",
-            () => openGalleryModal()
+            () =>
+                openGalleryModal()
         );
+
+    }
 
 
     const addNews =
@@ -2745,11 +3463,15 @@ function initializeQuickActions() {
             "addNewsBtn"
         );
 
-    if (addNews)
+    if (addNews) {
+
         addNews.addEventListener(
             "click",
-            () => openNewsModal()
+            () =>
+                openNewsModal()
         );
+
+    }
 
 
     const addCertificate =
@@ -2757,11 +3479,15 @@ function initializeQuickActions() {
             "addCertificateBtn"
         );
 
-    if (addCertificate)
+    if (addCertificate) {
+
         addCertificate.addEventListener(
             "click",
-            () => openCertificateModal()
+            () =>
+                openCertificateModal()
         );
+
+    }
 
 
     const addUser =
@@ -2769,11 +3495,15 @@ function initializeQuickActions() {
             "addUserBtn"
         );
 
-    if (addUser)
+    if (addUser) {
+
         addUser.addEventListener(
             "click",
-            () => openUserModal()
+            () =>
+                openUserModal()
         );
+
+    }
 
 }
 
@@ -2784,8 +3514,14 @@ function initializeQuickActions() {
 
 function attachTableActions() {
 
+    // --------------------------------------------------------
+    // EDIT BUTTONS
+    // --------------------------------------------------------
+
     document
-        .querySelectorAll(".edit-btn")
+        .querySelectorAll(
+            ".edit-btn"
+        )
         .forEach(button => {
 
             button.onclick = () => {
@@ -2797,54 +3533,94 @@ function attachTableActions() {
                     button.dataset.type;
 
 
-                if (type === "product") {
+                if (
+                    type ===
+                    "product"
+                ) {
 
                     const item =
                         products.find(
-                            p => p.id === id
+                            p =>
+                                p.id ===
+                                id
                         );
 
-                    if (item)
-                        openProductModal(item);
+                    if (item) {
+
+                        openProductModal(
+                            item
+                        );
+
+                    }
 
                 }
 
 
-                if (type === "gallery") {
+                if (
+                    type ===
+                    "gallery"
+                ) {
 
                     const item =
                         gallery.find(
-                            p => p.id === id
+                            p =>
+                                p.id ===
+                                id
                         );
 
-                    if (item)
-                        openGalleryModal(item);
+                    if (item) {
+
+                        openGalleryModal(
+                            item
+                        );
+
+                    }
 
                 }
 
 
-                if (type === "news") {
+                if (
+                    type ===
+                    "news"
+                ) {
 
                     const item =
                         news.find(
-                            p => p.id === id
+                            p =>
+                                p.id ===
+                                id
                         );
 
-                    if (item)
-                        openNewsModal(item);
+                    if (item) {
+
+                        openNewsModal(
+                            item
+                        );
+
+                    }
 
                 }
 
 
-                if (type === "certificate") {
+                if (
+                    type ===
+                    "certificate"
+                ) {
 
                     const item =
                         certificates.find(
-                            p => p.id === id
+                            p =>
+                                p.id ===
+                                id
                         );
 
-                    if (item)
-                        openCertificateModal(item);
+                    if (item) {
+
+                        openCertificateModal(
+                            item
+                        );
+
+                    }
 
                 }
 
@@ -2853,8 +3629,14 @@ function attachTableActions() {
         });
 
 
+    // --------------------------------------------------------
+    // DELETE BUTTONS
+    // --------------------------------------------------------
+
     document
-        .querySelectorAll(".delete-btn")
+        .querySelectorAll(
+            ".delete-btn"
+        )
         .forEach(button => {
 
             button.onclick = async () => {
@@ -2868,13 +3650,26 @@ function attachTableActions() {
 
                 const collections = {
 
-                    product: "products",
-                    gallery: "gallery",
-                    news: "news",
-                    certificate: "certificates",
-                    message: "messages",
-                    quotation: "quotations",
-                    user: "users"
+                    product:
+                        "products",
+
+                    gallery:
+                        "gallery",
+
+                    news:
+                        "news",
+
+                    certificate:
+                        "certificates",
+
+                    message:
+                        "messages",
+
+                    quotation:
+                        "quotations",
+
+                    user:
+                        "users"
 
                 };
 
@@ -2883,17 +3678,42 @@ function attachTableActions() {
                     collections[type];
 
 
-                if (!collectionName)
+                if (!collectionName) {
                     return;
+                }
+
+
+                // ------------------------------------------------
+                // Prevent deleting current administrator record
+                // ------------------------------------------------
+
+                if (
+                    type === "user" &&
+                    currentUser &&
+                    id === currentUser.uid
+                ) {
+
+                    showToast(
+                        "Not Allowed",
+                        "You cannot delete the administrator account currently in use.",
+                        "error"
+                    );
+
+                    return;
+
+                }
 
 
                 const confirmed =
                     confirm(
-                        "Are you sure you want to delete this item?"
+                        type === "user"
+                            ? "Remove this administrator's Firestore record?"
+                            : "Are you sure you want to delete this item?"
                     );
 
-                if (!confirmed)
+                if (!confirmed) {
                     return;
+                }
 
 
                 try {
@@ -2907,862 +3727,24 @@ function attachTableActions() {
                     );
 
 
-                    if (type === "product")
+                    if (
+                        type ===
+                        "product"
+                    ) {
+
                         await loadProducts();
 
-                    if (type === "gallery")
+                    }
+
+                    if (
+                        type ===
+                        "gallery"
+                    ) {
+
                         await loadGallery();
 
-                    if (type === "news")
-                        await loadNews();
-
-                    if (type === "certificate")
-                        await loadCertificates();
-
-                    if (type === "message")
-                        await loadMessages();
-
-                    if (type === "quotation")
-                        await loadQuotations();
-
-                    if (type === "user")
-                        await loadUsers();
-
-
-                    updateDashboardStats();
-
-                    showToast(
-                        "Success",
-                        "Item deleted successfully."
-                    );
-
-                } catch (error) {
-
-                    console.error(error);
-
-                    showToast(
-                        "Error",
-                        "Could not delete item.",
-                        "error"
-                    );
-
-                }
-
-            };
-
-        });
-
-
-    document
-        .querySelectorAll(".view-message-btn")
-        .forEach(button => {
-
-            button.onclick = () => {
-
-                const message =
-                    messages.find(
-                        item =>
-                            item.id ===
-                            button.dataset.id
-                    );
-
-                if (message)
-                    openMessageModal(message);
-
-            };
-
-        });
-
-
-    document
-        .querySelectorAll(".view-quotation-btn")
-        .forEach(button => {
-
-            button.onclick = () => {
-
-                const quotation =
-                    quotations.find(
-                        item =>
-                            item.id ===
-                            button.dataset.id
-                    );
-
-                if (quotation)
-                    openQuotationModal(quotation);
-
-            };
-
-        });
-
-}
-
-
-// ============================================================
-// SEARCH & FILTERS
-// ============================================================
-
-function initializeSearchAndFilters() {
-
-    const productSearch =
-        document.getElementById(
-            "productSearch"
-        );
-
-    const categoryFilter =
-        document.getElementById(
-            "productCategoryFilter"
-        );
-
-
-    if (productSearch) {
-
-        productSearch.addEventListener(
-            "input",
-            filterProducts
-        );
-
-    }
-
-    if (categoryFilter) {
-
-        categoryFilter.addEventListener(
-            "change",
-            filterProducts
-        );
-
-    }
-
-
-    const messageSearch =
-        document.getElementById(
-            "messageSearch"
-        );
-
-    const messageFilter =
-        document.getElementById(
-            "messageStatusFilter"
-        );
-
-
-    if (messageSearch)
-        messageSearch.addEventListener(
-            "input",
-            filterMessages
-        );
-
-    if (messageFilter)
-        messageFilter.addEventListener(
-            "change",
-            filterMessages
-        );
-
-
-    const quotationSearch =
-        document.getElementById(
-            "quotationSearch"
-        );
-
-    const quotationFilter =
-        document.getElementById(
-            "quotationStatusFilter"
-        );
-
-
-    if (quotationSearch)
-        quotationSearch.addEventListener(
-            "input",
-            filterQuotations
-        );
-
-    if (quotationFilter)
-        quotationFilter.addEventListener(
-            "change",
-            filterQuotations
-        );
-
-}
-
-
-function filterProducts() {
-
-    const search =
-        document
-            .getElementById("productSearch")
-            .value
-            .toLowerCase();
-
-    const category =
-        document
-            .getElementById(
-                "productCategoryFilter"
-            )
-            .value;
-
-
-    document
-        .querySelectorAll(
-            "#productsTableBody tr"
-        )
-        .forEach(row => {
-
-            const text =
-                row.textContent.toLowerCase();
-
-            const matchesSearch =
-                text.includes(search);
-
-            const matchesCategory =
-                category === "all" ||
-                text.includes(category);
-
-            row.style.display =
-                matchesSearch &&
-                matchesCategory
-                    ? ""
-                    : "none";
-
-        });
-
-}
-
-
-function filterMessages() {
-
-    const search =
-        document
-            .getElementById("messageSearch")
-            .value
-            .toLowerCase();
-
-    const status =
-        document
-            .getElementById(
-                "messageStatusFilter"
-            )
-            .value;
-
-
-    document
-        .querySelectorAll(
-            "#messagesTableBody tr"
-        )
-        .forEach(row => {
-
-            const text =
-                row.textContent.toLowerCase();
-
-            const matchesSearch =
-                text.includes(search);
-
-            const matchesStatus =
-                status === "all" ||
-                text.includes(status);
-
-            row.style.display =
-                matchesSearch &&
-                matchesStatus
-                    ? ""
-                    : "none";
-
-        });
-
-}
-
-
-function filterQuotations() {
-
-    const search =
-        document
-            .getElementById("quotationSearch")
-            .value
-            .toLowerCase();
-
-    const status =
-        document
-            .getElementById(
-                "quotationStatusFilter"
-            )
-            .value;
-
-
-    document
-        .querySelectorAll(
-            "#quotationsTableBody tr"
-        )
-        .forEach(row => {
-
-            const text =
-                row.textContent.toLowerCase();
-
-            const matchesSearch =
-                text.includes(search);
-
-            const matchesStatus =
-                status === "all" ||
-                text.includes(status);
-
-            row.style.display =
-                matchesSearch &&
-                matchesStatus
-                    ? ""
-                    : "none";
-
-        });
-
-}
-
-
-// ============================================================
-// DASHBOARD STATS
-// ============================================================
-
-function updateDashboardStats() {
-
-    setText(
-        "statProducts",
-        products.length
-    );
-
-    setText(
-        "statGallery",
-        gallery.length
-    );
-
-    setText(
-        "statMessages",
-        messages.length
-    );
-
-    setText(
-        "statQuotations",
-        quotations.length
-    );
-
-    updateMessageBadge();
-    updateQuotationBadge();
-
-}
-
-
-function updateMessageBadge() {
-
-    const badge =
-        document.getElementById(
-            "messageBadge"
-        );
-
-    if (!badge) return;
-
-    const count =
-        messages.filter(
-            item =>
-                !item.status ||
-                item.status === "new"
-        ).length;
-
-
-    if (count > 0) {
-
-        badge.textContent = count;
-        badge.style.display = "inline-flex";
-
-    } else {
-
-        badge.style.display = "none";
-
-    }
-
-}
-
-
-function updateQuotationBadge() {
-
-    const badge =
-        document.getElementById(
-            "quotationBadge"
-        );
-
-    if (!badge) return;
-
-    const count =
-        quotations.filter(
-            item =>
-                !item.status ||
-                item.status === "new"
-        ).length;
-
-
-    if (count > 0) {
-
-        badge.textContent = count;
-        badge.style.display = "inline-flex";
-
-    } else {
-
-        badge.style.display = "none";
-
-    }
-
-}
-
-
-// ============================================================
-// RECENT MESSAGES
-// ============================================================
-
-function renderRecentMessages() {
-
-    const container =
-        document.getElementById(
-            "recentMessages"
-        );
-
-    if (!container) return;
-
-    container.innerHTML = "";
-
-
-    const recent =
-        messages.slice(0, 5);
-
-
-    if (!recent.length) {
-
-        container.innerHTML = `
-            <div class="empty-state">
-
-                <i class="fa-solid fa-inbox"></i>
-
-                <p>
-                    No messages available.
-                </p>
-
-            </div>
-        `;
-
-        return;
-    }
-
-
-    recent.forEach(message => {
-
-        const item =
-            document.createElement("div");
-
-        item.className = "recent-message";
-
-        item.innerHTML = `
-
-            <div class="recent-message-icon">
-
-                <i class="fa-solid fa-envelope"></i>
-
-            </div>
-
-            <div>
-
-                <strong>
-                    ${escapeHTML(
-                        message.name || "-"
-                    )}
-                </strong>
-
-                <p>
-                    ${escapeHTML(
-                        message.subject || "-"
-                    )}
-                </p>
-
-                <small>
-                    ${formatDate(message.createdAt)}
-                </small>
-
-            </div>
-        `;
-
-        container.appendChild(item);
-
-    });
-
-}
-
-
-// ============================================================
-// MODAL
-// ============================================================
-
-function initializeModal() {
-
-    const close =
-        document.getElementById(
-            "modalClose"
-        );
-
-    const overlay =
-        document.getElementById(
-            "modalOverlay"
-        );
-
-    if (close)
-        close.addEventListener(
-            "click",
-            closeModal
-        );
-
-    if (overlay)
-        overlay.addEventListener(
-            "click",
-            closeModal
-        );
-
-
-    document.addEventListener(
-        "keydown",
-        event => {
-
-            if (
-                event.key === "Escape"
-            ) {
-
-                closeModal();
-
-            }
-
-        }
-    );
-
-}
-
-
-function openModal(
-    title,
-    subtitle,
-    body
-) {
-
-    const modal =
-        document.getElementById(
-            "adminModal"
-        );
-
-    const modalTitle =
-        document.getElementById(
-            "modalTitle"
-        );
-
-    const modalSubtitle =
-        document.getElementById(
-            "modalSubtitle"
-        );
-
-    const modalBody =
-        document.getElementById(
-            "modalBody"
-        );
-
-
-    modalTitle.textContent = title;
-
-    modalSubtitle.textContent =
-        subtitle;
-
-    modalBody.innerHTML = body;
-
-    modal.style.display = "flex";
-
-    document.body.classList.add(
-        "modal-open"
-    );
-
-}
-
-
-function closeModal() {
-
-    const modal =
-        document.getElementById(
-            "adminModal"
-        );
-
-    if (!modal) return;
-
-    modal.style.display = "none";
-
-    document.body.classList.remove(
-        "modal-open"
-    );
-
-}
-
-
-// ============================================================
-// TOAST
-// ============================================================
-
-function showToast(
-    title,
-    message,
-    type = "success"
-) {
-
-    const toast =
-        document.getElementById(
-            "toast"
-        );
-
-    if (!toast) return;
-
-
-    const titleElement =
-        document.getElementById(
-            "toastTitle"
-        );
-
-    const messageElement =
-        document.getElementById(
-            "toastMessage"
-        );
-
-
-    titleElement.textContent =
-        title;
-
-    messageElement.textContent =
-        message;
-
-
-    toast.classList.remove(
-        "show",
-        "error"
-    );
-
-
-    if (type === "error")
-        toast.classList.add("error");
-
-
-    toast.classList.add("show");
-
-
-    setTimeout(() => {
-
-        toast.classList.remove(
-            "show"
-        );
-
-    }, 4000);
-
-}
-
-
-const toastClose =
-    document.getElementById(
-        "toastClose"
-    );
-
-if (toastClose) {
-
-    toastClose.addEventListener(
-        "click",
-        () => {
-
-            document
-                .getElementById("toast")
-                .classList.remove("show");
-
-        }
-    );
-
-}
-
-
-// ============================================================
-// HELPERS
-// ============================================================
-
-function setText(id, value) {
-
-    const element =
-        document.getElementById(id);
-
-    if (element)
-        element.textContent = value;
-
-}
-
-
-function setValue(id, value) {
-
-    const element =
-        document.getElementById(id);
-
-    if (element)
-        element.value = value || "";
-
-}
-
-
-function getValue(id) {
-
-    const element =
-        document.getElementById(id);
-
-    return element
-        ? element.value.trim()
-        : "";
-
-}
-
-
-function formatDate(timestamp) {
-
-    if (!timestamp)
-        return "-";
-
-
-    let date;
-
-
-    if (
-        timestamp &&
-        typeof timestamp.toDate === "function"
-    ) {
-
-        date = timestamp.toDate();
-
-    } else {
-
-        date = new Date(timestamp);
-
-    }
-
-
-    if (isNaN(date.getTime()))
-        return "-";
-
-
-    return date.toLocaleDateString(
-        "en-GB",
-        {
-            day: "2-digit",
-            month: "short",
-            year: "numeric"
-        }
-    );
-
-}
-
-
-function getTime(timestamp) {
-
-    if (!timestamp)
-        return 0;
-
-
-    if (
-        timestamp &&
-        typeof timestamp.toDate === "function"
-    ) {
-
-        return timestamp.toDate().getTime();
-
-    }
-
-
-    const date =
-        new Date(timestamp);
-
-    return isNaN(date.getTime())
-        ? 0
-        : date.getTime();
-
-}
-
-
-function getStatusClass(status) {
-
-    const classes = {
-
-        new: "status-warning",
-
-        read: "status-info",
-
-        replied: "status-success",
-
-        processing: "status-info",
-
-        quoted: "status-success",
-
-        closed: "status-muted"
-
-    };
-
-    return classes[status] ||
-        "status-warning";
-
-}
-
-
-function escapeHTML(value) {
-
-    if (value === null ||
-        value === undefined)
-        return "";
-
-    return String(value)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
-
-}
-
-
-function escapeAttribute(value) {
-
-    return escapeHTML(value);
-
-}
-
-
-function getFirebaseErrorMessage(error) {
-
-    const code =
-        error?.code || "";
-
-
-    const messages = {
-
-        "auth/invalid-credential":
-            "Incorrect email or password.",
-
-        "auth/invalid-email":
-            "Please enter a valid email address.",
-
-        "auth/user-not-found":
-            "No administrator account was found.",
-
-        "auth/wrong-password":
-            "Incorrect password.",
-
-        "auth/email-already-in-use":
-            "This email address is already registered.",
-
-        "auth/weak-password":
-            "Password must contain at least 6 characters.",
-
-        "auth/too-many-requests":
-            "Too many attempts. Please try again later.",
-
-        "auth/network-request-failed":
-            "Network error. Please check your internet connection."
-
-    };
-
-
-    return messages[code] ||
-        error?.message ||
-        "An unexpected error occurred.";
-
-}
+                    }
+
+                    if (
+                        type ===
+                       
