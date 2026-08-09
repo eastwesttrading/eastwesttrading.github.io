@@ -9,11 +9,16 @@
     <meta name="description"
           content="EAST WEST GRINDING OR MANUFACTURING OF GRAINS PLC - Admin Portal">
 
+    <meta name="robots"
+          content="noindex, nofollow">
+
     <title>EAST WEST PLC | Admin Portal</title>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
           rel="stylesheet">
@@ -23,7 +28,8 @@
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <!-- Admin CSS -->
-    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet"
+          href="admin.css">
 </head>
 
 <body>
@@ -32,33 +38,51 @@
      LOGIN SECTION
 ========================================================= -->
 
-<section id="loginSection" class="login-section">
+<section id="loginSection"
+         class="login-section">
 
     <div class="login-card">
 
         <div class="login-logo">
+
             <div class="login-logo-icon">
                 <i class="fa-solid fa-wheat-awn"></i>
             </div>
 
             <h1>EAST WEST</h1>
-            <span>GRINDING OR MANUFACTURING OF GRAINS PLC</span>
+
+            <span>
+                GRINDING OR MANUFACTURING OF GRAINS PLC
+            </span>
+
         </div>
 
+
         <div class="login-heading">
-            <h2>Admin Portal</h2>
-            <p>Sign in to manage your company website.</p>
+
+            <h2>
+                Admin Portal
+            </h2>
+
+            <p>
+                Sign in to manage your company website.
+            </p>
+
         </div>
+
 
         <form id="loginForm">
 
             <div class="form-control">
+
                 <label for="loginEmail">
                     Email Address
                 </label>
 
                 <div class="input-wrapper">
-                    <i class="fa-solid fa-envelope"></i>
+
+                    <i class="fa-solid fa-envelope"
+                       aria-hidden="true"></i>
 
                     <input
                         type="email"
@@ -66,16 +90,22 @@
                         placeholder="admin@example.com"
                         autocomplete="email"
                         required>
+
                 </div>
+
             </div>
 
+
             <div class="form-control">
+
                 <label for="loginPassword">
                     Password
                 </label>
 
                 <div class="input-wrapper">
-                    <i class="fa-solid fa-lock"></i>
+
+                    <i class="fa-solid fa-lock"
+                       aria-hidden="true"></i>
 
                     <input
                         type="password"
@@ -88,37 +118,53 @@
                         type="button"
                         class="password-toggle"
                         id="togglePassword"
-                        aria-label="Show password">
+                        aria-label="Show password"
+                        aria-controls="loginPassword">
 
-                        <i class="fa-solid fa-eye"></i>
+                        <i class="fa-solid fa-eye"
+                           aria-hidden="true"></i>
 
                     </button>
+
                 </div>
+
             </div>
+
 
             <div id="loginError"
                  class="form-message error-message"
+                 role="alert"
+                 aria-live="polite"
                  style="display:none;">
             </div>
+
 
             <button
                 type="submit"
                 class="admin-btn admin-btn-primary login-btn"
                 id="loginBtn">
 
-                <i class="fa-solid fa-right-to-bracket"></i>
+                <i class="fa-solid fa-right-to-bracket"
+                   aria-hidden="true"></i>
 
-                <span>Sign In</span>
+                <span>
+                    Sign In
+                </span>
 
             </button>
 
         </form>
 
+
         <div class="login-footer">
 
             <a href="index.html">
-                <i class="fa-solid fa-arrow-left"></i>
+
+                <i class="fa-solid fa-arrow-left"
+                   aria-hidden="true"></i>
+
                 Back to Website
+
             </a>
 
         </div>
@@ -136,9 +182,12 @@
          class="dashboard-section"
          style="display:none;">
 
-    <!-- SIDEBAR -->
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
 
-    <aside class="admin-sidebar" id="adminSidebar">
+    <aside class="admin-sidebar"
+           id="adminSidebar">
 
         <div class="sidebar-brand">
 
@@ -147,8 +196,15 @@
             </div>
 
             <div>
-                <h2>EAST WEST</h2>
-                <span>ADMIN PORTAL</span>
+
+                <h2>
+                    EAST WEST
+                </h2>
+
+                <span>
+                    ADMIN PORTAL
+                </span>
+
             </div>
 
         </div>
@@ -156,18 +212,25 @@
 
         <!-- Navigation -->
 
-        <nav class="sidebar-nav">
+        <nav class="sidebar-nav"
+             aria-label="Admin navigation">
 
             <p class="nav-section-title">
                 MAIN
             </p>
 
+
             <button
+                type="button"
                 class="sidebar-link active"
                 data-section="dashboard">
 
-                <i class="fa-solid fa-chart-line"></i>
-                <span>Dashboard</span>
+                <i class="fa-solid fa-chart-line"
+                   aria-hidden="true"></i>
+
+                <span>
+                    Dashboard
+                </span>
 
             </button>
 
@@ -176,39 +239,63 @@
                 WEBSITE CONTENT
             </p>
 
+
             <button
+                type="button"
                 class="sidebar-link"
                 data-section="products">
 
-                <i class="fa-solid fa-box-open"></i>
-                <span>Products</span>
+                <i class="fa-solid fa-box-open"
+                   aria-hidden="true"></i>
+
+                <span>
+                    Products
+                </span>
 
             </button>
 
+
             <button
+                type="button"
                 class="sidebar-link"
                 data-section="gallery">
 
-                <i class="fa-solid fa-images"></i>
-                <span>Gallery</span>
+                <i class="fa-solid fa-images"
+                   aria-hidden="true"></i>
+
+                <span>
+                    Gallery
+                </span>
 
             </button>
 
+
             <button
+                type="button"
                 class="sidebar-link"
                 data-section="news">
 
-                <i class="fa-solid fa-newspaper"></i>
-                <span>News</span>
+                <i class="fa-solid fa-newspaper"
+                   aria-hidden="true"></i>
+
+                <span>
+                    News
+                </span>
 
             </button>
 
+
             <button
+                type="button"
                 class="sidebar-link"
                 data-section="certificates">
 
-                <i class="fa-solid fa-certificate"></i>
-                <span>Certificates</span>
+                <i class="fa-solid fa-certificate"
+                   aria-hidden="true"></i>
+
+                <span>
+                    Certificates
+                </span>
 
             </button>
 
@@ -217,34 +304,50 @@
                 BUSINESS
             </p>
 
+
             <button
+                type="button"
                 class="sidebar-link"
                 data-section="messages">
 
-                <i class="fa-solid fa-envelope"></i>
-                <span>Messages</span>
+                <i class="fa-solid fa-envelope"
+                   aria-hidden="true"></i>
+
+                <span>
+                    Messages
+                </span>
 
                 <span
                     class="notification-badge"
                     id="messageBadge"
                     style="display:none;">
+
                     0
+
                 </span>
 
             </button>
 
+
             <button
+                type="button"
                 class="sidebar-link"
                 data-section="quotations">
 
-                <i class="fa-solid fa-file-invoice-dollar"></i>
-                <span>Quotations</span>
+                <i class="fa-solid fa-file-invoice-dollar"
+                   aria-hidden="true"></i>
+
+                <span>
+                    Quotations
+                </span>
 
                 <span
                     class="notification-badge"
                     id="quotationBadge"
                     style="display:none;">
+
                     0
+
                 </span>
 
             </button>
@@ -254,21 +357,33 @@
                 SYSTEM
             </p>
 
+
             <button
+                type="button"
                 class="sidebar-link"
                 data-section="users">
 
-                <i class="fa-solid fa-users"></i>
-                <span>Users</span>
+                <i class="fa-solid fa-users"
+                   aria-hidden="true"></i>
+
+                <span>
+                    Users
+                </span>
 
             </button>
 
+
             <button
+                type="button"
                 class="sidebar-link"
                 data-section="settings">
 
-                <i class="fa-solid fa-gear"></i>
-                <span>Settings</span>
+                <i class="fa-solid fa-gear"
+                   aria-hidden="true"></i>
+
+                <span>
+                    Settings
+                </span>
 
             </button>
 
@@ -282,19 +397,30 @@
             <a
                 href="index.html"
                 target="_blank"
+                rel="noopener noreferrer"
                 class="sidebar-link">
 
-                <i class="fa-solid fa-globe"></i>
-                <span>View Website</span>
+                <i class="fa-solid fa-globe"
+                   aria-hidden="true"></i>
+
+                <span>
+                    View Website
+                </span>
 
             </a>
 
+
             <button
+                type="button"
                 id="logoutBtn"
                 class="sidebar-link logout-link">
 
-                <i class="fa-solid fa-right-from-bracket"></i>
-                <span>Logout</span>
+                <i class="fa-solid fa-right-from-bracket"
+                   aria-hidden="true"></i>
+
+                <span>
+                    Logout
+                </span>
 
             </button>
 
@@ -303,7 +429,9 @@
     </aside>
 
 
-    <!-- MAIN CONTENT -->
+    <!-- =====================================================
+         MAIN CONTENT
+    ====================================================== -->
 
     <main class="admin-main">
 
@@ -314,12 +442,17 @@
             <div class="topbar-left">
 
                 <button
+                    type="button"
                     id="sidebarToggle"
-                    class="sidebar-toggle">
+                    class="sidebar-toggle"
+                    aria-label="Toggle navigation menu"
+                    aria-controls="adminSidebar">
 
-                    <i class="fa-solid fa-bars"></i>
+                    <i class="fa-solid fa-bars"
+                       aria-hidden="true"></i>
 
                 </button>
+
 
                 <div>
 
@@ -341,7 +474,8 @@
                 <div class="admin-user">
 
                     <div class="admin-user-icon">
-                        <i class="fa-solid fa-user"></i>
+                        <i class="fa-solid fa-user"
+                           aria-hidden="true"></i>
                     </div>
 
                     <div class="admin-user-info">
@@ -381,16 +515,20 @@
                 <div class="section-intro">
 
                     <div>
+
                         <span class="section-label">
                             OVERVIEW
                         </span>
 
-                        <h2>Business Website Dashboard</h2>
+                        <h2>
+                            Business Website Dashboard
+                        </h2>
 
                         <p>
                             Manage EAST WEST PLC website content,
                             trade inquiries and business information.
                         </p>
+
                     </div>
 
                 </div>
@@ -403,12 +541,15 @@
                     <div class="stat-card">
 
                         <div class="stat-icon products-icon">
-                            <i class="fa-solid fa-box-open"></i>
+                            <i class="fa-solid fa-box-open"
+                               aria-hidden="true"></i>
                         </div>
 
                         <div class="stat-content">
 
-                            <span>Total Products</span>
+                            <span>
+                                Total Products
+                            </span>
 
                             <strong id="statProducts">
                                 0
@@ -422,12 +563,15 @@
                     <div class="stat-card">
 
                         <div class="stat-icon gallery-icon">
-                            <i class="fa-solid fa-images"></i>
+                            <i class="fa-solid fa-images"
+                               aria-hidden="true"></i>
                         </div>
 
                         <div class="stat-content">
 
-                            <span>Gallery Items</span>
+                            <span>
+                                Gallery Items
+                            </span>
 
                             <strong id="statGallery">
                                 0
@@ -441,12 +585,15 @@
                     <div class="stat-card">
 
                         <div class="stat-icon message-icon">
-                            <i class="fa-solid fa-envelope"></i>
+                            <i class="fa-solid fa-envelope"
+                               aria-hidden="true"></i>
                         </div>
 
                         <div class="stat-content">
 
-                            <span>Messages</span>
+                            <span>
+                                Messages
+                            </span>
 
                             <strong id="statMessages">
                                 0
@@ -460,12 +607,15 @@
                     <div class="stat-card">
 
                         <div class="stat-icon quotation-icon">
-                            <i class="fa-solid fa-file-invoice"></i>
+                            <i class="fa-solid fa-file-invoice"
+                               aria-hidden="true"></i>
                         </div>
 
                         <div class="stat-content">
 
-                            <span>Quotations</span>
+                            <span>
+                                Quotations
+                            </span>
 
                             <strong id="statQuotations">
                                 0
@@ -504,10 +654,12 @@
                         <div class="quick-actions">
 
                             <button
+                                type="button"
                                 class="quick-action"
                                 data-open-section="products">
 
-                                <i class="fa-solid fa-plus"></i>
+                                <i class="fa-solid fa-plus"
+                                   aria-hidden="true"></i>
 
                                 <span>
                                     Add Product
@@ -515,11 +667,14 @@
 
                             </button>
 
+
                             <button
+                                type="button"
                                 class="quick-action"
                                 data-open-section="gallery">
 
-                                <i class="fa-solid fa-image"></i>
+                                <i class="fa-solid fa-image"
+                                   aria-hidden="true"></i>
 
                                 <span>
                                     Add Gallery Image
@@ -527,11 +682,14 @@
 
                             </button>
 
+
                             <button
+                                type="button"
                                 class="quick-action"
                                 data-open-section="news">
 
-                                <i class="fa-solid fa-pen"></i>
+                                <i class="fa-solid fa-pen"
+                                   aria-hidden="true"></i>
 
                                 <span>
                                     Publish News
@@ -539,11 +697,14 @@
 
                             </button>
 
+
                             <button
+                                type="button"
                                 class="quick-action"
                                 data-open-section="certificates">
 
-                                <i class="fa-solid fa-certificate"></i>
+                                <i class="fa-solid fa-certificate"
+                                   aria-hidden="true"></i>
 
                                 <span>
                                     Add Certificate
@@ -576,36 +737,60 @@
 
                         </div>
 
+
                         <div class="company-info-list">
 
                             <div>
-                                <span>Company</span>
+
+                                <span>
+                                    Company
+                                </span>
+
                                 <strong>
                                     EAST WEST GRINDING OR
                                     MANUFACTURING OF GRAINS PLC
                                 </strong>
+
                             </div>
 
+
                             <div>
-                                <span>Location</span>
+
+                                <span>
+                                    Location
+                                </span>
+
                                 <strong>
                                     Addis Ababa, Ethiopia
                                 </strong>
+
                             </div>
 
+
                             <div>
-                                <span>Business</span>
+
+                                <span>
+                                    Business
+                                </span>
+
                                 <strong>
                                     Agro-Processing,
                                     Export & Import
                                 </strong>
+
                             </div>
 
+
                             <div>
-                                <span>Primary Market</span>
+
+                                <span>
+                                    Primary Market
+                                </span>
+
                                 <strong>
                                     International
                                 </strong>
+
                             </div>
 
                         </div>
@@ -633,16 +818,21 @@
 
                         </div>
 
+
                         <button
+                            type="button"
                             class="text-btn"
                             data-open-section="messages">
 
                             View All
-                            <i class="fa-solid fa-arrow-right"></i>
+
+                            <i class="fa-solid fa-arrow-right"
+                               aria-hidden="true"></i>
 
                         </button>
 
                     </div>
+
 
                     <div
                         id="recentMessages"
@@ -650,7 +840,8 @@
 
                         <div class="empty-state">
 
-                            <i class="fa-solid fa-inbox"></i>
+                            <i class="fa-solid fa-inbox"
+                               aria-hidden="true"></i>
 
                             <p>
                                 No messages available.
@@ -681,7 +872,9 @@
                             WEBSITE CONTENT
                         </span>
 
-                        <h2>Products</h2>
+                        <h2>
+                            Products
+                        </h2>
 
                         <p>
                             Manage export and import commodities
@@ -690,11 +883,15 @@
 
                     </div>
 
+
                     <button
+                        type="button"
                         id="addProductBtn"
                         class="admin-btn admin-btn-primary">
 
-                        <i class="fa-solid fa-plus"></i>
+                        <i class="fa-solid fa-plus"
+                           aria-hidden="true"></i>
+
                         Add Product
 
                     </button>
@@ -708,16 +905,21 @@
 
                         <div class="search-box">
 
-                            <i class="fa-solid fa-search"></i>
+                            <i class="fa-solid fa-search"
+                               aria-hidden="true"></i>
 
                             <input
                                 type="search"
                                 id="productSearch"
-                                placeholder="Search products...">
+                                placeholder="Search products..."
+                                aria-label="Search products">
 
                         </div>
 
-                        <select id="productCategoryFilter">
+
+                        <select
+                            id="productCategoryFilter"
+                            aria-label="Filter products by category">
 
                             <option value="all">
                                 All Categories
@@ -744,18 +946,31 @@
 
                                 <tr>
 
-                                    <th>Product</th>
-                                    <th>Category</th>
-                                    <th>Description</th>
-                                    <th>Specifications</th>
-                                    <th>Actions</th>
+                                    <th>
+                                        Product
+                                    </th>
+
+                                    <th>
+                                        Category
+                                    </th>
+
+                                    <th>
+                                        Description
+                                    </th>
+
+                                    <th>
+                                        Specifications
+                                    </th>
+
+                                    <th>
+                                        Actions
+                                    </th>
 
                                 </tr>
 
                             </thead>
 
                             <tbody id="productsTableBody">
-
                             </tbody>
 
                         </table>
@@ -783,7 +998,9 @@
                             WEBSITE CONTENT
                         </span>
 
-                        <h2>Gallery</h2>
+                        <h2>
+                            Gallery
+                        </h2>
 
                         <p>
                             Manage company operation,
@@ -792,11 +1009,15 @@
 
                     </div>
 
+
                     <button
+                        type="button"
                         id="addGalleryBtn"
                         class="admin-btn admin-btn-primary">
 
-                        <i class="fa-solid fa-plus"></i>
+                        <i class="fa-solid fa-plus"
+                           aria-hidden="true"></i>
+
                         Add Image
 
                     </button>
@@ -807,7 +1028,6 @@
                 <div
                     id="galleryAdminGrid"
                     class="admin-gallery-grid">
-
                 </div>
 
             </section>
@@ -829,7 +1049,9 @@
                             WEBSITE CONTENT
                         </span>
 
-                        <h2>News & Updates</h2>
+                        <h2>
+                            News & Updates
+                        </h2>
 
                         <p>
                             Publish company announcements,
@@ -838,11 +1060,15 @@
 
                     </div>
 
+
                     <button
+                        type="button"
                         id="addNewsBtn"
                         class="admin-btn admin-btn-primary">
 
-                        <i class="fa-solid fa-plus"></i>
+                        <i class="fa-solid fa-plus"
+                           aria-hidden="true"></i>
+
                         Add News
 
                     </button>
@@ -853,7 +1079,6 @@
                 <div
                     id="newsAdminGrid"
                     class="news-admin-grid">
-
                 </div>
 
             </section>
@@ -875,7 +1100,9 @@
                             TRUST & COMPLIANCE
                         </span>
 
-                        <h2>Certificates</h2>
+                        <h2>
+                            Certificates
+                        </h2>
 
                         <p>
                             Manage certificates, registrations
@@ -884,11 +1111,15 @@
 
                     </div>
 
+
                     <button
+                        type="button"
                         id="addCertificateBtn"
                         class="admin-btn admin-btn-primary">
 
-                        <i class="fa-solid fa-plus"></i>
+                        <i class="fa-solid fa-plus"
+                           aria-hidden="true"></i>
+
                         Add Certificate
 
                     </button>
@@ -899,7 +1130,6 @@
                 <div
                     id="certificatesAdminGrid"
                     class="certificate-admin-grid">
-
                 </div>
 
             </section>
@@ -921,7 +1151,9 @@
                             CUSTOMER INQUIRIES
                         </span>
 
-                        <h2>Trade Messages</h2>
+                        <h2>
+                            Trade Messages
+                        </h2>
 
                         <p>
                             Review inquiries submitted through
@@ -939,16 +1171,21 @@
 
                         <div class="search-box">
 
-                            <i class="fa-solid fa-search"></i>
+                            <i class="fa-solid fa-search"
+                               aria-hidden="true"></i>
 
                             <input
                                 type="search"
                                 id="messageSearch"
-                                placeholder="Search messages...">
+                                placeholder="Search messages..."
+                                aria-label="Search messages">
 
                         </div>
 
-                        <select id="messageStatusFilter">
+
+                        <select
+                            id="messageStatusFilter"
+                            aria-label="Filter messages by status">
 
                             <option value="all">
                                 All Messages
@@ -979,19 +1216,35 @@
 
                                 <tr>
 
-                                    <th>Date</th>
-                                    <th>Name / Company</th>
-                                    <th>Email</th>
-                                    <th>Subject</th>
-                                    <th>Status</th>
-                                    <th>Actions</th>
+                                    <th>
+                                        Date
+                                    </th>
+
+                                    <th>
+                                        Name / Company
+                                    </th>
+
+                                    <th>
+                                        Email
+                                    </th>
+
+                                    <th>
+                                        Subject
+                                    </th>
+
+                                    <th>
+                                        Status
+                                    </th>
+
+                                    <th>
+                                        Actions
+                                    </th>
 
                                 </tr>
 
                             </thead>
 
                             <tbody id="messagesTableBody">
-
                             </tbody>
 
                         </table>
@@ -1019,7 +1272,9 @@
                             SALES & TRADE
                         </span>
 
-                        <h2>Quotation Requests</h2>
+                        <h2>
+                            Quotation Requests
+                        </h2>
 
                         <p>
                             Manage quotation and RFQ requests
@@ -1037,16 +1292,21 @@
 
                         <div class="search-box">
 
-                            <i class="fa-solid fa-search"></i>
+                            <i class="fa-solid fa-search"
+                               aria-hidden="true"></i>
 
                             <input
                                 type="search"
                                 id="quotationSearch"
-                                placeholder="Search quotations...">
+                                placeholder="Search quotations..."
+                                aria-label="Search quotations">
 
                         </div>
 
-                        <select id="quotationStatusFilter">
+
+                        <select
+                            id="quotationStatusFilter"
+                            aria-label="Filter quotations by status">
 
                             <option value="all">
                                 All
@@ -1081,20 +1341,39 @@
 
                                 <tr>
 
-                                    <th>Date</th>
-                                    <th>Buyer</th>
-                                    <th>Product</th>
-                                    <th>Volume</th>
-                                    <th>Incoterm</th>
-                                    <th>Status</th>
-                                    <th>Actions</th>
+                                    <th>
+                                        Date
+                                    </th>
+
+                                    <th>
+                                        Buyer
+                                    </th>
+
+                                    <th>
+                                        Product
+                                    </th>
+
+                                    <th>
+                                        Volume
+                                    </th>
+
+                                    <th>
+                                        Incoterm
+                                    </th>
+
+                                    <th>
+                                        Status
+                                    </th>
+
+                                    <th>
+                                        Actions
+                                    </th>
 
                                 </tr>
 
                             </thead>
 
                             <tbody id="quotationsTableBody">
-
                             </tbody>
 
                         </table>
@@ -1122,7 +1401,9 @@
                             SYSTEM
                         </span>
 
-                        <h2>Admin Users</h2>
+                        <h2>
+                            Admin Users
+                        </h2>
 
                         <p>
                             Manage authorized users of the
@@ -1131,11 +1412,15 @@
 
                     </div>
 
+
                     <button
+                        type="button"
                         id="addUserBtn"
                         class="admin-btn admin-btn-primary">
 
-                        <i class="fa-solid fa-user-plus"></i>
+                        <i class="fa-solid fa-user-plus"
+                           aria-hidden="true"></i>
+
                         Add User
 
                     </button>
@@ -1153,18 +1438,31 @@
 
                                 <tr>
 
-                                    <th>User</th>
-                                    <th>Email</th>
-                                    <th>Role</th>
-                                    <th>Status</th>
-                                    <th>Actions</th>
+                                    <th>
+                                        User
+                                    </th>
+
+                                    <th>
+                                        Email
+                                    </th>
+
+                                    <th>
+                                        Role
+                                    </th>
+
+                                    <th>
+                                        Status
+                                    </th>
+
+                                    <th>
+                                        Actions
+                                    </th>
 
                                 </tr>
 
                             </thead>
 
                             <tbody id="usersTableBody">
-
                             </tbody>
 
                         </table>
@@ -1192,7 +1490,9 @@
                             SYSTEM CONFIGURATION
                         </span>
 
-                        <h2>Website Settings</h2>
+                        <h2>
+                            Website Settings
+                        </h2>
 
                         <p>
                             Manage basic company information
@@ -1205,6 +1505,7 @@
 
 
                 <div class="admin-grid-2">
+
 
                     <!-- COMPANY SETTINGS -->
 
@@ -1231,7 +1532,7 @@
 
                             <div class="form-control">
 
-                                <label>
+                                <label for="settingCompanyName">
                                     Company Name
                                 </label>
 
@@ -1245,7 +1546,7 @@
 
                             <div class="form-control">
 
-                                <label>
+                                <label for="settingShortName">
                                     Short Name
                                 </label>
 
@@ -1258,7 +1559,7 @@
 
                             <div class="form-control">
 
-                                <label>
+                                <label for="settingEmail">
                                     Email
                                 </label>
 
@@ -1271,7 +1572,7 @@
 
                             <div class="form-control">
 
-                                <label>
+                                <label for="settingPhone">
                                     Phone
                                 </label>
 
@@ -1284,14 +1585,13 @@
 
                             <div class="form-control">
 
-                                <label>
+                                <label for="settingAddress">
                                     Address
                                 </label>
 
                                 <textarea
                                     id="settingAddress"
-                                    rows="3">
-                                </textarea>
+                                    rows="3"></textarea>
 
                             </div>
 
@@ -1300,7 +1600,9 @@
                                 type="submit"
                                 class="admin-btn admin-btn-primary">
 
-                                <i class="fa-solid fa-save"></i>
+                                <i class="fa-solid fa-save"
+                                   aria-hidden="true"></i>
+
                                 Save Settings
 
                             </button>
@@ -1335,7 +1637,7 @@
 
                             <div class="form-control">
 
-                                <label>
+                                <label for="settingWhatsapp">
                                     WhatsApp Number
                                 </label>
 
@@ -1349,7 +1651,7 @@
 
                             <div class="form-control">
 
-                                <label>
+                                <label for="settingWebsite">
                                     Website
                                 </label>
 
@@ -1362,7 +1664,7 @@
 
                             <div class="form-control">
 
-                                <label>
+                                <label for="settingFacebook">
                                     Facebook
                                 </label>
 
@@ -1375,7 +1677,7 @@
 
                             <div class="form-control">
 
-                                <label>
+                                <label for="settingLinkedin">
                                     LinkedIn
                                 </label>
 
@@ -1388,14 +1690,13 @@
 
                             <div class="form-control">
 
-                                <label>
+                                <label for="settingAbout">
                                     About Company
                                 </label>
 
                                 <textarea
                                     id="settingAbout"
-                                    rows="6">
-                                </textarea>
+                                    rows="6"></textarea>
 
                             </div>
 
@@ -1404,7 +1705,9 @@
                                 type="submit"
                                 class="admin-btn admin-btn-primary">
 
-                                <i class="fa-solid fa-save"></i>
+                                <i class="fa-solid fa-save"
+                                   aria-hidden="true"></i>
+
                                 Save Contact Settings
 
                             </button>
@@ -1431,11 +1734,16 @@
 <div
     id="adminModal"
     class="modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modalTitle"
     style="display:none;">
 
-    <div class="modal-overlay"
-         id="modalOverlay">
+    <div
+        class="modal-overlay"
+        id="modalOverlay">
     </div>
+
 
     <div class="modal-container">
 
@@ -1453,12 +1761,15 @@
 
             </div>
 
+
             <button
                 type="button"
                 class="modal-close"
-                id="modalClose">
+                id="modalClose"
+                aria-label="Close modal">
 
-                <i class="fa-solid fa-xmark"></i>
+                <i class="fa-solid fa-xmark"
+                   aria-hidden="true"></i>
 
             </button>
 
@@ -1482,11 +1793,17 @@
 
 <div
     id="toast"
-    class="toast">
+    class="toast"
+    role="status"
+    aria-live="polite">
 
     <div class="toast-icon">
-        <i class="fa-solid fa-check"></i>
+
+        <i class="fa-solid fa-check"
+           aria-hidden="true"></i>
+
     </div>
+
 
     <div>
 
@@ -1500,8 +1817,15 @@
 
     </div>
 
-    <button id="toastClose">
-        <i class="fa-solid fa-xmark"></i>
+
+    <button
+        type="button"
+        id="toastClose"
+        aria-label="Close notification">
+
+        <i class="fa-solid fa-xmark"
+           aria-hidden="true"></i>
+
     </button>
 
 </div>
@@ -1511,7 +1835,8 @@
      JAVASCRIPT
 ========================================================= -->
 
-<script type="module" src="admin.js"></script>
+<script type="module"
+        src="admin.js"></script>
 
 </body>
 </html>
