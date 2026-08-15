@@ -98,25 +98,45 @@ const fallbackProducts = [
 // FALLBACK GALLERY
 // ============================================================
 
-const fallbackGallery = [
-    {
-        title: "Agricultural Sourcing",
-        image:
-            "https://images.unsplash.com/photo-1595246140625-573b715d11dc?auto=format&fit=crop&q=80&w=1000"
-    },
+async function loadPublicProducts() {
+    const publicProductsGrid = document.getElementById("publicProductsGrid");
+    if (!publicProductsGrid) return;
 
-    {
-        title: "Grain Processing",
-        image:
-            "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&fit=crop&q=80&w=1000"
-    },
+    const DEFAULT_IMAGE = "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&fit=crop&w=800&q=80";
 
-    {
-        title: "Agricultural Products",
-        image:
-            "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&q=80&w=1000"
+    try {
+        const q = query(collection(db, "products"), orderBy("createdAt", "desc"));
+        const querySnapshot = await getDocs(q);
+
+        if (querySnapshot.empty) {
+            publicProductsGrid.innerHTML = "<p>No products available at the moment.</p>";
+            return;
+        }
+
+        let html = "";
+        querySnapshot.forEach((docSnap) => {
+            const item = docSnap.data();
+            const imgSrc = item.imageUrl && item.imageUrl.trim() !== "" ? item.imageUrl : DEFAULT_IMAGE;
+
+            html += `
+                <div class="product-card">
+                    <img src="${imgSrc}" 
+                         alt="${item.name}" 
+                         onerror="this.onerror=null; this.src='${DEFAULT_IMAGE}';">
+                    <div class="product-info">
+                        <span class="badge">${item.category || 'Grain Product'}</span>
+                        <h3>${item.name}</h3>
+                        <p>${item.description || ''}</p>
+                        ${item.price ? `<div class="price">$${item.price}</div>` : ''}
+                    </div>
+                </div>
+            `;
+        });
+        publicProductsGrid.innerHTML = html;
+    } catch (error) {
+        console.error("Error loading products:", error);
     }
-];
+}
 
 
 // ============================================================
