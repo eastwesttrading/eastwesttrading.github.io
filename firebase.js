@@ -1,116 +1,71 @@
 // ============================================================
 // EAST WEST GRINDING OR MANUFACTURING OF GRAINS PLC
-// Firebase Configuration & Services
+// Central Firebase Configuration & Module Re-exports
 // ============================================================
 
-import { initializeApp } from
-    "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { 
+    getAuth, 
+    signInWithEmailAndPassword, 
+    signOut, 
+    onAuthStateChanged 
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { 
+    getFirestore, 
+    collection, 
+    addDoc, 
+    getDocs, 
+    deleteDoc, 
+    doc, 
+    query, 
+    orderBy, 
+    serverTimestamp 
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { 
+    getStorage, 
+    ref, 
+    uploadBytes, 
+    getDownloadURL 
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
 
-import {
-    getFirestore,
-    collection,
-    addDoc,
-    getDocs,
-    getDoc,
-    doc,
-    updateDoc,
-    deleteDoc,
-    setDoc,
-    query,
-    orderBy,
-    limit,
-    where,
-    serverTimestamp
-} from
-    "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-import {
-    getAuth,
-    signInWithEmailAndPassword,
-    createUserWithEmailAndPassword,
-    signOut,
-    onAuthStateChanged
-} from
-    "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-import {
-    getStorage,
-    ref,
-    uploadBytes,
-    getDownloadURL,
-    deleteObject
-} from
-    "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
-
-
-// ============================================================
-// 1. FIREBASE PROJECT CONFIGURATION
-// ============================================================
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// Your web app's Firebase configuration
+// Locate these exact values in: Firebase Console > Project Settings > General > SDK setup/configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyAC21sHOL7pIZi5044tNlu0hlt1rYlAqVg",
-  authDomain: "east-west-trading--plc.firebaseapp.com",
-  databaseURL: "https://east-west-trading--plc-default-rtdb.firebaseio.com",
-  projectId: "east-west-trading--plc",
-  storageBucket: "east-west-trading--plc.firebasestorage.app",
-  messagingSenderId: "118174778678",
-  appId: "1:118174778678:web:44cab0c573dc1c6f9e1f97",
-  measurementId: "G-QVQCLT0JB3"
+    apiKey: "YOUR_ACTUAL_API_KEY",
+    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+    projectId: "YOUR_PROJECT_ID",
+    storageBucket: "YOUR_PROJECT_ID.appspot.com",
+    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+    appId: "YOUR_APP_ID"
 };
 
-// ============================================================
-// 2. INITIALIZE FIREBASE
-// ============================================================
-
+// Initialize Firebase App & Services
 const app = initializeApp(firebaseConfig);
-
-
-// ============================================================
-// 3. INITIALIZE SERVICES
-// ============================================================
-
-const db = getFirestore(app);
-
 const auth = getAuth(app);
-
+const db = getFirestore(app);
 const storage = getStorage(app);
 
-
-// ============================================================
-// 4. EXPORT EVERYTHING USED BY THE WEBSITE
-// ============================================================
-
+// Export instances and functions for script.js and admin.js
 export {
-    // Firebase services
     app,
-    db,
     auth,
+    db,
     storage,
-
-    // Firestore
+    // Auth Methods
+    signInWithEmailAndPassword,
+    signOut,
+    onAuthStateChanged,
+    // Firestore Methods
     collection,
     addDoc,
     getDocs,
-    getDoc,
-    doc,
-    updateDoc,
     deleteDoc,
-    setDoc,
+    doc,
     query,
     orderBy,
-    limit,
-    where,
     serverTimestamp,
-
-    // Authentication
-    signInWithEmailAndPassword,
-    createUserWithEmailAndPassword,
-    signOut,
-    onAuthStateChanged,
-
-    // Storage
+    // Storage Methods
     ref,
     uploadBytes,
-    getDownloadURL,
-    deleteObject
+    getDownloadURL
 };
