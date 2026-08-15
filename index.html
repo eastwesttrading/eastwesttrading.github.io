@@ -1,1341 +1,364 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>East West Grinding or Manufacturing of Grains PLC</title>
+    <style>
+        /* CSS Reset & Basic Layout */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        body {
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
 
-<title>East West Grinding or Manufacturing of Grains PLC | Ethiopian Exporter of Pulses & Oil Seeds</title>
+        /* Navigation */
+        header {
+            background: #1b4332;
+            color: #fff;
+            padding: 1rem 5%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
 
-<meta name="description" content="East West Grinding or Manufacturing of Grains PLC is an Ethiopian exporter and importer specializing in premium pulses, oil seeds, cereals, agro-processing and international trade.">
+        .logo h1 {
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
 
-<meta name="keywords" content="Ethiopia Exporter, Green Mung Beans, White Pea Beans, Sesame Seeds, Pulses Export, Oil Seeds, Agro Processing, Ethiopia Agriculture">
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
 
-<meta name="author" content="East West Grinding or Manufacturing of Grains PLC">
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
 
-<meta property="og:title" content="East West Grinding or Manufacturing of Grains PLC">
-<meta property="og:description" content="Premium Ethiopian Agricultural Export Company">
-<meta property="og:type" content="website">
-<meta property="og:image" content="images/logo.png">
+        nav a:hover {
+            color: #d8f3dc;
+        }
 
-<link rel="icon" href="images/favicon.png">
+        .admin-link {
+            background: #2d6a4f;
+            padding: 6px 14px;
+            border-radius: 4px;
+        }
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?q=80&w=1200') center/cover no-repeat;
+            color: #fff;
+            height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+        }
 
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin-bottom: 20px;
+        }
 
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+        /* Sections */
+        section {
+            padding: 60px 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
 
-<link rel="stylesheet" href="style.css">
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 40px;
+            color: #1b4332;
+            position: relative;
+        }
 
+        .section-title::after {
+            content: '';
+            width: 60px;
+            height: 3px;
+            background: #2d6a4f;
+            display: block;
+            margin: 10px auto 0;
+        }
+
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .badge {
+            background: #d8f3dc;
+            color: #1b4332;
+            font-size: 0.8rem;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .product-info h3 {
+            margin-bottom: 10px;
+            color: #2d6a4f;
+        }
+
+        .price {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #1b4332;
+            margin-top: 15px;
+        }
+
+        /* Announcements List */
+        .announcements-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .announcement-item {
+            background: #fff;
+            padding: 25px;
+            border-left: 5px solid #2d6a4f;
+            border-radius: 4px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+        }
+
+        .announcement-item h3 {
+            color: #1b4332;
+            margin-bottom: 5px;
+        }
+
+        .announcement-item .date {
+            color: #888;
+            font-size: 0.85rem;
+            display: block;
+            margin-bottom: 12px;
+        }
+
+        /* Contact Form */
+        .contact-container {
+            background: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        button.btn-submit {
+            background: #1b4332;
+            color: #fff;
+            border: none;
+            padding: 14px 28px;
+            font-size: 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s;
+        }
+
+        button.btn-submit:hover {
+            background: #2d6a4f;
+        }
+
+        #formStatus {
+            margin-top: 15px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        /* Footer */
+        footer {
+            background: #081c15;
+            color: #ccc;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 60px;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
 </head>
-
 <body>
 
-<!-- ================= TOP BAR ================= -->
-
-<div class="top-bar">
-
-<div class="container">
-
-<div class="top-info">
-
-<span>
-<i class="fa-solid fa-location-dot"></i>
-Addis Ababa, Ethiopia
-</span>
-
-<span>
-<i class="fa-solid fa-envelope"></i>
-info@eastwestgrains.com
-</span>
-
-<span>
-<i class="fa-solid fa-phone"></i>
-+251 XXX XX XX XX
-</span>
-
-</div>
-
-<div class="top-right">
-
-<div class="language-switch">
-
-<i class="fa-solid fa-globe"></i>
-
-<select id="langSelect">
-
-<option value="en">English</option>
-
-<option value="am">አማርኛ</option>
-
-</select>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- ================= HEADER ================= -->
-
-<header>
-
-<div class="container navbar">
-
-<a href="#" class="brand-logo">
-
-<div class="logo-icon">
-
-<i class="fa-solid fa-wheat-awn"></i>
-
-</div>
-
-<div class="logo-text">
-
-<h2>EAST WEST</h2>
-
-<p>Grinding or Manufacturing of Grains PLC</p>
-
-</div>
-
-</a>
-
-<nav id="navLinks">
-
-<a href="#home" class="active">Home</a>
-
-<a href="#about">About</a>
-
-<a href="#products">Products</a>
-
-<a href="#quality">Quality</a>
-
-<a href="#services">Services</a>
-
-<a href="#gallery">Gallery</a>
-
-<a href="#contact">Contact</a>
-
-<a href="#quote" class="quote-btn">
-
-Request Quote
-
-</a>
-
-</nav>
-
-<div class="hamburger" id="hamburgerBtn">
-
-<i class="fas fa-bars"></i>
-
-</div>
-
-</div>
-
-</header>
-
-<!-- ================= HERO ================= -->
-
-<section class="hero" id="home">
-
-<div class="container hero-container">
-
-<div class="hero-content">
-
-<span class="hero-tag">
-
-Premium Ethiopian Agro Processing & Export Company
-
-</span>
-
-<h1>
-
-Connecting Ethiopian Agricultural Excellence to Global Markets
-
-</h1>
-
-<p>
-
-East West Grinding or Manufacturing of Grains PLC supplies premium quality Ethiopian pulses, oil seeds, cereals, and imported food products. We deliver reliable sourcing, modern processing, strict quality control, and efficient international logistics.
-
-</p>
-
-<div class="hero-buttons">
-
-<a href="#products" class="btn btn-primary">
-
-Explore Products
-
-<i class="fas fa-arrow-right"></i>
-
-</a>
-
-<a href="#contact" class="btn btn-secondary">
-
-Contact Us
-
-</a>
-
-</div>
-
-</div>
-
-<div class="hero-image">
-
-<img src="images/hero-grains.png"
-
-alt="East West Grinding PLC">
-
-</div>
-
-</div>
-
-</section>
-
-<!-- ================= COMPANY HIGHLIGHTS ================= -->
-
-<section class="highlights">
-
-<div class="container">
-
-<div class="highlight-box">
-
-<h2>15+</h2>
-
-<p>Products</p>
-
-</div>
-
-<div class="highlight-box">
-
-<h2>100%</h2>
-
-<p>Quality Inspection</p>
-
-</div>
-
-<div class="highlight-box">
-
-<h2>Worldwide</h2>
-
-<p>Export Markets</p>
-
-</div>
-
-<div class="highlight-box">
-
-<h2>24/7</h2>
-
-<p>Customer Support</p>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- ================= SCROLL INDICATOR ================= -->
-
-<div class="scroll-down">
-
-<a href="#about">
-
-<i class="fa-solid fa-angles-down"></i>
-
-</a>
-
-</div>
-
-<!-- ABOUT SECTION STARTS HERE -->
-<!-- ================= ABOUT US ================= -->
-
-<section id="about" class="section-padding">
-
-<div class="container">
-
-<div class="section-header">
-
-<span>About Us</span>
-
-<h2>East West Grinding or Manufacturing of Grains PLC</h2>
-
-<p>
-A trusted Ethiopian agro-processing and international trading company committed to delivering premium agricultural products to customers around the world.
-</p>
-
-</div>
-
-<div class="about-grid">
-
-<div class="about-image">
-
-<img src="images/about-company.jpg" alt="East West Company">
-
-</div>
-
-<div class="about-content">
-
-<h3>Who We Are</h3>
-
-<p>
-
-East West Grinding or Manufacturing of Grains PLC is an Ethiopian company specializing in agro-processing, export, and import. We source high-quality agricultural products directly from Ethiopian farmers, process them using modern cleaning and grading technologies, and export them to international markets.
-
-</p>
-
-<p>
-
-Our commitment to quality, integrity, customer satisfaction, and timely delivery has made us a reliable partner for buyers worldwide.
-
-</p>
-
-<div class="about-features">
-
-<div>
-
-<i class="fa-solid fa-circle-check"></i>
-
-Premium Quality Products
-
-</div>
-
-<div>
-
-<i class="fa-solid fa-circle-check"></i>
-
-International Export Standards
-
-</div>
-
-<div>
-
-<i class="fa-solid fa-circle-check"></i>
-
-Professional Packaging
-
-</div>
-
-<div>
-
-<i class="fa-solid fa-circle-check"></i>
-
-Reliable Logistics
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- ================= VISION & MISSION ================= -->
-
-<section class="section-padding feature-bg">
-
-<div class="container">
-
-<div class="values-grid">
-
-<div class="value-card">
-
-<i class="fas fa-eye fa-2x"></i>
-
-<h3>Our Vision</h3>
-
-<p>
-
-To become one of East Africa's leading agro-processing and international trading companies by delivering premium Ethiopian agricultural products worldwide.
-
-</p>
-
-</div>
-
-<div class="value-card">
-
-<i class="fas fa-bullseye fa-2x"></i>
-
-<h3>Our Mission</h3>
-
-<p>
-
-To provide customers with high-quality agricultural commodities through modern processing, ethical sourcing, professional service, and sustainable partnerships.
-
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- ================= WHY CHOOSE US ================= -->
-
-<section class="section-padding">
-
-<div class="container">
-
-<div class="section-header">
-
-<span>Why Choose Us</span>
-
-<h2>Your Trusted Export Partner</h2>
-
-</div>
-
-<div class="services-grid">
-
-<div class="service-card">
-
-<i class="fas fa-award"></i>
-
-<h3>Premium Quality</h3>
-
-<p>
-
-Every shipment undergoes strict inspection, cleaning, grading, and quality assurance before export.
-
-</p>
-
-</div>
-
-<div class="service-card">
-
-<i class="fas fa-seedling"></i>
-
-<h3>Direct Farm Sourcing</h3>
-
-<p>
-
-We source quality agricultural commodities directly from reliable Ethiopian farmers and suppliers.
-
-</p>
-
-</div>
-
-<div class="service-card">
-
-<i class="fas fa-globe"></i>
-
-<h3>Global Export</h3>
-
-<p>
-
-We serve international buyers across Asia, the Middle East, Europe, and Africa.
-
-</p>
-
-</div>
-
-<div class="service-card">
-
-<i class="fas fa-truck-fast"></i>
-
-<h3>Efficient Logistics</h3>
-
-<p>
-
-Professional packaging, documentation, and timely shipment through Djibouti Port.
-
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- ================= PRODUCTS ================= -->
-
-<section id="products" class="section-padding feature-bg">
-
-<div class="container">
-
-<div class="section-header">
-
-<span>Products</span>
-
-<h2>Our Export & Import Products</h2>
-
-<p>
-
-Supplying premium Ethiopian agricultural commodities and selected imported food products.
-
-</p>
-
-</div>
-
-<div class="products-grid">
-
-<div class="product-card">
-
-<img src="images/mung-beans.jpg" alt="Green Mung Beans">
-
-<div class="product-body">
-
-<h3>Green Mung Beans (Shewa Type)</h3>
-
-<p>
-
-Machine cleaned, color sorted, export quality.
-
-</p>
-
-</div>
-
-</div>
-
-<div class="product-card">
-
-<img src="images/white-pea-beans.jpg" alt="White Pea Beans">
-
-<div class="product-body">
-
-<h3>White Pea Beans</h3>
-
-<p>
-
-Premium Ethiopian Grade 1 White Pea Beans.
-
-</p>
-
-</div>
-
-</div>
-
-<div class="product-card">
-
-<img src="images/red-kidney.jpg" alt="Red Kidney Beans">
-
-<div class="product-body">
-
-<h3>Red Kidney Beans</h3>
-
-<p>
-
-Cleaned and packed for export markets.
-
-</p>
-
-</div>
-
-</div>
-
-<div class="product-card">
-
-<img src="images/sesame.jpg" alt="Sesame Seeds">
-
-<div class="product-body">
-
-<h3>Natural Sesame Seeds</h3>
-
-<p>
-
-High purity Ethiopian sesame seeds.
-
-</p>
-
-</div>
-
-</div>
-
-<div class="product-card">
-
-<img src="images/soybeans.jpg" alt="Soybeans">
-
-<div class="product-body">
-
-<h3>Soybeans</h3>
-
-<p>
-
-Food and industrial grade soybeans.
-
-</p>
-
-</div>
-
-</div>
-
-<div class="product-card">
-
-<img src="images/oil.jpg" alt="Edible Oil">
-
-<div class="product-body">
-
-<h3>Imported Edible Oil</h3>
-
-<p>
-
-Premium sunflower and palm cooking oil.
-
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- ================= QUALITY CONTROL ================= -->
-
-<section id="quality" class="section-padding">
-
-<div class="container">
-
-<div class="section-header">
-
-<span>Quality Control</span>
-
-<h2>Meeting International Standards</h2>
-
-</div>
-
-<div class="about-grid">
-
-<div>
-
-<h3>Our Quality Commitment</h3>
-
-<p>
-
-Every product is carefully selected, machine cleaned, graded, color sorted, inspected, and packed to satisfy international buyer requirements.
-
-</p>
-
-<ul class="quality-list">
-
-<li>✔ Machine Cleaning</li>
-
-<li>✔ Color Sorting</li>
-
-<li>✔ Moisture Testing</li>
-
-<li>✔ Purity Inspection</li>
-
-<li>✔ Professional Packaging</li>
-
-<li>✔ Export Documentation</li>
-
-<li>✔ Phytosanitary Compliance</li>
-
-</ul>
-
-</div>
-
-<div>
-
-<img src="images/quality-control.jpg" alt="Quality Control">
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-<!-- =======================================================
-     EXPORT PROCESS
-======================================================= -->
-
-<section id="services" class="section-padding feature-bg">
-
-    <div class="container">
-
-        <div class="section-header">
-            <span>Export Process</span>
-            <h2>Our Professional Export Workflow</h2>
-            <p>
-                We follow a transparent and efficient export process from sourcing to final shipment,
-                ensuring quality and customer satisfaction.
-            </p>
+    <!-- Header Navigation -->
+    <header>
+        <div class="logo">
+            <h1>East West PLC</h1>
         </div>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#announcements">Announcements</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="admin.html" class="admin-link">Admin Portal</a></li>
+            </ul>
+        </nav>
+    </header>
 
-        <div class="process-grid">
+    <!-- Hero Banner -->
+    <section id="home" class="hero">
+        <h2>East West Grinding & Grain Manufacturing PLC</h2>
+        <p>Providing premium quality milled grain products, agricultural processing, and industrial supply solutions.</p>
+    </section>
 
-            <div class="process-card">
-                <div class="process-number">01</div>
-                <i class="fas fa-seedling"></i>
-                <h3>Sourcing</h3>
-                <p>
-                    Products are sourced from carefully selected Ethiopian farmers
-                    and trusted suppliers.
-                </p>
-            </div>
+    <!-- About Section -->
+    <section id="about">
+        <h2 class="section-title">About Our Company</h2>
+        <p style="text-align: center; max-width: 800px; margin: 0 auto; color: #555;">
+            East West Grinding or Manufacturing of Grains PLC is dedicated to processing top-tier grain products using state-of-the-art milling technology. We specialize in producing safe, high-grade agricultural commodities for domestic commercial distribution and bulk industrial clients.
+        </p>
+    </section>
 
-            <div class="process-card">
-                <div class="process-number">02</div>
-                <i class="fas fa-industry"></i>
-                <h3>Processing</h3>
-                <p>
-                    Machine cleaning, grading, color sorting,
-                    polishing and quality inspection.
-                </p>
-            </div>
-
-            <div class="process-card">
-                <div class="process-number">03</div>
-                <i class="fas fa-box"></i>
-                <h3>Packing</h3>
-                <p>
-                    Products are packed according to buyer requirements using
-                    export-standard packaging materials.
-                </p>
-            </div>
-
-            <div class="process-card">
-                <div class="process-number">04</div>
-                <i class="fas fa-ship"></i>
-                <h3>Export</h3>
-                <p>
-                    Professional documentation,
-                    customs clearance,
-                    and shipment through Djibouti Port.
-                </p>
-            </div>
-
+    <!-- Products Catalog Section -->
+    <section id="products">
+        <h2 class="section-title">Our Products</h2>
+        <div id="publicProductsGrid" class="product-grid">
+            <p>Loading products catalog...</p>
         </div>
-
-    </div>
-
-</section>
-
-<!-- =======================================================
-     LOGISTICS
-======================================================= -->
-
-<section id="logistics" class="section-padding">
-
-<div class="container">
-
-<div class="section-header">
-
-<span>Logistics</span>
-
-<h2>Reliable International Shipping</h2>
-
-<p>
-
-We provide dependable export logistics, professional documentation,
-and timely delivery to international buyers.
-
-</p>
-
-</div>
-
-<div class="about-grid">
-
-<div>
-
-<img src="images/logistics.jpg"
-alt="Export Logistics">
-
-</div>
-
-<div>
-
-<h3>Worldwide Export Solutions</h3>
-
-<p>
-
-Our logistics team coordinates every shipment with precision,
-ensuring compliance with international trade standards and buyer
-requirements.
-
-</p>
-
-<div class="about-features">
-
-<div>
-<i class="fas fa-check-circle"></i>
-FOB / CFR / CIF Shipment
-</div>
-
-<div>
-<i class="fas fa-check-circle"></i>
-Container Booking
-</div>
-
-<div>
-<i class="fas fa-check-circle"></i>
-Commercial Invoice
-</div>
-
-<div>
-<i class="fas fa-check-circle"></i>
-Packing List
-</div>
-
-<div>
-<i class="fas fa-check-circle"></i>
-Bill of Lading
-</div>
-
-<div>
-<i class="fas fa-check-circle"></i>
-Phytosanitary Certificate
-</div>
-
-<div>
-<i class="fas fa-check-circle"></i>
-Certificate of Origin
-</div>
-
-<div>
-<i class="fas fa-check-circle"></i>
-Export Documentation
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- =======================================================
-     COMPANY STATISTICS
-======================================================= -->
-
-<section class="section-padding feature-bg">
-
-<div class="container">
-
-<div class="section-header">
-
-<span>Our Strength</span>
-
-<h2>Why International Buyers Trust Us</h2>
-
-</div>
-
-<div class="stats-grid">
-
-<div class="stat-box">
-
-<h2>15+</h2>
-
-<p>Export Products</p>
-
-</div>
-
-<div class="stat-box">
-
-<h2>100%</h2>
-
-<p>Quality Inspection</p>
-
-</div>
-
-<div class="stat-box">
-
-<h2>24/7</h2>
-
-<p>Customer Support</p>
-
-</div>
-
-<div class="stat-box">
-
-<h2>Global</h2>
-
-<p>Export Markets</p>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- =======================================================
-     GALLERY
-======================================================= -->
-
-<section id="gallery" class="section-padding">
-
-<div class="container">
-
-<div class="section-header">
-
-<span>Gallery</span>
-
-<h2>Products & Operations</h2>
-
-<p>
-
-A glimpse of our agricultural products,
-processing facilities,
-warehouses and export operations.
-
-</p>
-
-</div>
-
-<div class="gallery-grid">
-
-<div class="gallery-item">
-<img src="images/gallery1.jpg" alt="">
-<div class="gallery-overlay">
-<i class="fas fa-search-plus"></i>
-</div>
-</div>
-
-<div class="gallery-item">
-<img src="images/gallery2.jpg" alt="">
-<div class="gallery-overlay">
-<i class="fas fa-search-plus"></i>
-</div>
-</div>
-
-<div class="gallery-item">
-<img src="images/gallery3.jpg" alt="">
-<div class="gallery-overlay">
-<i class="fas fa-search-plus"></i>
-</div>
-</div>
-
-<div class="gallery-item">
-<img src="images/gallery4.jpg" alt="">
-<div class="gallery-overlay">
-<i class="fas fa-search-plus"></i>
-</div>
-</div>
-
-<div class="gallery-item">
-<img src="images/gallery5.jpg" alt="">
-<div class="gallery-overlay">
-<i class="fas fa-search-plus"></i>
-</div>
-</div>
-
-<div class="gallery-item">
-<img src="images/gallery6.jpg" alt="">
-<div class="gallery-overlay">
-<i class="fas fa-search-plus"></i>
-</div>
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- ================= PART 3B STARTS BELOW ================= -->
-<!-- ==========================================================
-                REQUEST FOR QUOTATION (RFQ)
-=========================================================== -->
-
-<section id="quote" class="section-padding feature-bg">
-
-<div class="container">
-
-<div class="section-header">
-
-<span>Request For Quotation</span>
-
-<h2>Request a Free Quote</h2>
-
-<p>
-
-Looking for premium Ethiopian agricultural products?
-Send us your requirements and our export team will respond promptly.
-
-</p>
-
-</div>
-
-<div class="quote-container">
-
-<form id="quoteForm" class="quote-form">
-
-<div class="form-row">
-
-<div class="form-group">
-
-<label>Company Name *</label>
-
-<input
-type="text"
-id="companyName"
-placeholder="Your Company Name"
-required>
-
-</div>
-
-<div class="form-group">
-
-<label>Contact Person *</label>
-
-<input
-type="text"
-id="contactPerson"
-placeholder="Full Name"
-required>
-
-</div>
-
-</div>
-
-<div class="form-row">
-
-<div class="form-group">
-
-<label>Email Address *</label>
-
-<input
-type="email"
-id="email"
-placeholder="example@company.com"
-required>
-
-</div>
-
-<div class="form-group">
-
-<label>Phone Number</label>
-
-<input
-type="text"
-id="phone"
-placeholder="+Country Code">
-
-</div>
-
-</div>
-
-<div class="form-row">
-
-<div class="form-group">
-
-<label>Select Product *</label>
-
-<select id="product" required>
-
-<option value="">Choose Product</option>
-
-<option>Green Mung Beans (Shewa Type)</option>
-
-<option>White Pea Beans</option>
-
-<option>Red Kidney Beans</option>
-
-<option>Speckled Beans</option>
-
-<option>Sesame Seeds</option>
-
-<option>Soybeans</option>
-
-<option>Chickpeas</option>
-
-<option>Lentils</option>
-
-<option>Niger Seeds</option>
-
-<option>Edible Oil</option>
-
-</select>
-
-</div>
-
-<div class="form-group">
-
-<label>Quantity (Metric Tons)</label>
-
-<input
-type="number"
-id="quantity"
-placeholder="Example: 24">
-
-</div>
-
-</div>
-
-<div class="form-row">
-
-<div class="form-group">
-
-<label>Destination Country</label>
-
-<input
-type="text"
-id="country"
-placeholder="Country">
-
-</div>
-
-<div class="form-group">
-
-<label>Preferred Incoterm</label>
-
-<select id="incoterm">
-
-<option>FOB</option>
-
-<option>CFR</option>
-
-<option>CIF</option>
-
-<option>EXW</option>
-
-</select>
-
-</div>
-
-</div>
-
-<div class="form-group">
-
-<label>Your Requirements</label>
-
-<textarea
-id="requirements"
-rows="6"
-placeholder="Describe your product specifications, packaging requirements, shipment terms, payment method, etc."></textarea>
-
-</div>
-
-<button
-type="submit"
-class="btn btn-primary">
-
-<i class="fas fa-paper-plane"></i>
-
-Submit RFQ
-
-</button>
-
-</form>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- ==========================================================
-                     CONTACT SECTION
-=========================================================== -->
-
-<section id="contact" class="section-padding">
-
-<div class="container">
-
-<div class="section-header">
-
-<span>Contact Us</span>
-
-<h2>Let's Build a Long-Term Business Partnership</h2>
-
-<p>
-
-We welcome inquiries from importers,
-wholesalers,
-food manufacturers,
-and international trading companies.
-
-</p>
-
-</div>
-
-<div class="contact-grid">
-
-<!-- LEFT -->
-
-<div class="contact-info">
-
-<h3>Company Information</h3>
-
-<div class="contact-item">
-
-<i class="fas fa-building"></i>
-
-<div>
-
-<h4>Company</h4>
-
-<p>
-
-East West Grinding or Manufacturing of Grains PLC
-
-</p>
-
-</div>
-
-</div>
-
-<div class="contact-item">
-
-<i class="fas fa-location-dot"></i>
-
-<div>
-
-<h4>Address</h4>
-
-<p>
-
-Addis Ababa,
-Ethiopia
-
-</p>
-
-</div>
-
-</div>
-
-<div class="contact-item">
-
-<i class="fas fa-envelope"></i>
-
-<div>
-
-<h4>Email</h4>
-
-<p>
-
-info@eastwestgrains.com
-
-</p>
-
-</div>
-
-</div>
-
-<div class="contact-item">
-
-<i class="fas fa-phone"></i>
-
-<div>
-
-<h4>Phone</h4>
-
-<p>
-
-+251 XXX XX XX XX
-
-</p>
-
-</div>
-
-</div>
-
-<div class="contact-item">
-
-<i class="fas fa-clock"></i>
-
-<div>
-
-<h4>Working Hours</h4>
-
-<p>
-
-Monday - Saturday
-
-08:30 AM - 05:30 PM
-
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- RIGHT -->
-
-<div class="contact-form-container">
-
-<h3>Send Us a Message</h3>
-
-<form id="contactForm">
-
-<div class="form-group">
-
-<label>Your Name *</label>
-
-<input
-type="text"
-id="contactName"
-required>
-
-</div>
-
-<div class="form-group">
-
-<label>Email *</label>
-
-<input
-type="email"
-id="contactEmail"
-required>
-
-</div>
-
-<div class="form-group">
-
-<label>Subject *</label>
-
-<input
-type="text"
-id="contactSubject"
-required>
-
-</div>
-
-<div class="form-group">
-
-<label>Message *</label>
-
-<textarea
-id="contactMessage"
-rows="7"
-required></textarea>
-
-</div>
-
-<button
-type="submit"
-class="btn btn-primary">
-
-<i class="fas fa-envelope"></i>
-
-Send Message
-
-</button>
-
-</form>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- ==========================================================
-        PART 3B-2 STARTS HERE
-=========================================================== -->
+    </section>
+
+    <!-- Announcements Section -->
+    <section id="announcements">
+        <h2 class="section-title">News & Announcements</h2>
+        <div id="publicAnnouncementsList" class="announcements-list">
+            <p>Loading recent updates...</p>
+        </div>
+    </section>
+
+    <!-- Contact Us Section -->
+    <section id="contact">
+        <h2 class="section-title">Contact Us</h2>
+        <div class="contact-container">
+            <form id="contactForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="contactName">Full Name *</label>
+                        <input type="text" id="contactName" required placeholder="John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label for="contactEmail">Email Address *</label>
+                        <input type="email" id="contactEmail" required placeholder="john@example.com">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="contactPhone">Phone Number</label>
+                        <input type="tel" id="contactPhone" placeholder="+251 ...">
+                    </div>
+                    <div class="form-group">
+                        <label for="contactSubject">Subject</label>
+                        <input type="text" id="contactSubject" placeholder="Grain order inquiry">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="contactMessage">Message *</label>
+                    <textarea id="contactMessage" rows="5" required placeholder="Write your message here..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit">Send Message</button>
+                <div id="formStatus"></div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; East West Grinding or Manufacturing of Grains PLC. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Firebase Integrated Module Script -->
+    <script type="module" src="./script.js"></script>
+</body>
+</html>
