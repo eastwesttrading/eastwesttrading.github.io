@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>East West Grinding or Manufacturing of Grains PLC</title>
     <style>
-        /* CSS Reset & Basic Layout */
+        /* Modern Reset & Typography */
         * {
             margin: 0;
             padding: 0;
@@ -15,124 +15,205 @@
 
         body {
             line-height: 1.6;
-            color: #333;
-            background-color: #f9f9f9;
+            color: #2b2b2b;
+            background-color: #fafafa;
         }
 
-        /* Navigation */
+        /* Header & Navigation */
         header {
             background: #1b4332;
-            color: #fff;
-            padding: 1rem 5%;
+            color: #ffffff;
+            padding: 1.2rem 6%;
             position: sticky;
             top: 0;
             z-index: 1000;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
         }
 
-        .logo h1 {
-            font-size: 1.2rem;
-            text-transform: uppercase;
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-badge {
+            background: #d8f3dc;
+            color: #1b4332;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .logo-text h1 {
+            font-size: 1.1rem;
             letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .logo-text p {
+            font-size: 0.72rem;
+            color: #b7e4c7;
         }
 
         nav ul {
             display: flex;
             list-style: none;
-            gap: 20px;
+            gap: 22px;
+            align-items: center;
         }
 
         nav a {
-            color: #fff;
+            color: #ffffff;
             text-decoration: none;
+            font-size: 0.95rem;
             font-weight: 500;
-            transition: color 0.3s;
+            transition: color 0.2s;
         }
 
         nav a:hover {
             color: #d8f3dc;
         }
 
-        .admin-link {
+        .admin-btn {
             background: #2d6a4f;
-            padding: 6px 14px;
+            padding: 8px 16px;
             border-radius: 4px;
+            border: 1px solid #52b788;
         }
 
-        /* Hero Section */
+        /* Hero Banner */
         .hero {
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?q=80&w=1200') center/cover no-repeat;
-            color: #fff;
-            height: 60vh;
+            background: linear-gradient(rgba(15, 38, 28, 0.88), rgba(15, 38, 28, 0.88)), 
+                        url('https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&fit=crop&w=1400&q=80') center/cover no-repeat;
+            color: #ffffff;
+            padding: 100px 20px;
+            text-align: center;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
-            text-align: center;
-            padding: 0 20px;
+        }
+
+        .hero-badge {
+            border: 1px solid #d8f3dc;
+            color: #d8f3dc;
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+            display: inline-block;
         }
 
         .hero h2 {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
+            font-size: 2.6rem;
+            max-width: 850px;
+            line-height: 1.25;
+            margin-bottom: 18px;
         }
 
         .hero p {
-            font-size: 1.2rem;
-            max-width: 600px;
-            margin-bottom: 20px;
+            font-size: 1.1rem;
+            max-width: 700px;
+            color: #e0e0e0;
+            margin-bottom: 30px;
         }
 
-        /* Sections */
+        .hero-btns {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            background: #d8f3dc;
+            color: #1b4332;
+            padding: 12px 26px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+
+        .btn-primary:hover {
+            background: #b7e4c7;
+        }
+
+        .btn-secondary {
+            border: 1px solid #ffffff;
+            color: #ffffff;
+            padding: 12px 26px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* Common Section Layout */
         section {
-            padding: 60px 5%;
+            padding: 70px 6%;
             max-width: 1200px;
             margin: 0 auto;
         }
 
-        .section-title {
+        .section-header {
             text-align: center;
-            font-size: 2rem;
-            margin-bottom: 40px;
-            color: #1b4332;
-            position: relative;
+            margin-bottom: 45px;
         }
 
-        .section-title::after {
-            content: '';
-            width: 60px;
-            height: 3px;
-            background: #2d6a4f;
+        .section-subtitle {
+            color: #2d6a4f;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1.5px;
+            font-weight: bold;
+            margin-bottom: 6px;
             display: block;
-            margin: 10px auto 0;
         }
 
-        /* Product Grid */
+        .section-title {
+            font-size: 2rem;
+            color: #1b4332;
+        }
+
+        .section-desc {
+            color: #666;
+            max-width: 650px;
+            margin: 10px auto 0;
+            font-size: 0.98rem;
+        }
+
+        /* Products Grid */
         .product-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 30px;
+            gap: 28px;
         }
 
         .product-card {
-            background: #fff;
+            background: #ffffff;
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            transition: transform 0.2s;
         }
 
         .product-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-4px);
         }
 
         .product-card img {
             width: 100%;
-            height: 200px;
+            height: 210px;
             object-fit: cover;
+            background-color: #e9ecef;
         }
 
         .product-info {
@@ -140,10 +221,10 @@
         }
 
         .badge {
-            background: #d8f3dc;
-            color: #1b4332;
-            font-size: 0.8rem;
-            padding: 4px 8px;
+            background: #e8f5e9;
+            color: #2e7d32;
+            font-size: 0.75rem;
+            padding: 3px 8px;
             border-radius: 4px;
             font-weight: bold;
             display: inline-block;
@@ -151,71 +232,86 @@
         }
 
         .product-info h3 {
-            margin-bottom: 10px;
-            color: #2d6a4f;
+            color: #1b4332;
+            margin-bottom: 8px;
+        }
+
+        .product-info p {
+            color: #555;
+            font-size: 0.9rem;
         }
 
         .price {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: bold;
-            color: #1b4332;
-            margin-top: 15px;
+            color: #2d6a4f;
+            margin-top: 12px;
         }
 
-        /* Announcements List */
-        .announcements-list {
-            display: flex;
-            flex-direction: column;
+        /* Operations & Gallery Section */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 20px;
         }
 
+        .gallery-item {
+            overflow: hidden;
+            border-radius: 8px;
+            background-color: #e9ecef;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            height: 220px;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.04);
+        }
+
+        /* Announcements */
+        .announcements-list {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
         .announcement-item {
-            background: #fff;
-            padding: 25px;
-            border-left: 5px solid #2d6a4f;
+            background: #ffffff;
+            padding: 22px;
+            border-left: 4px solid #2d6a4f;
             border-radius: 4px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+            border-top: 1px solid #f0f0f0;
+            border-right: 1px solid #f0f0f0;
+            border-bottom: 1px solid #f0f0f0;
         }
 
         .announcement-item h3 {
             color: #1b4332;
-            margin-bottom: 5px;
+            margin-bottom: 4px;
         }
 
         .announcement-item .date {
             color: #888;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             display: block;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
 
-        /* Contact Form */
+        /* Request Quote / Contact Form */
         .contact-container {
-            background: #fff;
-            padding: 40px;
+            background: #ffffff;
+            padding: 38px;
             border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
             max-width: 800px;
             margin: 0 auto;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 1rem;
         }
 
         .form-row {
@@ -224,16 +320,44 @@
             gap: 20px;
         }
 
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 11px 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #2d6a4f;
+        }
+
         button.btn-submit {
             background: #1b4332;
-            color: #fff;
+            color: #ffffff;
             border: none;
-            padding: 14px 28px;
+            padding: 13px 28px;
             font-size: 1rem;
+            font-weight: bold;
             border-radius: 4px;
             cursor: pointer;
             width: 100%;
-            transition: background 0.3s;
+            transition: background 0.2s;
         }
 
         button.btn-submit:hover {
@@ -249,19 +373,23 @@
         /* Footer */
         footer {
             background: #081c15;
-            color: #ccc;
+            color: #a0aec0;
             text-align: center;
             padding: 30px 20px;
+            font-size: 0.9rem;
             margin-top: 60px;
         }
 
         @media (max-width: 768px) {
-            .form-row {
-                grid-template-columns: 1fr;
-            }
             header {
                 flex-direction: column;
                 gap: 15px;
+            }
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            .hero h2 {
+                font-size: 1.8rem;
             }
         }
     </style>
@@ -270,54 +398,113 @@
 
     <!-- Header Navigation -->
     <header>
-        <div class="logo">
-            <h1>East West PLC</h1>
+        <div class="logo-container">
+            <div class="logo-badge">🌾</div>
+            <div class="logo-text">
+                <h1>East West</h1>
+                <p>Grinding or Manufacturing of Grains PLC</p>
+            </div>
         </div>
         <nav>
             <ul>
                 <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
                 <li><a href="#products">Products</a></li>
+                <li><a href="#gallery">Gallery</a></li>
                 <li><a href="#announcements">Announcements</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li><a href="admin.html" class="admin-link">Admin Portal</a></li>
+                <li><a href="#quote">Contact Us</a></li>
+                <li><a href="admin.html" class="admin-btn">Admin Portal</a></li>
             </ul>
         </nav>
     </header>
 
     <!-- Hero Banner -->
     <section id="home" class="hero">
-        <h2>East West Grinding & Grain Manufacturing PLC</h2>
-        <p>Providing premium quality milled grain products, agricultural processing, and industrial supply solutions.</p>
-    </section>
-
-    <!-- About Section -->
-    <section id="about">
-        <h2 class="section-title">About Our Company</h2>
-        <p style="text-align: center; max-width: 800px; margin: 0 auto; color: #555;">
-            East West Grinding or Manufacturing of Grains PLC is dedicated to processing top-tier grain products using state-of-the-art milling technology. We specialize in producing safe, high-grade agricultural commodities for domestic commercial distribution and bulk industrial clients.
-        </p>
+        <span class="hero-badge">Premium Ethiopian Agro Processing & Export Company</span>
+        <h2>Connecting Ethiopian Agricultural Excellence to Global Markets</h2>
+        <p>East West Grinding or Manufacturing of Grains PLC supplies premium quality Ethiopian pulses, oil seeds, cereals, and processed food products with strict quality control and efficient international logistics.</p>
+        <div class="hero-btns">
+            <a href="#products" class="btn-primary">Explore Products &rarr;</a>
+            <a href="#quote" class="btn-secondary">Contact Us</a>
+        </div>
     </section>
 
     <!-- Products Catalog Section -->
     <section id="products">
-        <h2 class="section-title">Our Products</h2>
+        <div class="section-header">
+            <span class="section-subtitle">Products</span>
+            <h2 class="section-title">Our Export & Import Products</h2>
+            <p class="section-desc">Supplying premium Ethiopian agricultural commodities and selected processed grain products.</p>
+        </div>
+        
+        <!-- Populated automatically from Firestore by script.js -->
         <div id="publicProductsGrid" class="product-grid">
-            <p>Loading products catalog...</p>
+            <p style="text-align: center; grid-column: 1/-1;">Loading products catalog...</p>
         </div>
     </section>
 
-    <!-- Announcements Section -->
+    <!-- Products & Operations Gallery -->
+    <section id="gallery">
+        <div class="section-header">
+            <span class="section-subtitle">Gallery</span>
+            <h2 class="section-title">Products & Operations</h2>
+            <p class="section-desc">A glimpse of our agricultural products, processing facilities, warehouses, and export operations.</p>
+        </div>
+
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=800&q=80" 
+                     alt="Green Mung Beans" 
+                     onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&fit=crop&w=800&q=80'">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1551462147-37885acc36f1?auto=format&fit=crop&w=800&q=80" 
+                     alt="White Pea Beans" 
+                     onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&fit=crop&w=800&q=80'">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=800&q=80" 
+                     alt="Red Kidney Beans" 
+                     onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&fit=crop&w=800&q=80'">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&fit=crop&w=800&q=80" 
+                     alt="Sesame Seeds and Cereals" 
+                     onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&fit=crop&w=800&q=80'">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1595246140625-573b715d11dc?auto=format&fit=crop&w=800&q=80" 
+                     alt="Grain Milling Facility" 
+                     onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&fit=crop&w=800&q=80'">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80" 
+                     alt="Export Warehouse Logistics" 
+                     onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&fit=crop&w=800&q=80'">
+            </div>
+        </div>
+    </section>
+
+    <!-- News & Announcements -->
     <section id="announcements">
-        <h2 class="section-title">News & Announcements</h2>
+        <div class="section-header">
+            <span class="section-subtitle">Updates</span>
+            <h2 class="section-title">News & Announcements</h2>
+        </div>
+        
+        <!-- Populated automatically from Firestore by script.js -->
         <div id="publicAnnouncementsList" class="announcements-list">
-            <p>Loading recent updates...</p>
+            <p style="text-align: center;">Loading recent updates...</p>
         </div>
     </section>
 
-    <!-- Contact Us Section -->
-    <section id="contact">
-        <h2 class="section-title">Contact Us</h2>
+    <!-- Contact / Quotation Form -->
+    <section id="quote">
+        <div class="section-header">
+            <span class="section-subtitle">Request for Quotation</span>
+            <h2 class="section-title">Request a Free Quote</h2>
+            <p class="section-desc">Looking for premium Ethiopian agricultural products? Send us your requirements and our export team will respond promptly.</p>
+        </div>
+
         <div class="contact-container">
             <form id="contactForm">
                 <div class="form-row">
@@ -338,16 +525,16 @@
                     </div>
                     <div class="form-group">
                         <label for="contactSubject">Subject</label>
-                        <input type="text" id="contactSubject" placeholder="Grain order inquiry">
+                        <input type="text" id="contactSubject" placeholder="Grain supply inquiry">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="contactMessage">Message *</label>
-                    <textarea id="contactMessage" rows="5" required placeholder="Write your message here..."></textarea>
+                    <label for="contactMessage">Message / Specific Requirements *</label>
+                    <textarea id="contactMessage" rows="5" required placeholder="Specify quantity, destination, or product specifications..."></textarea>
                 </div>
 
-                <button type="submit" class="btn-submit">Send Message</button>
+                <button type="submit" class="btn-submit">Submit Inquiry</button>
                 <div id="formStatus"></div>
             </form>
         </div>
@@ -358,7 +545,7 @@
         <p>&copy; East West Grinding or Manufacturing of Grains PLC. All Rights Reserved.</p>
     </footer>
 
-    <!-- Firebase Integrated Module Script -->
+    <!-- Frontend Script Controller -->
     <script type="module" src="./script.js"></script>
 </body>
 </html>
