@@ -63,8 +63,8 @@ onAuthStateChanged(auth, (user) => {
 if (loginForm) {
     loginForm.addEventListener("submit", async (e) => {
         e.preventDefault();
-        const email = document.getElementById("adminEmail").value.trim();
-        const password = document.getElementById("adminPassword").value.trim();
+        const email = document.getElementById("eastwestplc12@gmail.cim").value.trim();
+        const password = document.getElementById("EW@web2026").value.trim();
 
         if (loginError) loginError.textContent = "";
 
